@@ -1,0 +1,90 @@
+{
+  "n_snapshots": 101,
+  "base_rate": 0.12871287128712872,
+  "top_5pct_precision": 0.3333333333333333,
+  "top_10pct_precision": 0.18181818181818182,
+  "top_20pct_precision": 0.19047619047619047,
+  "top_30pct_precision": 0.12903225806451613,
+  "top_features": [
+    {
+      "name": "rvol_1h",
+      "r": 0.3545
+    },
+    {
+      "name": "rvol",
+      "r": 0.3545
+    },
+    {
+      "name": "momentum_3_pct",
+      "r": -0.1825
+    },
+    {
+      "name": "momentum_acceleration",
+      "r": -0.181
+    },
+    {
+      "name": "bb_breakout_above",
+      "r": -0.179
+    },
+    {
+      "name": "bb_squeeze",
+      "r": -0.1593
+    },
+    {
+      "name": "macd_hist",
+      "r": -0.1459
+    },
+    {
+      "name": "momentum_1_pct",
+      "r": -0.1447
+    },
+    {
+      "name": "volume_spike",
+      "r": 0.133
+    },
+    {
+      "name": "vwap_distance_pct",
+      "r": -0.1321
+    },
+    {
+      "name": "bos_up",
+      "r": -0.1202
+    },
+    {
+      "name": "atr_pct",
+      "r": -0.12
+    },
+    {
+      "name": "higher_lows",
+      "r": -0.1094
+    },
+    {
+      "name": "rsi_1h",
+      "r": -0.1087
+    },
+    {
+      "name": "rsi_value",
+      "r": -0.1083
+    },
+    {
+      "name": "prefilter_score",
+      "r": 0.098
+    },
+    {
+      "name": "ema_alignment",
+      "r": 0.0917
+    },
+    {
+      "name": "power_streak",
+      "r": -0.0879
+    },
+    {
+      "name": "atr_expanding",
+      "r": -0.0877
+    },
+    {
+      "name": "macd_divergence",
+      "r": -0.0855
+    }
+  ]
+}
