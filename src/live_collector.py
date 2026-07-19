@@ -49,6 +49,7 @@ from .microstructure_score import (
     factor_open_interest, factor_cvd, factor_funding_rate,
     factor_multi_exchange, FACTOR_WEIGHTS,
 )
+from .direction_scoring import direction_score, score_long, score_short
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -441,6 +442,28 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     if not rows:
         print(f"[{now.isoformat()}] cycle: 0 rows (failures={failures})")
         return 0
+
+    # ---- Pass 3: direction scoring (LONG/SHORT) ----
+    for r in rows:
+        try:
+            ds = direction_score(r, symbol=r["symbol"])
+            r["score_long"] = ds.long_score
+            r["score_short"] = ds.short_score
+            r["direction"] = ds.direction
+            r["confidence"] = ds.confidence
+            r["n_long_signals"] = ds.long_signals
+            r["n_short_signals"] = ds.short_signals
+            r["long_fired"] = ",".join(ds.long_fired)
+            r["short_fired"] = ",".join(ds.short_fired)
+        except Exception as e:
+            r["score_long"] = 0.0
+            r["score_short"] = 0.0
+            r["direction"] = "ERROR"
+            r["confidence"] = 0.0
+            r["n_long_signals"] = 0
+            r["n_short_signals"] = 0
+            r["long_fired"] = ""
+            r["short_fired"] = ""
 
     out = pd.DataFrame(rows)
     # Make sure all expected columns exist (forward compat with new features)
