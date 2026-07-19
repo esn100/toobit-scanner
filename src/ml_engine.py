@@ -52,16 +52,12 @@ def append_signal_history(path: str, row: Dict) -> None:
         if c not in df.columns:
             df[c] = np.nan
     row_aligned = {c: row.get(c, np.nan) for c in HISTORY_COLS}
-    new_row = pd.DataFrame([row_aligned])
-    # Drop all-NA columns from df to avoid the FutureWarning
-    df_clean = df[HISTORY_COLS].dropna(axis=1, how="all")
-    keep_cols = [c for c in HISTORY_COLS if c in df_clean.columns]
-    new_aligned = new_row.reindex(columns=keep_cols)
+    new_row = pd.DataFrame([row_aligned], columns=HISTORY_COLS)
+    # Drop columns from df that are entirely NaN, but keep new_row intact
+    df_clean = df[HISTORY_COLS].copy()
+    # Align new_row to all columns
+    new_aligned = new_row.reindex(columns=HISTORY_COLS)
     df_clean = pd.concat([df_clean, new_aligned], ignore_index=True)
-    # Re-add any all-NA columns that may have been dropped
-    for c in HISTORY_COLS:
-        if c not in df_clean.columns:
-            df_clean[c] = np.nan
     df_clean = df_clean.tail(10000)
     df_clean.to_csv(path, index=False)
 

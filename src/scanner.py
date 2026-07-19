@@ -59,6 +59,9 @@ from ml_engine import (
 from outcome import evaluate_pending_signals
 from decision import decide
 from telegram_notifier import TelegramNotifier
+from sentiment import build_sentiment
+from chart_patterns import detect_all_patterns
+from ensemble import EnsembleModel
 
 
 # ----------------------------------------------------------------------------
@@ -133,6 +136,9 @@ def scan_symbol(
     struct = structure_features(df_4h)
     candle = candle_quality_features(df_4h)
 
+    # Advanced chart patterns
+    patterns = detect_all_patterns(df_4h)
+
     # Multi-timeframe (1h vs 4h)
     mtf = mtf_alignment(df_1h if not df_1h.empty else df_4h,
                         df_4h) if not df_1h.empty else {
@@ -160,6 +166,7 @@ def scan_symbol(
         "indicators": ind,
         "structure": struct,
         "candle": candle,
+        "patterns": patterns,
         "mtf": mtf,
         "whale": whale,
         "social_score_raw": social,
@@ -196,6 +203,21 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     btc_state = btc_filter.evaluate()
     print(f"[scanner] BTC state: {btc_state['state']} "
           f"(modifier={btc_state['score_modifier']})", flush=True)
+
+    # Multi-source sentiment snapshot (Fear&Greed, BTC dominance,
+    # stablecoin supply, CryptoPanic news)
+    sentiment_snap = None
+    try:
+        sentiment_snap = build_sentiment(
+            symbol=None,
+            cryptopanic_token=os.environ.get("CRYPTOPANIC_API_KEY"),
+            cache_dir=os.path.join(project_root, "data"),
+        )
+        print(f"[scanner] Sentiment: {sentiment_snap.aggregate:.1f} "
+              f"({sentiment_snap.risk_regime})", flush=True)
+    except Exception as e:
+        print(f"[scanner] Sentiment fetch failed: {e}", flush=True)
+
     if btc_state["freeze"]:
         print("[scanner] BTC RISK_OFF - aborting scan.", flush=True)
         return {"alerts": [], "results": [], "btc": btc_state,
@@ -212,6 +234,10 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     history_path = cfg["ml"]["history_path"]
     model_path = cfg["ml"]["model_path"]
     ml = PumpHunterML(model_path, min_train=cfg["ml"].get("min_history_to_train", 30))
+    # Ensemble model (stacking) - tries to use if data is sufficient
+    ens_path = model_path.replace("logreg_model.joblib",
+                                  "ensemble_model.joblib")
+    ens = EnsembleModel(ens_path, min_train=cfg["ml"].get("min_history_to_train", 30))
 
     # Evaluate previous pending signals first (if not first run)
     if cfg["ml"].get("evaluate_previous", True):
@@ -223,12 +249,24 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
         except Exception as e:
             print(f"[scanner] Outcome evaluation failed: {e}", flush=True)
 
-    # Train if we have enough data
-    if ml.has_enough_data(history_path):
+    # Train ensemble (preferred) if we have enough data
+    use_ensemble = False
+    if ens.has_enough_data(history_path):
+        try:
+            ok = ens.train(history_path)
+            if ok:
+                use_ensemble = True
+                m = ens.ensemble_metrics
+                print(f"[scanner] Ensemble retrained. F1={m.get('f1', 0):.3f} "
+                      f"Acc={m.get('accuracy', 0):.3f}", flush=True)
+        except Exception as e:
+            print(f"[scanner] Ensemble train failed: {e}", flush=True)
+    # Fallback to single logistic
+    if not use_ensemble and ml.has_enough_data(history_path):
         try:
             ml.train(history_path)
             if verbose:
-                print("[scanner] ML model retrained.", flush=True)
+                print("[scanner] ML (single) model retrained.", flush=True)
         except Exception as e:
             print(f"[scanner] ML train failed: {e}", flush=True)
 
@@ -321,8 +359,25 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
             adapted_weights,
         )
         composite = rb["composite_score"]
-        # ML probability
-        ml_prob = ml.predict_proba(feats)
+        # ML probability: prefer ensemble, fall back to single model
+        if use_ensemble:
+            ml_prob = ens.predict_proba(feats)
+            ind_probs = ens.predict_individual(feats)
+        else:
+            ml_prob = ml.predict_proba(feats)
+            ind_probs = {}
+        # Boost composite with advanced chart patterns
+        patterns = pack.get("patterns", {})
+        if patterns.get("bullish_score", 0) > patterns.get("bearish_score", 0):
+            composite += min(8.0, patterns["bullish_score"] * 0.1)
+        elif patterns.get("bearish_score", 0) > 0:
+            composite -= min(8.0, patterns["bearish_score"] * 0.1)
+        # Sentiment modifier
+        if sentiment_snap is not None:
+            # -5 to +5 based on aggregate
+            sent_mod = (sentiment_snap.aggregate - 50.0) / 10.0
+            composite += max(-5.0, min(5.0, sent_mod))
+        composite = max(0.0, min(100.0, composite))
         # Decision
         dec = decide(
             composite=composite,
@@ -365,6 +420,13 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
             "big_wick_top": pack["candle"]["big_wick_top"],
             "power_streak": pack["candle"]["power_streak"],
             "candle_score": pack["candle"]["candle_score"],
+            # advanced chart patterns
+            "advanced_patterns": pack["patterns"]["patterns"],
+            "advanced_pattern_score": round(
+                pack["patterns"]["bullish_score"]
+                - pack["patterns"]["bearish_score"], 2
+            ),
+            "pattern_target": pack["patterns"].get("target", 0.0),
             # multi-tf
             "mtf_alignment": pack["mtf"]["alignment_score"],
             # social
@@ -374,12 +436,23 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
             # scoring
             "composite_score": round(composite, 2),
             "ml_prob": round(ml_prob, 3),
+            "ml_individual": {k: round(v, 3) for k, v in ind_probs.items()},
             "decision": dec["decision"],
             "decision_reasons": dec["reasons"],
             "confidence": dec["confidence"],
             "sub_scores": rb["sub_scores"],
             "penalties": rb["penalties"],
             "btc_state": btc_state["state"],
+            # sentiment
+            "sentiment_aggregate": (
+                sentiment_snap.aggregate if sentiment_snap else 50.0
+            ),
+            "sentiment_regime": (
+                sentiment_snap.risk_regime if sentiment_snap else "NEUTRAL"
+            ),
+            "fear_greed": (
+                sentiment_snap.fear_greed if sentiment_snap else 50.0
+            ),
             # raw entry price for later outcome evaluation
             "entry_price": float(pack["quality"].cleaned["close"].iloc[-1]),
         }
@@ -424,6 +497,10 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
         "weights": adapted_weights,
         "threshold": threshold,
         "btc": btc_state,
+        "sentiment": (
+            sentiment_snap.__dict__ if sentiment_snap else None
+        ),
+        "ml_model": "ensemble" if use_ensemble else "logistic",
         "scanned": len(results),
         "alerts_count": len(alerts),
         "watchlist_count": len(watchlist),
