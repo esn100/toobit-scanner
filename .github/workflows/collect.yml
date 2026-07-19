@@ -47,6 +47,7 @@ jobs:
         run: |
           git config user.email "toobit-scanner@arena.local"
           git config user.name "Toobit Scanner"
+          git remote set-url origin https://x-access-token:${{ secrets.PUSH_TOKEN }}@github.com/${{ github.repository }}.git
           git add -A data/
           if git diff --cached --quiet; then
             echo "no new data to commit"
@@ -54,5 +55,3 @@ jobs:
             git commit -m "data: collector snapshot $(date -u +%Y-%m-%dT%H:%M:%S)"
             git push
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
