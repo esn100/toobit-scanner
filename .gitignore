@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project
+data/last_scan.json
+data/signal_history.csv
+data/smoke_history.csv
+models/*.joblib
+reports/*.json
+
+# Secrets
+.env
+*.secret
