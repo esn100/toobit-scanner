@@ -1,0 +1,35 @@
+{
+  "n_snapshots": 255,
+  "base_pump_5": 0.23921568627450981,
+  "base_pump_10": 0.09019607843137255,
+  "base_dump_5": 0.30196078431372547,
+  "base_dump_10": 0.06666666666666667,
+  "best_50": {
+    "n": 7,
+    "long_count": 6,
+    "short_count": 1,
+    "success_5pct": 0.0,
+    "success_10pct": 0.0
+  },
+  "best_60": {
+    "n": 3,
+    "long_count": 3,
+    "short_count": 0,
+    "success_5pct": 0.0,
+    "success_10pct": 0.0
+  },
+  "best_70": {
+    "n": 2,
+    "long_count": 2,
+    "short_count": 0,
+    "success_5pct": 0.0,
+    "success_10pct": 0.0
+  },
+  "best_80": {
+    "n": 1,
+    "long_count": 1,
+    "short_count": 0,
+    "success_5pct": 0.0,
+    "success_10pct": 0.0
+  }
+}

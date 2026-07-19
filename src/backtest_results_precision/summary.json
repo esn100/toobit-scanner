@@ -1,0 +1,20 @@
+{
+  "n_snapshots": 493,
+  "base_rate": 0.07302231237322515,
+  "precision_by_threshold": {
+    "score_60": {
+      "n": 12,
+      "precision": 0.0
+    },
+    "score_70": {
+      "n": 7,
+      "precision": 0.0
+    },
+    "score_80": {
+      "n": 1,
+      "precision": 0.0
+    }
+  },
+  "consensus_pass_n": 123,
+  "consensus_pass_precision": 0.06504065040650407
+}
