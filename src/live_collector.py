@@ -16,6 +16,7 @@ import json
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 
@@ -50,6 +51,7 @@ from .microstructure_score import (
     factor_multi_exchange, FACTOR_WEIGHTS,
 )
 from .direction_scoring import direction_score, score_long, score_short
+from .per_coin_sentiment import CoinSocialAggregator
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -75,6 +77,10 @@ def _get_btc_df(client: ToobitClient) -> pd.DataFrame:
 _MICRO_CACHE: dict = {
     "toobit": None, "okx": None,
 }
+
+
+# Social aggregator — also cached for the whole process (id cache persists).
+_SOCIAL_CACHE: dict = {"agg": None}
 
 
 def _get_micro_clients() -> tuple:
@@ -443,7 +449,69 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
         print(f"[{now.isoformat()}] cycle: 0 rows (failures={failures})")
         return 0
 
-    # ---- Pass 3: direction scoring (LONG/SHORT) ----
+    # ---- Pass 3: per-coin social signals (Google Trends + CoinGecko +
+    #              Reddit + CryptoPanic). Heavy (~3-5s per coin). ----
+    cycle_start = time.time()
+    if rows:
+        if _SOCIAL_CACHE["agg"] is None:
+            _SOCIAL_CACHE["agg"] = CoinSocialAggregator()
+        agg = _SOCIAL_CACHE["agg"]
+        # Full collection only for top movers / candidates; cheap mode for the rest
+        full_mask = {}
+        sym_to_base = {}
+        base_to_syms: Dict[str, list] = {}
+        for r in rows:
+            sym = r["symbol"]
+            base = sym.replace("USDT", "").replace("-SWAP", "")
+            sym_to_base[sym] = base
+            base_to_syms.setdefault(base, []).append(sym)
+            full_mask[base] = bool(
+                r.get("score_long", 0) >= 50
+                or r.get("score_short", 0) >= 50
+                or r.get("f_rvol", 1.0) >= 1.3
+                or r.get("f_atr_pct", 0.0) >= 5.0
+                or abs(r.get("f_momentum_6_pct", 0.0)) >= 5.0
+            )
+        unique_bases = list(base_to_syms.keys())
+        n_full = sum(1 for v in full_mask.values() if v)
+        n_cheap = len(unique_bases) - n_full
+        # If we're already past 4 minutes, only do CoinGecko (skip trends/reddit/panic)
+        elapsed = time.time() - cycle_start
+        skip_expensive_sources = elapsed > 240
+        if skip_expensive_sources:
+            print(f"[{now.isoformat()}] social pass: cycle already {elapsed:.0f}s, "
+                  f"using CoinGecko only")
+        print(f"[{now.isoformat()}] social pass on {len(unique_bases)} bases "
+              f"({n_full} full, {n_cheap} cheap)")
+        try:
+            social = agg.collect_many(unique_bases, full_mask,
+                                      skip_expensive=skip_expensive_sources)
+        except Exception as e:
+            print(f"  social pass error: {type(e).__name__}: {e}")
+            social = {}
+        # Fill in empty for any base that didn't return
+        for b in unique_bases:
+            if b not in social:
+                social[b] = {
+                    "gt_present": False, "cg_community_data_present": False,
+                    "rd_post_count_24h": 0, "cp_post_count_24h": 0,
+                }
+        for r in rows:
+            base = sym_to_base[r["symbol"]]
+            s = social.get(base, {})
+            if not s:
+                s = {"gt_present": False, "cg_community_data_present": False,
+                     "rd_post_count_24h": 0, "cp_post_count_24h": 0}
+            for k, v in s.items():
+                r[f"s_{k}"] = v
+            r["s_has_social_data"] = int(
+                bool(s.get("gt_present"))
+                or bool(s.get("cg_community_data_present"))
+                or int(s.get("rd_post_count_24h", 0)) > 0
+                or int(s.get("cp_post_count_24h", 0)) > 0
+            )
+
+    # ---- Pass 4: direction scoring (LONG/SHORT) ----
     for r in rows:
         try:
             ds = direction_score(r, symbol=r["symbol"])
