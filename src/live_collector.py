@@ -32,6 +32,27 @@ from .indicators import (
 from .market_structure import structure_features
 from .candle_quality import candle_quality_features
 from .features import build_features
+from .technical import technical_analysis
+from .btc_correlation import btc_correlation_features
+
+# Cache for BTC 4h klines (one fetch per cycle is enough)
+_BTC_CACHE: dict = {"df": None, "ts": 0.0}
+_BTC_TTL_SECONDS = 600  # refresh every 10 min
+
+
+def _get_btc_df(client: ToobitClient) -> pd.DataFrame:
+    """Cached BTC 4h klines (60 days) for correlation features."""
+    now = time.time()
+    if _BTC_CACHE["df"] is not None and (now - _BTC_CACHE["ts"]) < _BTC_TTL_SECONDS:
+        return _BTC_CACHE["df"]
+    try:
+        df = client.get_klines("BTCUSDT", interval="4h", limit=360)
+        if not df.empty:
+            _BTC_CACHE["df"] = df
+            _BTC_CACHE["ts"] = now
+    except Exception:
+        pass
+    return _BTC_CACHE["df"] if _BTC_CACHE["df"] is not None else pd.DataFrame()
 
 
 DATA_DIR = Path("data")
@@ -61,6 +82,20 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     rows: list[dict] = []
     failures = 0
 
+    # Fetch BTC once per cycle (cached for 10 min)
+    btc_df = _get_btc_df(client)
+    btc_state = "NEUTRAL"
+    btc_mom_12 = 0.0
+    if not btc_df.empty and len(btc_df) >= 13:
+        btc_mom_12 = float(
+            (btc_df["close"].iloc[-1] - btc_df["close"].iloc[-13])
+            / max(btc_df["close"].iloc[-13], 1e-12) * 100.0
+        )
+        if btc_mom_12 > 3.0:
+            btc_state = "BULLISH"
+        elif btc_mom_12 < -3.0:
+            btc_state = "BEARISH"
+
     for sym in symbols[:MAX_SYMBOLS_PER_CYCLE]:
         try:
             df = client.get_klines(sym, interval="4h", limit=200)
@@ -83,16 +118,22 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             ind.update(momentum_features(df))
             struct = structure_features(df)
             candle = candle_quality_features(df)
+            # Real technical analysis (RSI/MACD/EMA) — not hardcoded
+            tech = technical_analysis(df)
+            # BTC correlation (per symbol)
+            btc_corr = btc_correlation_features(df, btc_df) if not btc_df.empty else {}
             feats = build_features(
-                technical={"rsi_value": 50.0, "rsi_divergence": "none",
-                           "macd_hist": 0.0, "macd_divergence": "none",
-                           "ema_alignment": "mixed"},
+                technical=tech,
                 indicators=ind,
                 structure=struct,
                 candle=candle,
-                mtf={"alignment_score": 50.0},
-                btc={"state": "NEUTRAL", "btc_momentum_12_pct": 0.0},
+                mtf={"alignment_score": 50.0},  # not implemented; default
+                btc={"state": btc_state,
+                     "btc_momentum_12_pct": btc_mom_12},
             )
+            # Add BTC correlation features as extras
+            for k, v in btc_corr.items():
+                feats[f"f_{k}"] = float(v) if isinstance(v, (int, float, bool)) else 0.0
             last_close = float(df["close"].iloc[-1])
             row = {
                 "ts": now.isoformat(),
@@ -104,6 +145,8 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                 "ind_bb_squeeze": int(bool(ind.get("bb_squeeze", False))),
                 "ind_momentum_3_pct": ind.get("momentum_3_pct", 0.0),
                 "ind_momentum_6_pct": ind.get("momentum_6_pct", 0.0),
+                "btc_momentum_12_pct": btc_mom_12,
+                "btc_state": btc_state,
             }
             row.update({f"f_{k}": v for k, v in feats.items()})
             row["quality_ok"] = int(qrep.ok)
