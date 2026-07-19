@@ -1,0 +1,84 @@
+{
+  "n_snapshots": 270,
+  "n_okx": 150,
+  "base_pump_5": 0.26296296296296295,
+  "base_dump_5": 0.22592592592592592,
+  "direction_aware": {
+    "thr_30": {
+      "n": 152,
+      "long_count": 109,
+      "success_5pct": 0.2894736842105263,
+      "success_10pct": 0.13815789473684212
+    },
+    "thr_40": {
+      "n": 76,
+      "long_count": 59,
+      "success_5pct": 0.3026315789473684,
+      "success_10pct": 0.15789473684210525
+    },
+    "thr_50": {
+      "n": 33,
+      "long_count": 30,
+      "success_5pct": 0.2727272727272727,
+      "success_10pct": 0.21212121212121213
+    },
+    "thr_60": {
+      "n": 18,
+      "long_count": 17,
+      "success_5pct": 0.2222222222222222,
+      "success_10pct": 0.16666666666666666
+    },
+    "thr_70": {
+      "n": 6,
+      "long_count": 6,
+      "success_5pct": 0.16666666666666666,
+      "success_10pct": 0.16666666666666666
+    }
+  },
+  "by_direction": {
+    "LONG_50": {
+      "n": 30,
+      "success_5pct": 0.23333333333333334
+    },
+    "LONG_70": {
+      "n": 6,
+      "success_5pct": 0.16666666666666666
+    },
+    "SHORT_50": {
+      "n": 3,
+      "success_5pct": 0.6666666666666666
+    }
+  },
+  "redundant_pairs": [
+    {
+      "f1": "momentum_3_pct",
+      "f2": "momentum_6_pct",
+      "r": 0.878
+    },
+    {
+      "f1": "momentum_3_pct",
+      "f2": "momentum_acceleration",
+      "r": 0.754
+    },
+    {
+      "f1": "momentum_3_pct",
+      "f2": "vwap_distance_pct",
+      "r": 0.781
+    },
+    {
+      "f1": "momentum_6_pct",
+      "f2": "vwap_distance_pct",
+      "r": 0.864
+    },
+    {
+      "f1": "rsi_1h",
+      "f2": "vwap_distance_pct",
+      "r": 0.712
+    },
+    {
+      "f1": "fib_distance",
+      "f2": "ichimoku_score",
+      "r": 1.0
+    }
+  ]
+}
