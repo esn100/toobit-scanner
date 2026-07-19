@@ -34,6 +34,21 @@ from .candle_quality import candle_quality_features
 from .features import build_features
 from .technical import technical_analysis
 from .btc_correlation import btc_correlation_features
+from .elliott_wave import detect_elliott_waves, elliott_score
+from .fibonacci import compute_fib_levels, fib_score, fib_extension_target
+from .ichimoku import ichimoku_features, ichimoku_score
+from .microstructure import (
+    ToobitOrderBookClient, OKXSmartMoneyClient,
+    calculate_obi, calculate_spread_pct,
+    detect_whales, calculate_cvd, detect_liquidity_sweep,
+    multi_exchange_check,
+)
+from .microstructure_score import (
+    factor_volume_explosion, factor_whale_activity,
+    factor_order_book_imbalance, factor_liquidity_sweep,
+    factor_open_interest, factor_cvd, factor_funding_rate,
+    factor_multi_exchange, FACTOR_WEIGHTS,
+)
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -53,6 +68,226 @@ def _get_btc_df(client: ToobitClient) -> pd.DataFrame:
     except Exception:
         pass
     return _BTC_CACHE["df"] if _BTC_CACHE["df"] is not None else pd.DataFrame()
+
+
+# Microstructure clients are heavier — cache them per cycle.
+_MICRO_CACHE: dict = {
+    "toobit": None, "okx": None,
+}
+
+
+def _get_micro_clients() -> tuple:
+    if _MICRO_CACHE["toobit"] is None:
+        _MICRO_CACHE["toobit"] = ToobitOrderBookClient(timeout=5)
+    if _MICRO_CACHE["okx"] is None:
+        _MICRO_CACHE["okx"] = OKXSmartMoneyClient(timeout=8)
+    return _MICRO_CACHE["toobit"], _MICRO_CACHE["okx"]
+
+
+def _micro_features(symbol: str, klines_4h: pd.DataFrame) -> dict:
+    """
+    Collect microstructure features for one symbol.
+    Heavy: makes 5+ API calls. Caller is responsible for rate limiting.
+    Returns a flat dict of features (all numeric).
+    """
+    out: dict = {}
+    toobit_micro, okx_micro = _get_micro_clients()
+    # 1. Order book imbalance (L2 depth)
+    try:
+        depth = toobit_micro.get_depth(symbol, limit=20)
+        obi = calculate_obi(depth, levels=10)
+        spread = calculate_spread_pct(depth)
+        out["m_obi_10"] = obi
+        out["m_spread_pct"] = spread
+        out["m_obi_bullish"] = float(obi > 1.5)
+        out["m_obi_bearish"] = float(obi < 0.67)
+    except Exception:
+        out["m_obi_10"] = 1.0
+        out["m_spread_pct"] = 100.0
+        out["m_obi_bullish"] = 0.0
+        out["m_obi_bearish"] = 0.0
+    # 2. Recent trades (whale + CVD)
+    try:
+        trades = toobit_micro.get_recent_trades(symbol, limit=500)
+    except Exception:
+        trades = []
+    if trades:
+        try:
+            w = detect_whales(trades, min_qty_usd=2000, min_count=3, window_sec=60)
+            out["m_whale_count"] = float(w["count"])
+            out["m_whale_score"] = float(w["whale_score"])
+            out["m_whale_accumulated"] = float(w["accumulated"])
+            out["m_whale_buy_sell_ratio"] = float(
+                min(w["buy_sell_ratio"], 99.0)
+            )
+        except Exception:
+            out["m_whale_count"] = 0.0
+            out["m_whale_score"] = 0.0
+            out["m_whale_accumulated"] = 0.0
+            out["m_whale_buy_sell_ratio"] = 1.0
+        try:
+            cvd = calculate_cvd(trades)
+            out["m_cvd"] = cvd["cvd"]
+            out["m_cvd_trend"] = cvd["cvd_trend"]
+        except Exception:
+            out["m_cvd"] = 0.0
+            out["m_cvd_trend"] = 0.0
+    else:
+        out["m_whale_count"] = 0.0
+        out["m_whale_score"] = 0.0
+        out["m_whale_accumulated"] = 0.0
+        out["m_whale_buy_sell_ratio"] = 1.0
+        out["m_cvd"] = 0.0
+        out["m_cvd_trend"] = 0.0
+    # 3. Open interest (OKX)
+    try:
+        oi = okx_micro.get_open_interest(symbol)
+        out["m_oi_change_4h_pct"] = float(oi.get("oi_change_4h_pct", 0))
+        out["m_oi_rising"] = float(oi.get("oi_rising", False))
+        out["m_oi_source"] = oi.get("source", "unavailable")
+    except Exception:
+        out["m_oi_change_4h_pct"] = 0.0
+        out["m_oi_rising"] = 0.0
+        out["m_oi_source"] = "error"
+    # 4. Funding rate
+    try:
+        fr = okx_micro.get_funding_rate(symbol)
+        out["m_funding_rate"] = float(fr.get("funding_rate", 0))
+        out["m_funding_extreme"] = float(fr.get("extreme", False))
+    except Exception:
+        out["m_funding_rate"] = 0.0
+        out["m_funding_extreme"] = 0.0
+    # 5. Liquidity sweep on the 4h klines
+    try:
+        sweep = detect_liquidity_sweep(klines_4h, trades, depth)
+        out["m_sweep"] = float(sweep.get("sweep", False))
+        out["m_sweep_confidence"] = float(sweep.get("confidence", 0))
+        out["m_sweep_type_bullish"] = float(
+            "low_sweep_bullish" in str(sweep.get("sweep_type", ""))
+        )
+        out["m_sweep_type_bearish"] = float(
+            "high_sweep_bearish" in str(sweep.get("sweep_type", ""))
+        )
+    except Exception:
+        out["m_sweep"] = 0.0
+        out["m_sweep_confidence"] = 0.0
+        out["m_sweep_type_bullish"] = 0.0
+        out["m_sweep_type_bearish"] = 0.0
+    # 6. Multi-exchange confirmation
+    try:
+        t_ticker = toobit_micro.get_ticker_24h(symbol)
+        o_ticker = okx_micro.get_okx_ticker(symbol)
+        mxc = multi_exchange_check(t_ticker, o_ticker)
+        out["m_mexc_confirms"] = float(mxc.get("confirms", False))
+        out["m_mexc_price_diff_pct"] = float(mxc.get("price_diff_pct", 0))
+        out["m_mexc_toobit_leads"] = float(mxc.get("lead") == "toobit")
+    except Exception:
+        out["m_mexc_confirms"] = 0.0
+        out["m_mexc_price_diff_pct"] = 0.0
+        out["m_mexc_toobit_leads"] = 0.0
+    # 7. 5m volume explosion (uses trades)
+    try:
+        # Need 1h klines for baseline. We have 4h; use last bar 1h proxy:
+        # take 4h bar trades distribution as proxy.
+        # Simpler: use only the recent_5m_vol vs full set.
+        if trades:
+            now_ms = max(t["ts"] for t in trades)
+            recent_5m = [t for t in trades if t["ts"] >= now_ms - 5 * 60 * 1000]
+            recent_1h = [t for t in trades if t["ts"] >= now_ms - 60 * 60 * 1000]
+            if recent_1h:
+                bucket_vol = sum(t["qty"] for t in recent_1h) / 12
+                vol_5m = sum(t["qty"] for t in recent_5m)
+                rvol_5m = vol_5m / max(bucket_vol, 1e-12)
+                out["m_5m_rvol"] = float(rvol_5m)
+                out["m_5m_trade_count"] = float(len(recent_5m))
+                out["m_5m_volume_spike"] = float(rvol_5m > 4.0)
+            else:
+                out["m_5m_rvol"] = 1.0
+                out["m_5m_trade_count"] = 0.0
+                out["m_5m_volume_spike"] = 0.0
+        else:
+            out["m_5m_rvol"] = 1.0
+            out["m_5m_trade_count"] = 0.0
+            out["m_5m_volume_spike"] = 0.0
+    except Exception:
+        out["m_5m_rvol"] = 1.0
+        out["m_5m_trade_count"] = 0.0
+        out["m_5m_volume_spike"] = 0.0
+    return out
+
+
+def _advanced_features(df: pd.DataFrame) -> dict:
+    """Elliott Wave + Fibonacci + Ichimoku features (no API calls)."""
+    out: dict = {}
+    # Elliott Wave
+    try:
+        ew = detect_elliott_waves(df, threshold=0.05)
+        out["a_wave"] = ew.get("wave", "none")
+        out["a_wave_score"] = float(ew.get("score", 50.0))
+        out["a_wave_elliott_score"] = float(elliott_score(ew))
+        out["a_hurst"] = float(ew.get("details", {}).get("hurst", 0.5))
+        out["a_wave_position"] = ew.get("details", {}).get("position", "none")
+        out["a_wave3_ext"] = float(
+            ew.get("details", {}).get("wave3_extension", 0.0)
+        )
+        out["a_wave2_retrace"] = float(
+            ew.get("details", {}).get("wave2_retrace", 0.0)
+        )
+        out["a_is_uptrend"] = float(
+            ew.get("details", {}).get("is_uptrend", False)
+        )
+    except Exception:
+        out["a_wave"] = "error"
+        out["a_wave_score"] = 50.0
+        out["a_wave_elliott_score"] = 0.0
+        out["a_hurst"] = 0.5
+        out["a_wave_position"] = "none"
+        out["a_wave3_ext"] = 0.0
+        out["a_wave2_retrace"] = 0.0
+        out["a_is_uptrend"] = 0.0
+    # Fibonacci
+    try:
+        fib = compute_fib_levels(df, lookback=50)
+        out["a_fib_direction"] = fib.get("direction", "none")
+        out["a_fib_closest"] = fib.get("closest_level", "")
+        out["a_fib_distance_pct"] = float(fib.get("distance_to_closest", 0))
+        out["a_fib_score"] = float(fib_score(fib))
+        out["a_fib_ext_1_618"] = float(fib_extension_target(fib, "1.618"))
+        out["a_fib_ext_2_618"] = float(fib_extension_target(fib, "2.618"))
+        # Distance to each level
+        for lvl in ("0.382", "0.500", "0.618", "0.786"):
+            level_prices = fib.get("levels", {})
+            key = f"fib_{lvl}"
+            if key in level_prices and fib.get("current_price", 0) > 0:
+                dist = abs(level_prices[key] - fib["current_price"]) / fib["current_price"] * 100
+                out[f"a_fib_dist_{lvl}"] = float(dist)
+            else:
+                out[f"a_fib_dist_{lvl}"] = 99.0
+    except Exception:
+        out["a_fib_direction"] = "none"
+        out["a_fib_score"] = 50.0
+        out["a_fib_ext_1_618"] = 0.0
+        out["a_fib_ext_2_618"] = 0.0
+        for lvl in ("0.382", "0.500", "0.618", "0.786"):
+            out[f"a_fib_dist_{lvl}"] = 99.0
+    # Ichimoku
+    try:
+        ich = ichimoku_features(df)
+        out["a_ichi_price_vs_cloud"] = ich.get("price_vs_cloud", "neutral")
+        out["a_ichi_cloud_color"] = ich.get("cloud_color", "neutral")
+        out["a_ichi_tk_cross"] = ich.get("tk_cross", "neutral")
+        out["a_ichi_thickness_pct"] = float(ich.get("cloud_thickness_pct", 0))
+        out["a_ichi_score"] = float(ichimoku_score(ich))
+        out["a_ichi_above_cloud"] = float(ich.get("price_vs_cloud") == "above")
+        out["a_ichi_below_cloud"] = float(ich.get("price_vs_cloud") == "below")
+        out["a_ichi_in_cloud"] = float(ich.get("price_vs_cloud") == "inside")
+    except Exception:
+        out["a_ichi_score"] = 50.0
+        out["a_ichi_thickness_pct"] = 0.0
+        out["a_ichi_above_cloud"] = 0.0
+        out["a_ichi_below_cloud"] = 0.0
+        out["a_ichi_in_cloud"] = 0.0
+    return out
 
 
 DATA_DIR = Path("data")
@@ -96,6 +331,9 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
         elif btc_mom_12 < -3.0:
             btc_state = "BEARISH"
 
+    # Microstructure is heavy (5+ API calls per symbol). Only run on the
+    # top movers (highest rvol candidates) to keep cycles short.
+    micro_targets: set = set()
     for sym in symbols[:MAX_SYMBOLS_PER_CYCLE]:
         try:
             df = client.get_klines(sym, interval="4h", limit=200)
@@ -122,6 +360,8 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             tech = technical_analysis(df)
             # BTC correlation (per symbol)
             btc_corr = btc_correlation_features(df, btc_df) if not btc_df.empty else {}
+            # Elliott + Fibonacci + Ichimoku (no API cost, all from klines)
+            adv = _advanced_features(df)
             feats = build_features(
                 technical=tech,
                 indicators=ind,
@@ -131,9 +371,14 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                 btc={"state": btc_state,
                      "btc_momentum_12_pct": btc_mom_12},
             )
-            # Add BTC correlation features as extras
             for k, v in btc_corr.items():
                 feats[k] = float(v) if isinstance(v, (int, float, bool)) else 0.0
+            # Pick candidates for expensive microstructure fetch.
+            # Heuristic: rvol >= 1.3 OR atr_pct >= 5 OR mom_6 >= 5%
+            if (ind.get("rvol", 1.0) >= 1.3
+                    or ind.get("atr_pct", 0.0) >= 5.0
+                    or abs(ind.get("momentum_6_pct", 0.0)) >= 5.0):
+                micro_targets.add(sym)
             last_close = float(df["close"].iloc[-1])
             row = {
                 "ts": now.isoformat(),
@@ -149,8 +394,15 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                 "btc_state": btc_state,
             }
             row.update({f"f_{k}": v for k, v in feats.items()})
+            row.update({f"f_{k}": v for k, v in adv.items()
+                       if isinstance(v, (int, float, bool))})
+            # String fields (wave, ichimoku) — keep as columns, mark f_ too
+            for sk, sv in adv.items():
+                if not isinstance(sv, (int, float, bool)):
+                    row[f"f_{sk}"] = str(sv)
             row["quality_ok"] = int(qrep.ok)
             row["candles"] = int(qrep.stats.get("candles", 0))
+            row["has_microstructure"] = int(sym in micro_targets)
             rows.append(row)
         except Exception as e:
             failures += 1
@@ -159,6 +411,32 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             continue
         # Light rate limit
         time.sleep(0.2)
+
+    # ---- Pass 2: microstructure for top movers only ----
+    if micro_targets:
+        print(f"[{now.isoformat()}] microstructure pass on "
+              f"{len(micro_targets)} symbols: {sorted(micro_targets)[:5]}...")
+        for sym in micro_targets:
+            try:
+                # Re-fetch the 4h klines we already validated. We don't have it
+                # cached in this scope, so fetch again (cheap relative to the
+                # 5+ micro API calls that follow).
+                df = client.get_klines(sym, interval="4h", limit=200)
+                if df.empty:
+                    continue
+                qrep = validate_ohlcv(df, min_candles=60, interval_hours=4.0)
+                if qrep.cleaned is not None:
+                    df = qrep.cleaned
+                micro = _micro_features(sym, df)
+                # Merge into the matching row
+                for r in rows:
+                    if r["symbol"] == sym:
+                        r.update({f"f_{k}": v for k, v in micro.items()})
+                        break
+            except Exception as e:
+                if failures < 10:
+                    print(f"  micro fail {sym}: {type(e).__name__}")
+            time.sleep(0.6)  # heavier rate limit for micro API calls
 
     if not rows:
         print(f"[{now.isoformat()}] cycle: 0 rows (failures={failures})")

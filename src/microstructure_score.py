@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
 import numpy as np
 
-from microstructure import (
+from .microstructure import (
     ToobitOrderBookClient, OKXSmartMoneyClient,
     calculate_obi, calculate_spread_pct,
     detect_whales, calculate_cvd, detect_liquidity_sweep,
