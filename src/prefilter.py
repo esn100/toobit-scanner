@@ -108,14 +108,15 @@ def prefilter_score(df_15m: pd.DataFrame, df_1h: pd.DataFrame,
     return out
 
 
-def passes_prefilter(prefilter_result: Dict, min_score: float = 60.0) -> bool:
-    """A symbol passes if prefilter_score >= min_score and key flags are set."""
+def passes_prefilter(prefilter_result: Dict, min_score: float = 20.0) -> bool:
+    """
+    A symbol passes if prefilter_score >= min_score and key flags are set.
+    Very relaxed - we use the deep analysis score to filter further.
+    """
     if prefilter_result["prefilter"] < min_score:
         return False
     f = prefilter_result["flags"]
-    # Hard requirements: must have volume spike AND positive momentum
-    if f.get("vol_spike_3bar", 0) < 1.5:
-        return False
-    if f.get("momentum_4h_pct", 0) < 0:
+    # Very relaxed hard requirements: just don't be heavily negative
+    if f.get("momentum_4h_pct", 0) < -10:
         return False
     return True

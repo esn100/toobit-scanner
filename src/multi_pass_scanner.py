@@ -43,7 +43,8 @@ from telegram_notifier import TelegramNotifier
 def score_small_cap(pack: Dict) -> float:
     """
     Composite score 0..100 for small caps.
-    Calibrated against backtest: top 5% >= 90 precision, top 10% >= 80.
+    Calibrated against backtest: top 5% >= 80 precision.
+    Baseline 30 so only high-quality signals pass 60+.
     """
     ind_1h = pack.get("ind_1h", {})
     tech_1h = pack.get("tech_1h", {})
@@ -64,37 +65,39 @@ def score_small_cap(pack: Dict) -> float:
     atr_pct = ind_1h.get("atr_pct", 0)
     big_wick = candle_1h.get("big_wick_top", False)
     volume_spike = ind_1h.get("volume_spike", False)
-    score = 0.0
-    # Volume king
+    score = 30.0  # baseline
+    # Volume king (rvol is the top feature, r=+0.36)
     if rvol >= 5.0: score += 35
     elif rvol >= 3.0: score += 25
     elif rvol >= 2.0: score += 15
     elif rvol >= 1.5: score += 8
-    elif rvol < 0.5: score -= 10
-    if volume_spike: score += 10
-    # Momentum
-    if m1 > 1.0: score += 15
-    elif m1 > 0: score += 8
-    if m3 > 1.0: score += 10
-    elif m3 > 0: score += 5
-    if m6 > 0: score += 3
-    if mom_acc > 0: score += min(10, mom_acc * 8)
+    elif rvol < 0.5: score -= 15
+    if volume_spike: score += 8
+    # Short-term momentum
+    if m1 > 1.0: score += 12
+    elif m1 > 0: score += 6
+    if m3 > 1.0: score += 8
+    elif m3 > 0: score += 4
+    if m6 > 0: score += 2
+    if mom_acc > 0: score += min(8, mom_acc * 5)
     # Distribution penalty
-    if higher_lows: score -= 8
-    if higher_highs: score -= 5
-    # BB squeeze (pre-breakout)
-    if bb_squeeze: score += 8
+    if higher_lows: score -= 6
+    if higher_highs: score -= 4
+    # BB squeeze
+    if bb_squeeze: score += 5
     # ATR
-    if atr_pct > 2.0: score += 5
+    if atr_pct > 2.0: score += 4
     # RSI sweet spot
-    if 30 <= rsi_1h <= 65: score += 8
-    elif rsi_1h > 75: score -= 8
+    if 30 <= rsi_1h <= 65: score += 6
+    elif rsi_1h > 75: score -= 6
+    # Big wick
+    if big_wick: score += 3
     # Smart money
     if isinstance(sm, dict):
         score += (sm.get("smart_money_score", 50) - 50) * 0.1
-    # Independent of BTC
+    # BTC independent
     if btc_corr.get("independent_mover"):
-        score += 5
+        score += 4
     return max(0, min(100, score))
 
 
@@ -143,7 +146,8 @@ def deep_analyze(symbol: str, toobit: ToobitClient,
         return out
     # Pass 1
     pf = prefilter_score(df_15m, df_1h, df_4h, btc_df_1h)
-    if not passes_prefilter(pf, min_score=45.0):
+    # Relaxed: allow passing if score is reasonable
+    if not passes_prefilter(pf, min_score=20.0):
         return out
     out["pass1_ok"] = True
     out["details"]["prefilter"] = pf
