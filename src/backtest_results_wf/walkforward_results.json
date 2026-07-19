@@ -1,0 +1,88 @@
+{
+  "n_folds": 4,
+  "mean_precision_top10": 0.16060050971647022,
+  "std_precision_top10": 0.042707825112353874,
+  "mean_separation": 0.08422984848184534,
+  "folds": [
+    {
+      "fold": 1,
+      "train_range": "0-30",
+      "test_range": "30-45",
+      "n_train": 1710,
+      "n_test": 855,
+      "best_weights": {
+        "technical": 12,
+        "momentum": 12,
+        "volume": 12,
+        "vwap": 4,
+        "atr_bb": 10,
+        "structure": 10,
+        "candle": 4,
+        "mtf": 12,
+        "pattern": 4
+      },
+      "test_precision_top10": 0.18604651162790697,
+      "test_separation": 1.0049451643990963
+    },
+    {
+      "fold": 2,
+      "train_range": "15-45",
+      "test_range": "45-60",
+      "n_train": 1710,
+      "n_test": 855,
+      "best_weights": {
+        "technical": 8,
+        "momentum": 8,
+        "volume": 12,
+        "vwap": 4,
+        "atr_bb": 10,
+        "structure": 15,
+        "candle": 8,
+        "mtf": 12,
+        "pattern": 4
+      },
+      "test_precision_top10": 0.20930232558139536,
+      "test_separation": 0.21357035882476083
+    },
+    {
+      "fold": 3,
+      "train_range": "30-60",
+      "test_range": "60-75",
+      "n_train": 1710,
+      "n_test": 855,
+      "best_weights": {
+        "technical": 8,
+        "momentum": 12,
+        "volume": 12,
+        "vwap": 8,
+        "atr_bb": 10,
+        "structure": 15,
+        "candle": 4,
+        "mtf": 12,
+        "pattern": 4
+      },
+      "test_precision_top10": 0.1511627906976744,
+      "test_separation": 0.6138911125554998
+    },
+    {
+      "fold": 4,
+      "train_range": "45-75",
+      "test_range": "75-90",
+      "n_train": 1710,
+      "n_test": 722,
+      "best_weights": {
+        "technical": 8,
+        "momentum": 8,
+        "volume": 12,
+        "vwap": 4,
+        "atr_bb": 3,
+        "structure": 15,
+        "candle": 4,
+        "mtf": 12,
+        "pattern": 12
+      },
+      "test_precision_top10": 0.0958904109589041,
+      "test_separation": -1.4954872418519756
+    }
+  ]
+}
