@@ -1,18 +1,25 @@
 """
-Toobit Scanner — main pipeline.
+PumpHunter-AI: Toobit scanner main pipeline.
 
 For each scan:
-  1. Pull Toobit tickers
-  2. Filter by market cap (<=20M) via CoinGecko
-  3. For each remaining symbol:
-       - Fetch 4h klines
-       - Compute technical analysis
-       - Fetch LunarCrush / Google Trends / TradingView
-       - Fetch whale data (CoinGlass)
-       - Compute final score with current (ML-tuned) weights
-  4. Persist to data/last_scan.json
-  5. Send Telegram alerts for any score > threshold
-  6. Update ML history
+  1. Evaluate BTC regime (btc_filter)
+  2. Pull Toobit tickers
+  3. Filter small caps via CoinPaprika (+ CoinGecko fallback)
+  4. For each symbol:
+       a. Validate data (data_quality)
+       b. Pull 1h + 4h klines
+       c. Compute indicators (RSI/MACD/EMA + VWAP/ATR/BB/Vol/Momentum)
+       d. Compute market structure + candle quality
+       e. Multi-timeframe alignment
+       f. Build feature vector
+       g. Rule-based score
+       h. ML probability
+       i. Final decision (APPROVED / WATCHLIST / REJECTED)
+       j. Send Telegram alert for APPROVED + WATCHLIST borderline
+  5. Evaluate previous outcomes (outcome.evaluate_pending_signals)
+  6. Retrain ML if enough labeled data
+  7. Adapt weights softly based on logistic regression
+  8. Persist everything
 """
 from __future__ import annotations
 import os
@@ -31,38 +38,47 @@ from lunarcrush import LunarCrushClient
 from google_trends import GoogleTrendsClient
 from tradingview_scraper import TradingViewScraper
 from whale_data import CoinGlassClient, get_whale_features
+
+from data_quality import validate_ohlcv
 from technical import technical_analysis
-from ml_weights import (
-    WeightTuner, compute_final_score, social_score_from_metrics,
-    whale_score_from_features, append_history, resolve_previous_labels,
+from indicators import (
+    vwap_features, atr_features, bollinger_features,
+    relative_volume, volume_continuity, momentum_features,
+    mtf_alignment,
 )
+from market_structure import structure_features
+from candle_quality import candle_quality_features
+from features import build_features, feature_vector, FEATURE_NAMES
+from scoring import rule_based_score
+from btc_filter import BTCFilter
+from cooldown import CooldownGuard
+from ml_engine import (
+    PumpHunterML, append_signal_history, soft_adapt_weights,
+)
+from outcome import evaluate_pending_signals
+from decision import decide
 from telegram_notifier import TelegramNotifier
 
 
+# ----------------------------------------------------------------------------
+# Config helpers
+# ----------------------------------------------------------------------------
 def load_config(path: str | None = None) -> dict:
-    """
-    Load config.yaml. The file lives at the project root (one level
-    above this src/ directory). If a relative path is given we resolve
-    it relative to the project root, not the current working directory.
-    """
     if path is None:
         here = os.path.dirname(os.path.abspath(__file__))
-        # src/scanner.py -> project root is one level up
         project_root = os.path.dirname(here)
         path = os.path.join(project_root, "config.yaml")
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
-# Keys in config.yaml whose values are file paths we want to anchor
-# to the project root. Add more here if you add new paths to config.yaml.
 _PATH_KEYS = {
     "ml": ["model_path", "history_path"],
+    "cooldown": ["state_path"],
 }
 
 
 def _resolve_paths(cfg: dict, project_root: str) -> dict:
-    """Resolve known relative file paths in config to be absolute."""
     for section, keys in _PATH_KEYS.items():
         sec = cfg.get(section, {})
         for k in keys:
@@ -86,64 +102,70 @@ def scan_symbol(
     coinglass: CoinGlassClient | None,
 ) -> Dict:
     toobit = ToobitClient()
-    df = toobit.get_klines(
-        symbol,
-        interval=cfg["scanner"]["timeframe"],
-        limit=cfg["scanner"]["candles_limit"],
-    )
-    if df.empty or len(df) < 60:
-        print(f"[scanner] {symbol}: insufficient candles ({len(df)})", flush=True)
-        return {}
+    interval = cfg["scanner"]["timeframe"]
+    limit = cfg["scanner"]["candles_limit"]
 
-    tech = technical_analysis(df)
+    # 4h
+    df_4h = toobit.get_klines(symbol, interval, limit)
+    # 1h for multi-timeframe alignment
+    df_1h = toobit.get_klines(symbol, "1h", min(limit, 200))
+
+    # Validate
+    q4 = validate_ohlcv(df_4h, min_candles=60, interval_hours=4.0)
+    if not q4.ok or q4.cleaned is None or q4.cleaned.empty:
+        return {"_rejected": "data quality", "_quality": q4}
+    df_4h = q4.cleaned
+
+    # Technical (RSI/MACD/EMA/patterns)
+    tech = technical_analysis(df_4h)
+
+    # New indicators
+    ind: Dict = {}
+    ind.update(vwap_features(df_4h))
+    ind.update(atr_features(df_4h))
+    ind.update(bollinger_features(df_4h))
+    ind.update(relative_volume(df_4h))
+    ind.update(volume_continuity(df_4h))
+    ind.update(momentum_features(df_4h))
+
+    # Structure + candle quality
+    struct = structure_features(df_4h)
+    candle = candle_quality_features(df_4h)
+
+    # Multi-timeframe (1h vs 4h)
+    mtf = mtf_alignment(df_1h if not df_1h.empty else df_4h,
+                        df_4h) if not df_1h.empty else {
+        "fast_bias": 0.0, "slow_bias": 0.0,
+        "aligned": False, "same_sign": False, "alignment_score": 50.0,
+    }
+
+    # Social + whale (as before)
     clean_sym = symbol.replace("USDT", "")
     lc = lunar.get_coin_metrics(clean_sym)
     gt = trends.get_interest(clean_sym)
     tv_data = tv.get_idea_sentiment(clean_sym)
     whale = get_whale_features(clean_sym, coinglass)
 
+    from ml_weights import social_score_from_metrics, whale_score_from_features
     social = social_score_from_metrics(lc, gt, tv_data)
     whale_s = whale_score_from_features(whale)
 
-    # Final composite (placeholder weights; real ones applied after ML step)
-    final = compute_final_score(
-        cfg["weights"],
-        tech_score=tech["technical_score"],
-        pattern_score=tech["pattern_score"],
-        social_score=social,
-        whale_score=whale_s,
-    )
-
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
         "symbol": symbol,
         "market_cap_usd": float(market_cap),
         "quote_volume_24h": float(quote_volume),
-        "rsi_value": tech["rsi_value"],
-        "rsi_divergence": tech["rsi_divergence"],
-        "macd_value": tech["macd_value"],
-        "macd_signal": tech["macd_signal"],
-        "macd_hist": tech["macd_hist"],
-        "macd_divergence": tech["macd_divergence"],
-        "ema20": tech["ema20"],
-        "ema50": tech["ema50"],
-        "ema100": tech["ema100"],
-        "ema200": tech["ema200"],
-        "ema_alignment": tech["ema_alignment"],
-        "patterns": tech["patterns"],
-        "technical_score": tech["technical_score"],
-        "pattern_score": tech["pattern_score"],
-        "social_score": social,
-        "whale_score": whale_s,
-        "liq_bias": whale.get("liq_bias", 0.0),
-        "long_liq_usd": whale.get("long_liq_usd", 0.0),
-        "short_liq_usd": whale.get("short_liq_usd", 0.0),
-        "price_change_pct_24h": float(lc.get("percent_change_24h") or 0),
-        "social_subscore_galaxy": lc.get("galaxy_score", 0),
-        "social_subscore_sentiment": lc.get("sentiment", 0),
-        "trends_rising": bool(gt.get("rising", False)),
-        "tv_buy_ratio": tv_data.get("buy_ratio", 0.5),
-        "score": round(final, 2),
+        "quality": q4,
+        "technical": tech,
+        "indicators": ind,
+        "structure": struct,
+        "candle": candle,
+        "mtf": mtf,
+        "whale": whale,
+        "social_score_raw": social,
+        "whale_score_raw": whale_s,
+        "lunarcrush": lc,
+        "trends": gt,
+        "tradingview": tv_data,
     }
 
 
@@ -153,51 +175,85 @@ def scan_symbol(
 def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     if cfg is None:
         cfg = load_config()
-    # Resolve all relative paths in config to be relative to the project root
-    # so the scanner works the same whether invoked from src/ or the root.
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     cfg = _resolve_paths(cfg, project_root)
-    print(f"[scanner] Starting scan at {datetime.now(timezone.utc).isoformat()}", flush=True)
+    print(f"[scanner] Starting scan at "
+          f"{datetime.now(timezone.utc).isoformat()}", flush=True)
 
-    # 1. Resolve previous labels (use latest 24h prices as a proxy)
-    history_path = cfg["ml"]["history_path"]
-    # Cache the CoinGecko coins list inside data/ so the next run reuses it
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # ----------------- data sources -----------------
     cache_dir = os.path.join(project_root, "data")
+    toobit = ToobitClient()
     coingecko = CoinGeckoClient(cache_dir=cache_dir)
     coingpaprika = CoinPaprikaClient()
-    cg_simple = coingecko._get("/simple/price", {
-        "vs_currencies": "usd",
-        "ids": "",  # we'll use market caps for major coins
-    })
-    # Resolve labels with 0 placeholders (we will populate 'next_price' from
-    # the tickers in this run)
-    current_prices: Dict[str, float] = {}
-
-    # 2. Load data sources
-    toobit = ToobitClient()
     lunar = LunarCrushClient()
     trends = GoogleTrendsClient()
     tv = TradingViewScraper()
-    coinglass = CoinGlassClient() if cfg["data_sources"].get("coinglass", {}).get("enabled", True) else None
+    coinglass = CoinGlassClient() if cfg["data_sources"].get(
+        "coinglass", {}).get("enabled", True) else None
 
-    # 3. Toobit tickers
+    btc_filter = BTCFilter(toobit)
+    btc_state = btc_filter.evaluate()
+    print(f"[scanner] BTC state: {btc_state['state']} "
+          f"(modifier={btc_state['score_modifier']})", flush=True)
+    if btc_state["freeze"]:
+        print("[scanner] BTC RISK_OFF - aborting scan.", flush=True)
+        return {"alerts": [], "results": [], "btc": btc_state,
+                "watchlist": []}
+
+    cooldown = CooldownGuard(
+        cfg.get("cooldown", {}).get(
+            "state_path", os.path.join(project_root, "data", "cooldown.json")
+        ),
+        default_hours=cfg.get("cooldown", {}).get("hours", 6.0),
+    )
+
+    # ----------------- ML bootstrap -----------------
+    history_path = cfg["ml"]["history_path"]
+    model_path = cfg["ml"]["model_path"]
+    ml = PumpHunterML(model_path, min_train=cfg["ml"].get("min_history_to_train", 30))
+
+    # Evaluate previous pending signals first (if not first run)
+    if cfg["ml"].get("evaluate_previous", True):
+        try:
+            n = evaluate_pending_signals(history_path, toobit,
+                                        forward_bars=3, max_eval=30)
+            if verbose:
+                print(f"[scanner] Resolved {n} previous outcomes.", flush=True)
+        except Exception as e:
+            print(f"[scanner] Outcome evaluation failed: {e}", flush=True)
+
+    # Train if we have enough data
+    if ml.has_enough_data(history_path):
+        try:
+            ml.train(history_path)
+            if verbose:
+                print("[scanner] ML model retrained.", flush=True)
+        except Exception as e:
+            print(f"[scanner] ML train failed: {e}", flush=True)
+
+    # Soft weight adaptation
+    base_weights = cfg.get("rule_weights", cfg.get("weights", {}))
+    adapted_weights = soft_adapt_weights(base_weights, ml, blend=0.3)
+    print(f"[scanner] Active rule weights: {adapted_weights}", flush=True)
+
+    # ----------------- tickers + market-cap filter -----------------
     print("[scanner] Fetching Toobit tickers...", flush=True)
     tickers = toobit.get_24h_tickers()
     if tickers.empty:
-        print("[scanner] No tickers returned from Toobit.", flush=True)
-        return {"alerts": [], "results": []}
+        print("[scanner] No tickers.", flush=True)
+        return {"alerts": [], "results": [], "watchlist": [],
+                "btc": btc_state}
     print(f"[scanner] Got {len(tickers)} tickers from Toobit.", flush=True)
 
-    # 4. Filter by market cap
-    # Try CoinPaprika first (faster + better free tier), then CoinGecko
     print("[scanner] Filtering by market cap via CoinPaprika...", flush=True)
     filtered = pd.DataFrame()
     try:
-        mc_map = coingpaprika.get_market_caps_for_symbols(tickers["symbol"].tolist())
+        mc_map = coingpaprika.get_market_caps_for_symbols(
+            tickers["base"].tolist()
+        )
         if mc_map:
             t2 = tickers.copy()
-            t2["market_cap_usd"] = t2["symbol"].map(mc_map).fillna(0.0)
+            t2["market_cap_usd"] = t2["base"].map(mc_map).fillna(0.0)
             t2 = t2[
                 (t2["market_cap_usd"] > 0)
                 & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
@@ -210,128 +266,216 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
                   flush=True)
     except Exception as e:
         print(f"[scanner] CoinPaprika failed: {e}", flush=True)
-
     if filtered.empty:
-        print("[scanner] Trying CoinGecko as fallback...", flush=True)
-        filtered = filter_small_cap_symbols(
-            tickers, coingecko,
-            max_market_cap_usd=cfg["scanner"]["max_market_cap_usd"],
-            min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
-            max_symbols=cfg["scanner"]["max_symbols_per_run"],
-        )
+        try:
+            filtered = filter_small_cap_symbols(
+                tickers, coingecko,
+                max_market_cap_usd=cfg["scanner"]["max_market_cap_usd"],
+                min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
+                max_symbols=cfg["scanner"]["max_symbols_per_run"],
+            )
+        except Exception as e:
+            print(f"[scanner] CoinGecko fallback failed: {e}", flush=True)
     if filtered.empty:
         print("[scanner] No symbols passed the filter.", flush=True)
-        return {"alerts": [], "results": []}
-    print(f"[scanner] {len(filtered)} symbols passed the filter.", flush=True)
+        return {"alerts": [], "results": [], "watchlist": [],
+                "btc": btc_state}
 
-    # Fill current_prices for label resolution
-    for _, r in filtered.iterrows():
-        current_prices[r["symbol"]] = r["last_price"]
-
-    # 5. ML tuner
-    tuner = WeightTuner(
-        model_path=cfg["ml"]["model_path"],
-        history_path=history_path,
-        min_train=cfg["ml"]["min_history_to_train"],
-    )
-    # Resolve old labels
-    resolved = resolve_previous_labels(history_path, current_prices)
-    if verbose:
-        print(f"[scanner] Resolved {resolved} previous labels.", flush=True)
-    # Try to retrain
-    if tuner.has_enough_data():
-        ok = tuner.train()
-        if verbose:
-            print(f"[scanner] Retrain {'OK' if ok else 'failed'}.", flush=True)
-    # Suggested weights
-    weights = tuner.suggest_weights(cfg["weights"])
-    print(f"[scanner] Active weights: {weights}", flush=True)
-
-    # 6. Scan each symbol
+    # ----------------- per-symbol scan -----------------
     results: List[Dict] = []
     for _, row in filtered.iterrows():
+        sym = row["symbol"]
+        cooldown_key = f"toobit:{sym}"
+        cooldown_ok = cooldown.is_cool(cooldown_key)
         try:
-            r = scan_symbol(
-                row["symbol"], row["market_cap_usd"], row["quote_volume_24h"],
+            pack = scan_symbol(
+                sym, row["market_cap_usd"], row["quote_volume_24h"],
                 cfg, trends, lunar, tv, coinglass,
             )
-            if r:
-                # Re-score with active (possibly ML-tuned) weights
-                r["score"] = round(compute_final_score(
-                    weights,
-                    r["technical_score"],
-                    r["pattern_score"],
-                    r["social_score"],
-                    r["whale_score"],
-                ), 2)
-                # Tag weights used (for history)
-                r["w_technical"] = weights["technical"]
-                r["w_pattern"] = weights["pattern"]
-                r["w_social"] = weights["social"]
-                r["w_whale"] = weights["whale"]
-                # Persist to history
-                append_history(history_path, {
-                    "timestamp": r["timestamp"],
-                    "symbol": r["symbol"],
-                    "market_cap_usd": r["market_cap_usd"],
-                    "technical": r["technical_score"],
-                    "pattern": r["pattern_score"],
-                    "social": r["social_score"],
-                    "whale": r["whale_score"],
-                    "rsi_value": r["rsi_value"],
-                    "macd_hist": r["macd_hist"],
-                    "social_score": r["social_subscore_galaxy"],
-                    "liq_bias": r["liq_bias"],
-                    "price_change_pct_24h": r["price_change_pct_24h"],
-                    "score": r["score"],
-                    "w_technical": r["w_technical"],
-                    "w_pattern": r["w_pattern"],
-                    "w_social": r["w_social"],
-                    "w_whale": r["w_whale"],
-                })
-                results.append(r)
         except Exception as e:
-            print(f"[scanner] Error scanning {row['symbol']}: {e}", flush=True)
-        time.sleep(0.5)  # politeness
+            print(f"[scanner] Error scanning {sym}: {e}", flush=True)
+            time.sleep(0.5)
+            continue
+        if not pack or pack.get("_rejected"):
+            time.sleep(0.3)
+            continue
 
-    # 7. Sort by score, pick alerts above threshold
-    results.sort(key=lambda x: x["score"], reverse=True)
+        # Build features
+        feats = build_features(
+            pack["technical"],
+            pack["indicators"],
+            pack["structure"],
+            pack["candle"],
+            pack["mtf"],
+            btc_state,
+        )
+        # Rule-based score
+        rb = rule_based_score(
+            pack["technical"],
+            pack["indicators"],
+            pack["structure"],
+            pack["candle"],
+            pack["mtf"],
+            btc_state,
+            adapted_weights,
+        )
+        composite = rb["composite_score"]
+        # ML probability
+        ml_prob = ml.predict_proba(feats)
+        # Decision
+        dec = decide(
+            composite=composite,
+            ml_prob=ml_prob,
+            btc=btc_state,
+            quality_ok=True,
+            cooldown_ok=cooldown_ok,
+        )
+        ts = datetime.now(timezone.utc).isoformat()
+        result = {
+            "timestamp": ts,
+            "symbol": sym,
+            "market_cap_usd": pack["market_cap_usd"],
+            "quote_volume_24h": pack["quote_volume_24h"],
+            # technical breakdown
+            "rsi_value": pack["technical"]["rsi_value"],
+            "rsi_divergence": pack["technical"]["rsi_divergence"],
+            "macd_hist": pack["technical"]["macd_hist"],
+            "macd_divergence": pack["technical"]["macd_divergence"],
+            "ema_alignment": pack["technical"]["ema_alignment"],
+            "patterns": pack["technical"]["patterns"],
+            # new indicators
+            "rvol": pack["indicators"].get("rvol", 1.0),
+            "volume_spike": pack["indicators"].get("volume_spike", False),
+            "vwap_distance_pct": pack["indicators"].get("vwap_distance_pct", 0.0),
+            "price_above_vwap": pack["indicators"].get("price_above_vwap", False),
+            "atr_pct": pack["indicators"].get("atr_pct", 0.0),
+            "atr_expanding": pack["indicators"].get("atr_expanding", False),
+            "bb_squeeze": pack["indicators"].get("bb_squeeze", False),
+            "bb_breakout_above": pack["indicators"].get("bb_breakout_above", False),
+            "momentum_3_pct": pack["indicators"].get("momentum_3_pct", 0.0),
+            "momentum_6_pct": pack["indicators"].get("momentum_6_pct", 0.0),
+            "momentum_acceleration": pack["indicators"].get("momentum_acceleration", 0.0),
+            # structure + candle
+            "structure_score": pack["structure"]["structure_score"],
+            "higher_highs": pack["structure"]["higher_highs"],
+            "higher_lows": pack["structure"]["higher_lows"],
+            "bos_up": pack["structure"]["bos_up"],
+            "candle_strength": pack["candle"]["candle_strength"],
+            "big_wick_top": pack["candle"]["big_wick_top"],
+            "power_streak": pack["candle"]["power_streak"],
+            "candle_score": pack["candle"]["candle_score"],
+            # multi-tf
+            "mtf_alignment": pack["mtf"]["alignment_score"],
+            # social
+            "social_score": pack["social_score_raw"],
+            "whale_score": pack["whale_score_raw"],
+            "liq_bias": pack["whale"].get("liq_bias", 0.0),
+            # scoring
+            "composite_score": round(composite, 2),
+            "ml_prob": round(ml_prob, 3),
+            "decision": dec["decision"],
+            "decision_reasons": dec["reasons"],
+            "confidence": dec["confidence"],
+            "sub_scores": rb["sub_scores"],
+            "penalties": rb["penalties"],
+            "btc_state": btc_state["state"],
+            # raw entry price for later outcome evaluation
+            "entry_price": float(pack["quality"].cleaned["close"].iloc[-1]),
+        }
+        # Persist to history (with features)
+        try:
+            history_row = {
+                "timestamp": ts,
+                "symbol": sym,
+                "label": np.nan,            # filled in by outcome evaluation
+                "score": round(composite, 2),
+                "ml_prob": round(ml_prob, 3),
+                "outcome_score": np.nan,
+                "composite_score": round(composite, 2),
+                "entry_price": result["entry_price"],
+            }
+            history_row.update({k: feats.get(k, 0.0) for k in FEATURE_NAMES})
+            append_signal_history(history_path, history_row)
+        except Exception as e:
+            print(f"[scanner] history append failed for {sym}: {e}",
+                  flush=True)
+
+        # Cooldown: only mark if APPROVED
+        if dec["decision"] == "APPROVED":
+            cooldown.mark(cooldown_key)
+        results.append(result)
+        time.sleep(0.4)  # politeness
+
+    # ----------------- separate alerts vs watchlist -----------------
+    alerts = [r for r in results if r["decision"] == "APPROVED"]
+    watchlist = [r for r in results if r["decision"] == "WATCHLIST"]
+    alerts.sort(key=lambda x: x["composite_score"], reverse=True)
+    watchlist.sort(key=lambda x: x["composite_score"], reverse=True)
     threshold = cfg["alerting"]["notify_threshold"]
-    max_alerts = cfg["alerting"]["max_alerts_per_run"]
-    alerts = [r for r in results if r["score"] >= threshold][:max_alerts]
+    # Only send Telegram for scores above the user-defined threshold AND
+    # the decision APPROVED
+    alerts = [a for a in alerts if a["composite_score"] >= threshold]
+    alerts = alerts[: cfg["alerting"]["max_alerts_per_run"]]
 
-    # 8. Persist JSON report
+    # ----------------- persist + telegram -----------------
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "weights": weights,
+        "weights": adapted_weights,
         "threshold": threshold,
+        "btc": btc_state,
         "scanned": len(results),
         "alerts_count": len(alerts),
-        "results": results,
+        "watchlist_count": len(watchlist),
         "alerts": alerts,
+        "watchlist": watchlist,
+        "results": results,
     }
-    out_path = os.path.join(project_root, "reports", f"scan_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json")
+    out_path = os.path.join(
+        project_root, "reports",
+        f"scan_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json",
+    )
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
-    # Always update a 'latest' file for the dashboard
     latest_path = os.path.join(project_root, "data", "last_scan.json")
     os.makedirs(os.path.dirname(latest_path), exist_ok=True)
     with open(latest_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     print(f"[scanner] Wrote report: {out_path}", flush=True)
 
-    # 9. Telegram
     notifier = TelegramNotifier.from_env()
     if notifier:
-        notifier.send_digest(len(results), alerts, weights)
-        for a in alerts:
-            notifier.send_alert(a)
-            time.sleep(0.5)
+        try:
+            notifier.send_digest(len(results), alerts, adapted_weights)
+            for a in alerts:
+                notifier.send_alert(_format_for_tg(a))
+                time.sleep(0.5)
+        except Exception as e:
+            print(f"[scanner] Telegram send failed: {e}", flush=True)
     else:
         print("[scanner] Telegram not configured.", flush=True)
 
     return report
+
+
+def _format_for_tg(a: Dict) -> Dict:
+    """Format a result row for the existing Telegram notifier."""
+    return {
+        "timestamp": a["timestamp"],
+        "symbol": a["symbol"],
+        "score": a["composite_score"],
+        "market_cap_usd": a["market_cap_usd"],
+        "quote_volume_24h": a["quote_volume_24h"],
+        "rsi_value": a["rsi_value"],
+        "rsi_divergence": a["rsi_divergence"],
+        "macd_hist": a["macd_hist"],
+        "ema_alignment": a["ema_alignment"],
+        "patterns": a.get("patterns", []),
+        "social_score": a.get("social_score", 0),
+        "liq_bias": a.get("liq_bias", 0.0),
+        "ml_prob": a.get("ml_prob", 0.0),
+        "decision": a["decision"],
+    }
 
 
 if __name__ == "__main__":

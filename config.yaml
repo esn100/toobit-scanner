@@ -1,28 +1,37 @@
 # =============================================================================
-# Toobit Scanner - Master Configuration
+# PumpHunter-AI: Master Configuration
 # =============================================================================
 
 scanner:
   exchange: toobit
-  market_type: usdt_perp  # perpetual futures on Toobit
-  min_market_cap_usd: 0        # we filter by Toobit 24h volume + market cap proxy
+  market_type: usdt_perp
+  min_market_cap_usd: 0
   max_market_cap_usd: 20_000_000
   quote_currency: USDT
-  max_symbols_per_run: 50      # cap to control runtime
+  max_symbols_per_run: 30
   min_24h_volume_usd: 1_000_000
-
   timeframe: 4h
-  candles_limit: 300           # ~50 days of 4h candles
+  candles_limit: 300
 
 schedule:
-  run_times_utc: ["00:00", "12:00"]  # twice a day
+  run_times_utc: ["00:00", "12:00"]
+
+# BTC market regime filter
+btc_filter:
+  enabled: true
+  cache_minutes: 60
+
+# Duplicate signal guard / cooldown
+cooldown:
+  hours: 6.0
+  state_path: data/cooldown.json
 
 # Alerting thresholds
 alerting:
-  notify_threshold: 85.0       # only notify if score > 85
+  notify_threshold: 75.0
   max_alerts_per_run: 5
 
-# Data sources - all free by default
+# Data sources
 data_sources:
   toobit:
     enabled: true
@@ -37,37 +46,47 @@ data_sources:
     enabled: true
     scrape: true
   coingecko:
-    enabled: true                 # used for market cap & metadata
+    enabled: true
   arkham:
-    enabled: false                # needs API key
+    enabled: false
   nansen:
-    enabled: false                # needs API key
+    enabled: false
   cryptoquant:
-    enabled: false                # needs API key
+    enabled: false
   coinglass:
-    enabled: true                 # free tier for liquidations
+    enabled: true
   telegram:
     enabled: true
 
-# Initial scoring weights (will be tuned by ML)
-# Total = 100. These are the *prior* weights used until ML has data.
+# Rule-based scoring weights (sum will be renormalised)
+rule_weights:
+  technical: 12
+  momentum: 12
+  volume: 18
+  vwap: 8
+  atr_bb: 6
+  structure: 10
+  candle: 8
+  mtf: 8
+  pattern: 8
+
+# ML auto-tuning
+ml:
+  enabled: true
+  min_history_to_train: 30
+  retrain_every_n_runs: 1
+  model_path: models/logreg_model.joblib
+  history_path: data/signal_history.csv
+  evaluate_previous: true
+
+# Backward-compat with old ml_weights-based code
 weights:
   technical: 40
   pattern: 20
   social: 25
   whale: 15
 
-# ML auto-tuning
-ml:
-  enabled: true
-  min_history_to_train: 20       # need 20 labeled runs before training
-  retrain_every_n_runs: 5
-  model_path: models/weight_model.joblib
-  history_path: data/signal_history.csv
-  # We learn a mapping from features -> optimal weights via a
-  # simple reinforcement-style update. Initial weights come from config.
-
-# Telegram - set as GitHub Secrets
+# Telegram
 telegram:
   bot_token_env: TELEGRAM_BOT_TOKEN
   chat_id_env: TELEGRAM_CHAT_ID
