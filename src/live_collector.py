@@ -133,7 +133,7 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             )
             # Add BTC correlation features as extras
             for k, v in btc_corr.items():
-                feats[f"f_{k}"] = float(v) if isinstance(v, (int, float, bool)) else 0.0
+                feats[k] = float(v) if isinstance(v, (int, float, bool)) else 0.0
             last_close = float(df["close"].iloc[-1])
             row = {
                 "ts": now.isoformat(),
