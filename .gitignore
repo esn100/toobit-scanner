@@ -25,8 +25,11 @@ Thumbs.db
 data/last_scan.json
 data/signal_history.csv
 data/smoke_history.csv
+data/coingecko_coins_list.json
+data/cooldown.json
 models/*.joblib
 reports/*.json
+src/dashboard.html
 
 # Secrets
 .env
