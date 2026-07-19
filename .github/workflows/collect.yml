@@ -44,17 +44,18 @@ jobs:
           python -m src.live_collector --once
 
       - name: Commit data
+        env:
+          # Override GITHUB_TOKEN so the runner doesn't auto-rewrite the
+          # remote URL with the github-actions[bot] identity.
+          GITHUB_TOKEN: ""
         run: |
           git config user.email "toobit-scanner@arena.local"
           git config user.name "Toobit Scanner"
           git remote set-url origin https://esn100:${{ secrets.PUSH_TOKEN }}@github.com/${{ github.repository }}.git
-          echo "remote url set"
-          git remote -v
           git add -A data/
           if git diff --cached --quiet; then
             echo "no new data to commit"
           else
             git commit -m "data: collector snapshot $(date -u +%Y-%m-%dT%H:%M:%S)"
-            git push 2>&1
-            echo "exit=$?"
+            git push
           fi
