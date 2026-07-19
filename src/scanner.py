@@ -26,6 +26,7 @@ import yaml
 
 from toobit_client import ToobitClient
 from market_filter import CoinGeckoClient, filter_small_cap_symbols
+from coinpaprika import CoinPaprikaClient
 from lunarcrush import LunarCrushClient
 from google_trends import GoogleTrendsClient
 from tradingview_scraper import TradingViewScraper
@@ -163,6 +164,7 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     cache_dir = os.path.join(project_root, "data")
     coingecko = CoinGeckoClient(cache_dir=cache_dir)
+    coingpaprika = CoinPaprikaClient()
     cg_simple = coingecko._get("/simple/price", {
         "vs_currencies": "usd",
         "ids": "",  # we'll use market caps for major coins
@@ -194,6 +196,30 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
         min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
         max_symbols=cfg["scanner"]["max_symbols_per_run"],
     )
+    # If CoinGecko returned nothing, try CoinPaprika as a fallback
+    if filtered.empty:
+        print("[scanner] CoinGecko yielded no matches; trying CoinPaprika...",
+              flush=True)
+        try:
+            mc_map = coingpaprika.get_market_caps_for_symbols(
+                tickers["symbol"].tolist()
+            )
+            if mc_map:
+                t2 = tickers.copy()
+                t2["market_cap_usd"] = t2["symbol"].map(mc_map).fillna(0.0)
+                t2 = t2[
+                    (t2["market_cap_usd"] > 0)
+                    & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
+                    & (t2["quote_volume_24h"] >= cfg["scanner"]["min_24h_volume_usd"])
+                ]
+                t2 = t2.sort_values(
+                    "quote_volume_24h", ascending=False
+                ).head(cfg["scanner"]["max_symbols_per_run"]).reset_index(drop=True)
+                filtered = t2
+                print(f"[scanner] CoinPaprika produced {len(filtered)} matches.",
+                      flush=True)
+        except Exception as e:
+            print(f"[scanner] CoinPaprika fallback failed: {e}", flush=True)
     if filtered.empty:
         print("[scanner] No symbols passed the filter.", flush=True)
         return {"alerts": [], "results": []}
