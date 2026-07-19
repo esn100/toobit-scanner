@@ -16,6 +16,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Use the user's PAT so we can push data back. The default
+          # GITHUB_TOKEN gets re-injected by the runner on every git
+          # operation, which breaks PAT auth.
+          token: ${{ secrets.PUSH_TOKEN }}
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -43,15 +49,10 @@ jobs:
         run: |
           python -m src.live_collector --once
 
-      - name: Commit data
-        env:
-          # Override GITHUB_TOKEN so the runner doesn't auto-rewrite the
-          # remote URL with the github-actions[bot] identity.
-          GITHUB_TOKEN: ""
+      - name: Commit and push data
         run: |
           git config user.email "toobit-scanner@arena.local"
           git config user.name "Toobit Scanner"
-          git remote set-url origin https://esn100:${{ secrets.PUSH_TOKEN }}@github.com/${{ github.repository }}.git
           git add -A data/
           if git diff --cached --quiet; then
             echo "no new data to commit"
