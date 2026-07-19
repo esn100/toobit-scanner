@@ -131,7 +131,7 @@ class ToobitClient:
     def get_klines(self, symbol: str, interval: str = "4h", limit: int = 300) -> pd.DataFrame:
         """Fetch OHLCV candlesticks from Toobit.
 
-        The kline endpoint expects the perp symbol id (e.g. BTC-SWAP-USDT).
+        The kline endpoint expects the perp symbol id (e.g. BTCUSDT).
         Returns 11 fields per candle:
           0 open_time (ms)
           1 open
@@ -144,11 +144,28 @@ class ToobitClient:
           8 trades
           9 taker_buy_base
           10 taker_buy_quote
+
+        Toobit occasionally returns 400 for some smaller-cap perps when
+        limit=300 (likely a transient rate-limit response). We retry with
+        a smaller limit and finally fall back to whatever the API gives us.
         """
-        # Convert base+USDT style if user passed it
-        sym = self.base_to_perp(symbol) if "USDT" in symbol and "-SWAP-" not in symbol else symbol
-        params = {"symbol": sym, "interval": interval, "limit": limit}
-        data = self._get("/quote/v1/klines", params=params)
+        # Normalise symbol. We accept BTCUSDT or BTC-SWAP-USDT.
+        if "USDT" in symbol and "-SWAP-" not in symbol:
+            sym = symbol
+        elif "-SWAP-" in symbol:
+            sym = symbol
+        else:
+            sym = symbol + "USDT"
+
+        # Try a few limits. The API may not have 300 candles for new listings.
+        data: object = []
+        for try_limit in (limit, 200, 100, 50):
+            params = {"symbol": sym, "interval": interval, "limit": try_limit}
+            data = self._get("/quote/v1/klines", params=params)
+            if isinstance(data, list) and data:
+                break
+            time.sleep(0.5)
+
         if not isinstance(data, list) or not data:
             return pd.DataFrame()
         rows = []

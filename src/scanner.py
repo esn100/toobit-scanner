@@ -92,6 +92,7 @@ def scan_symbol(
         limit=cfg["scanner"]["candles_limit"],
     )
     if df.empty or len(df) < 60:
+        print(f"[scanner] {symbol}: insufficient candles ({len(df)})", flush=True)
         return {}
 
     tech = technical_analysis(df)
@@ -291,7 +292,7 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
                 results.append(r)
         except Exception as e:
             print(f"[scanner] Error scanning {row['symbol']}: {e}", flush=True)
-        time.sleep(0.3)  # politeness
+        time.sleep(0.5)  # politeness
 
     # 7. Sort by score, pick alerts above threshold
     results.sort(key=lambda x: x["score"], reverse=True)
@@ -309,12 +310,14 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
         "results": results,
         "alerts": alerts,
     }
-    out_path = os.path.join("reports", f"scan_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json")
-    os.makedirs("reports", exist_ok=True)
+    out_path = os.path.join(project_root, "reports", f"scan_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}.json")
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     # Always update a 'latest' file for the dashboard
-    with open("data/last_scan.json", "w", encoding="utf-8") as f:
+    latest_path = os.path.join(project_root, "data", "last_scan.json")
+    os.makedirs(os.path.dirname(latest_path), exist_ok=True)
+    with open(latest_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     print(f"[scanner] Wrote report: {out_path}", flush=True)
 
