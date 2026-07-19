@@ -38,9 +38,37 @@ from ml_weights import (
 from telegram_notifier import TelegramNotifier
 
 
-def load_config(path: str = "config.yaml") -> dict:
+def load_config(path: str | None = None) -> dict:
+    """
+    Load config.yaml. The file lives at the project root (one level
+    above this src/ directory). If a relative path is given we resolve
+    it relative to the project root, not the current working directory.
+    """
+    if path is None:
+        here = os.path.dirname(os.path.abspath(__file__))
+        # src/scanner.py -> project root is one level up
+        project_root = os.path.dirname(here)
+        path = os.path.join(project_root, "config.yaml")
     with open(path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+
+# Keys in config.yaml whose values are file paths we want to anchor
+# to the project root. Add more here if you add new paths to config.yaml.
+_PATH_KEYS = {
+    "ml": ["model_path", "history_path"],
+}
+
+
+def _resolve_paths(cfg: dict, project_root: str) -> dict:
+    """Resolve known relative file paths in config to be absolute."""
+    for section, keys in _PATH_KEYS.items():
+        sec = cfg.get(section, {})
+        for k in keys:
+            v = sec.get(k)
+            if v and not os.path.isabs(v):
+                sec[k] = os.path.join(project_root, v)
+    return cfg
 
 
 # ----------------------------------------------------------------------------
@@ -123,6 +151,10 @@ def scan_symbol(
 def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     if cfg is None:
         cfg = load_config()
+    # Resolve all relative paths in config to be relative to the project root
+    # so the scanner works the same whether invoked from src/ or the root.
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cfg = _resolve_paths(cfg, project_root)
     print(f"[scanner] Starting scan at {datetime.now(timezone.utc).isoformat()}", flush=True)
 
     # 1. Resolve previous labels (use latest 24h prices as a proxy)
