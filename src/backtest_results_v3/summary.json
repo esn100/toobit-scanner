@@ -1,0 +1,36 @@
+{
+  "n_snapshots": 240,
+  "n_with_okx": 8,
+  "base_pump_5": 0.1625,
+  "base_dump_5": 0.1875,
+  "best_30": {
+    "n": 108,
+    "long_count": 54,
+    "success_5pct": 0.19444444444444445,
+    "success_10pct": 0.046296296296296294
+  },
+  "best_40": {
+    "n": 55,
+    "long_count": 30,
+    "success_5pct": 0.16363636363636364,
+    "success_10pct": 0.03636363636363636
+  },
+  "best_50": {
+    "n": 26,
+    "long_count": 13,
+    "success_5pct": 0.23076923076923078,
+    "success_10pct": 0.038461538461538464
+  },
+  "best_60": {
+    "n": 8,
+    "long_count": 6,
+    "success_5pct": 0.25,
+    "success_10pct": 0.0
+  },
+  "best_70": {
+    "n": 5,
+    "long_count": 3,
+    "success_5pct": 0.4,
+    "success_10pct": 0.0
+  }
+}

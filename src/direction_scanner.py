@@ -40,6 +40,11 @@ from btc_filter import BTCFilter
 from btc_correlation import btc_correlation_features
 from cooldown import CooldownGuard
 from telegram_notifier import TelegramNotifier
+from okx_history import OKXHistory
+from binance_history import BinanceHistory
+from elliott_wave import detect_elliott_waves, elliott_score
+from fibonacci import compute_fib_levels, fib_score
+from ichimoku import ichimoku_features, ichimoku_score
 
 
 def compute_long_score(pack: Dict) -> float:
@@ -130,7 +135,9 @@ def compute_short_score(pack: Dict) -> float:
 
 
 def deep_analyze(symbol: str, toobit: ToobitClient,
-                 btc_state: dict, btc_df_1h: pd.DataFrame) -> Dict:
+                 btc_state: dict, btc_df_1h: pd.DataFrame,
+                 okx: Optional[OKXHistory] = None,
+                 binance: Optional[BinanceHistory] = None) -> Dict:
     """Full deep analysis on a symbol."""
     out = {"pass2_ok": False, "long_score": 0.0, "short_score": 0.0,
            "max_direction": "NEUTRAL", "max_score": 0.0}
@@ -158,6 +165,39 @@ def deep_analyze(symbol: str, toobit: ToobitClient,
     candle_1h = candle_quality_features(df_1h)
     patterns_1h = detect_all_patterns(df_1h)
     btc_corr = btc_correlation_features(df_1h, btc_df_1h)
+    # ----- NEW: Elliott Wave, Fibonacci, Ichimoku on OKX history -----
+    elliott = {"wave": "none", "score": 50.0, "details": {}}
+    fib = {"levels": {}, "direction": "none", "current_price": 0,
+           "closest_level": None, "distance_to_closest": 100.0}
+    ichi = {"current_price": 0, "price_vs_cloud": "neutral",
+            "tk_cross": "neutral", "cloud_color": "neutral",
+            "future_cloud_color": "neutral", "cloud_thickness_pct": 0}
+    # Try OKX first (works from Iran), then Binance
+    history_provider = None
+    if okx is not None:
+        try:
+            df_hist = okx.get_history_for_toobit_symbol(symbol, "1H", 300)
+            if not df_hist.empty and len(df_hist) >= 60:
+                history_provider = "okx"
+        except Exception as e:
+            print(f"[dir] okx err for {symbol}: {e}")
+    if history_provider is None and binance is not None:
+        try:
+            df_hist = binance.get_binance_history_for_toobit_symbol(
+                symbol, "1h", days=30
+            )
+            if not df_hist.empty and len(df_hist) >= 60:
+                history_provider = "binance"
+        except Exception as e:
+            print(f"[dir] binance err for {symbol}: {e}")
+    if history_provider is not None:
+        try:
+            elliott = detect_elliott_waves(df_hist, threshold=0.04)
+            fib = compute_fib_levels(df_hist, lookback=60)
+            ichi = ichimoku_features(df_hist)
+        except Exception as e:
+            print(f"[dir] indicator err for {symbol}: {e}")
+    # ----- end new -----
     out["pass2_ok"] = True
     out["ind_1h"] = ind_1h
     out["tech_1h"] = tech_1h
@@ -165,8 +205,17 @@ def deep_analyze(symbol: str, toobit: ToobitClient,
     out["candle_1h"] = candle_1h
     out["patterns_1h"] = patterns_1h
     out["btc_corr"] = btc_corr
+    out["elliott"] = elliott
+    out["fib"] = fib
+    out["ichimoku"] = ichi
     out["long_score"] = compute_long_score(out)
     out["short_score"] = compute_short_score(out)
+    # Apply Elliott/Fib/Ichimoku boost
+    from advanced_indicators import advanced_score_boost
+    long_boost = advanced_score_boost(out, "LONG")
+    short_boost = advanced_score_boost(out, "SHORT")
+    out["long_score"] = max(0, min(100, out["long_score"] + long_boost))
+    out["short_score"] = max(0, min(100, out["short_score"] + short_boost))
     if out["long_score"] > out["short_score"]:
         out["max_direction"] = "LONG"
         out["max_score"] = out["long_score"]
@@ -194,6 +243,16 @@ def run_direction_scan(
     print(f"[dir] BTC state: {btc_state['state']}", flush=True)
     if btc_state["freeze"]:
         return {"alerts_long": [], "alerts_short": [], "watchlist": []}
+    # Binance history for Elliott/Fib/Ichimoku
+    try:
+        binance = BinanceHistory()
+    except Exception:
+        binance = None
+    # OKX history (more reliable from Iran)
+    try:
+        okx = OKXHistory()
+    except Exception:
+        okx = None
     # Adaptive thresholds based on BTC regime
     long_thr = score_threshold
     short_thr = score_threshold
@@ -236,7 +295,7 @@ def run_direction_scan(
         if i % 10 == 0 or i == len(universe):
             print(f"[dir] {i}/{len(universe)}", flush=True)
         try:
-            pack = deep_analyze(sym, toobit, btc_state, btc_df_1h)
+            pack = deep_analyze(sym, toobit, btc_state, btc_df_1h, okx, binance)
         except Exception as e:
             print(f"[dir] error {sym}: {e}")
             continue
