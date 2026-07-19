@@ -21,12 +21,14 @@ env/
 .DS_Store
 Thumbs.db
 
-# Project
+# Project — collected data is tracked by GitHub Actions
+# (feature_log.csv and outcome_log.csv are committed each cycle)
 data/last_scan.json
 data/signal_history.csv
 data/smoke_history.csv
 data/coingecko_coins_list.json
 data/cooldown.json
+data/sentiment_v2.json
 models/*.joblib
 reports/*.json
 src/dashboard.html

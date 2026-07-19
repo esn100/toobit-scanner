@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.email "toobit-scanner@arena.local"
           git config user.name "Toobit Scanner"
-          git add data/feature_log.csv data/outcome_log.csv
+          git add -A data/
           if git diff --cached --quiet; then
             echo "no new data to commit"
           else
