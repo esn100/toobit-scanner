@@ -28,6 +28,7 @@ import time
 from datetime import datetime, timezone
 from typing import List, Dict
 
+import numpy as np
 import pandas as pd
 import yaml
 

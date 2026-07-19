@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PumpHunter-AI — Dashboard</title>
+<style>
+  :root {
+    --bg: #0b0f17; --fg: #e6edf3; --muted: #8b949e;
+    --hi: #2ea043; --md: #d29922; --lo: #6e7681; --warn: #f85149;
+    --row: #11161f; --border: #21262d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: ui-sans-serif, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--fg);
+  }
+  header {
+    padding: 24px 32px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+  }
+  h1 { margin: 0; font-size: 20px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    background: #161b22; border: 1px solid var(--border); margin-left: 6px;
+    font-size: 12px;
+  }
+  .pill.approved { background: #0d2818; color: var(--hi); border-color: #1f3d2a; }
+  .pill.watchlist { background: #2a200a; color: var(--md); border-color: #4a3a13; }
+  .pill.rejected { background: #2a1414; color: var(--warn); border-color: #4a1f1f; }
+  main { padding: 24px 32px; }
+  .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+  .card {
+    background: var(--row); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+  }
+  .card .label { color: var(--muted); font-size: 12px; }
+  .card .value { font-size: 22px; font-weight: 600; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td {
+    padding: 7px 8px; border-bottom: 1px solid var(--border);
+    text-align: left; vertical-align: top;
+  }
+  th { color: var(--muted); font-weight: 500; position: sticky; top: 0; background: var(--bg); }
+  tbody tr:hover { background: #131a23; }
+  tr.row-approved { background: rgba(46, 160, 67, 0.06); }
+  tr.row-watch { background: rgba(210, 153, 34, 0.05); }
+  .sym { font-weight: 600; }
+  .score-hi { color: var(--hi); }
+  .muted { color: var(--muted); font-size: 11px; }
+  h2.section { font-size: 16px; margin: 24px 0 8px 0; }
+  .weights { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>🤖 PumpHunter-AI</h1>
+    <div class="meta">Last run: 2026-07-19T07:42:53.577988+00:00</div>
+  </div>
+  <div>
+    <span class="pill">BTC: <b style="color: var(--hi)">BULLISH</b> (mod 1.05)</span>
+    <span class="pill">Threshold: 75.0</span>
+  </div>
+</header>
+<main>
+  <div class="cards">
+    <div class="card"><div class="label">Scanned</div><div class="value">13</div></div>
+    <div class="card"><div class="label">APPROVED</div><div class="value" style="color: var(--hi)">1</div></div>
+    <div class="card"><div class="label">WATCHLIST</div><div class="value" style="color: var(--md)">1</div></div>
+    <div class="card"><div class="label">Avg score</div><div class="value">52.3</div></div>
+    <div class="card"><div class="label">Top score</div><div class="value">57.6</div></div>
+  </div>
+
+  <div class="meta" style="margin-bottom: 8px;">Rule weights:</div>
+  <div class="weights"><span class='pill'>Technical:12</span> <span class='pill'>Momentum:12</span> <span class='pill'>Volume:18</span> <span class='pill'>Vwap:8</span> <span class='pill'>Atr_bb:6</span> <span class='pill'>Structure:10</span> <span class='pill'>Candle:8</span> <span class='pill'>Mtf:8</span> <span class='pill'>Pattern:8</span></div>
+
+  <h2 class="section">🚨 Approved</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th><th>Score</th><th>ML%</th><th>Decision</th>
+        <th>MCap</th><th>24h vol</th><th>RSI</th><th>RVol</th>
+        <th>VWAP Δ%</th><th>MACD</th><th>EMA</th><th>M6%</th>
+        <th>Patterns</th><th>BTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="row-approved">
+          <td class="sym">TLMUSDT</td>
+          <td class="score-hi"><b>82.8</b></td>
+          <td>50%</td>
+          <td><span class="pill approved">APPROVED</span></td>
+          <td>$9,921,872</td>
+          <td>$3,033,836</td>
+          <td>65.1</td>
+          <td>4.60x</td>
+          <td>+24.95%</td>
+          <td>+0.0001</td>
+          <td>mixed</td>
+          <td>+51.1%</td>
+          <td>bullish_engulfing, double_bottom</td>
+          <td>BULLISH</td>
+        </tr>
+        
+    </tbody>
+  </table>
+
+  <h2 class="section">👀 Watchlist</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th><th>Score</th><th>ML%</th><th>Decision</th>
+        <th>MCap</th><th>24h vol</th><th>RSI</th><th>RVol</th>
+        <th>VWAP Δ%</th><th>MACD</th><th>EMA</th><th>M6%</th>
+        <th>Patterns</th><th>BTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="row-watch">
+          <td class="sym">OPNUSDT</td>
+          <td class="score-hi"><b>69.8</b></td>
+          <td>50%</td>
+          <td><span class="pill watchlist">WATCHLIST</span></td>
+          <td>$12,595,377</td>
+          <td>$3,024,247</td>
+          <td>56.1</td>
+          <td>2.21x</td>
+          <td>+0.30%</td>
+          <td>+0.0003</td>
+          <td>mixed</td>
+          <td>+4.4%</td>
+          <td>hammer</td>
+          <td>BULLISH</td>
+        </tr>
+        
+    </tbody>
+  </table>
+
+  <h2 class="section">📊 All scanned</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Symbol</th><th>Score</th><th>ML%</th><th>Decision</th>
+        <th>MCap</th><th>24h vol</th><th>RSI</th><th>RVol</th>
+        <th>VWAP Δ%</th><th>MACD</th><th>EMA</th><th>M6%</th>
+        <th>Patterns</th><th>BTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr class="row-rej">
+          <td class="sym">HYPERUSDT</td>
+          <td class="score-hi"><b>57.6</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$12,218,495</td>
+          <td>$6,480,679</td>
+          <td>53.5</td>
+          <td>0.96x</td>
+          <td>+0.27%</td>
+          <td>-0.0000</td>
+          <td>mixed</td>
+          <td>+1.6%</td>
+          <td>double_bottom</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">WCTUSDT</td>
+          <td class="score-hi"><b>37.6</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$7,827,675</td>
+          <td>$4,032,841</td>
+          <td>43.3</td>
+          <td>0.80x</td>
+          <td>-1.12%</td>
+          <td>+0.0000</td>
+          <td>bearish</td>
+          <td>-0.2%</td>
+          <td>bearish_engulfing, double_top</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">RECALLUSDT</td>
+          <td class="score-hi"><b>53.1</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$7,481,958</td>
+          <td>$3,733,076</td>
+          <td>64.4</td>
+          <td>0.96x</td>
+          <td>+4.04%</td>
+          <td>+0.0001</td>
+          <td>mixed</td>
+          <td>+3.4%</td>
+          <td>bullish_engulfing</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">GROVEUSDT</td>
+          <td class="score-hi"><b>35.8</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$6,716,027</td>
+          <td>$2,839,779</td>
+          <td>28.3</td>
+          <td>0.94x</td>
+          <td>-6.08%</td>
+          <td>+0.0002</td>
+          <td>mixed</td>
+          <td>-2.6%</td>
+          <td>bullish_engulfing</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">RESOLVUSDT</td>
+          <td class="score-hi"><b>55.2</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$5,547,466</td>
+          <td>$2,351,382</td>
+          <td>54.4</td>
+          <td>0.77x</td>
+          <td>+0.45%</td>
+          <td>-0.0000</td>
+          <td>mixed</td>
+          <td>+1.0%</td>
+          <td>hammer</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">SATSUSDT</td>
+          <td class="score-hi"><b>50.9</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$19,945,034</td>
+          <td>$1,769,657</td>
+          <td>52.2</td>
+          <td>0.96x</td>
+          <td>+0.27%</td>
+          <td>+0.0000</td>
+          <td>mixed</td>
+          <td>+1.2%</td>
+          <td>hammer, double_bottom</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">ACEUSDT</td>
+          <td class="score-hi"><b>37.2</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$1,411,702</td>
+          <td>$1,630,967</td>
+          <td>37.0</td>
+          <td>0.94x</td>
+          <td>-9.27%</td>
+          <td>-0.0004</td>
+          <td>bearish</td>
+          <td>-4.3%</td>
+          <td>double_top</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">TUTUSDT</td>
+          <td class="score-hi"><b>55.8</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$12,447,067</td>
+          <td>$1,560,636</td>
+          <td>54.3</td>
+          <td>0.91x</td>
+          <td>+0.81%</td>
+          <td>-0.0000</td>
+          <td>bullish</td>
+          <td>+2.6%</td>
+          <td>—</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">BREVUSDT</td>
+          <td class="score-hi"><b>51.5</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$18,524,588</td>
+          <td>$1,268,596</td>
+          <td>46.8</td>
+          <td>1.22x</td>
+          <td>-1.38%</td>
+          <td>-0.0001</td>
+          <td>bearish</td>
+          <td>+1.5%</td>
+          <td>bullish_engulfing</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">FIGHTUSDT</td>
+          <td class="score-hi"><b>50.7</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$6,413,901</td>
+          <td>$1,248,467</td>
+          <td>51.5</td>
+          <td>0.96x</td>
+          <td>+0.26%</td>
+          <td>+0.0000</td>
+          <td>mixed</td>
+          <td>+2.4%</td>
+          <td>bearish_engulfing</td>
+          <td>BULLISH</td>
+        </tr>
+        
+        <tr class="row-rej">
+          <td class="sym">USATUSDT</td>
+          <td class="score-hi"><b>42.0</b></td>
+          <td>50%</td>
+          <td><span class="pill rejected">REJECTED</span></td>
+          <td>$9,993,385</td>
+          <td>$1,075,218</td>
+          <td>49.5</td>
+          <td>0.89x</td>
+          <td>+0.00%</td>
+          <td>+0.0000</td>
+          <td>mixed</td>
+          <td>+0.0%</td>
+          <td>double_bottom, bearish_engulfing, double_top</td>
+          <td>BULLISH</td>
+        </tr>
+        
+    </tbody>
+  </table>
+</main>
+</body>
+</html>
