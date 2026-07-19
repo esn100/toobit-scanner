@@ -512,6 +512,15 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             )
 
     # ---- Pass 4: direction scoring (LONG/SHORT) ----
+    # First, backfill any rows in the existing CSV that don't have scores
+    # (handles data collected before this feature was added).
+    if FEATURE_LOG.exists():
+        try:
+            from .backfill_scores import backfill as _bf
+            _bf(only_missing=True)
+        except Exception as e:
+            pass  # backfill is best-effort, don't fail cycle
+
     for r in rows:
         try:
             ds = direction_score(r, symbol=r["symbol"])
