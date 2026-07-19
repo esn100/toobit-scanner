@@ -189,37 +189,35 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
     print(f"[scanner] Got {len(tickers)} tickers from Toobit.", flush=True)
 
     # 4. Filter by market cap
-    print("[scanner] Filtering by market cap via CoinGecko...", flush=True)
-    filtered = filter_small_cap_symbols(
-        tickers, coingecko,
-        max_market_cap_usd=cfg["scanner"]["max_market_cap_usd"],
-        min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
-        max_symbols=cfg["scanner"]["max_symbols_per_run"],
-    )
-    # If CoinGecko returned nothing, try CoinPaprika as a fallback
+    # Try CoinPaprika first (faster + better free tier), then CoinGecko
+    print("[scanner] Filtering by market cap via CoinPaprika...", flush=True)
+    filtered = pd.DataFrame()
+    try:
+        mc_map = coingpaprika.get_market_caps_for_symbols(tickers["symbol"].tolist())
+        if mc_map:
+            t2 = tickers.copy()
+            t2["market_cap_usd"] = t2["symbol"].map(mc_map).fillna(0.0)
+            t2 = t2[
+                (t2["market_cap_usd"] > 0)
+                & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
+                & (t2["quote_volume_24h"] >= cfg["scanner"]["min_24h_volume_usd"])
+            ]
+            filtered = t2.sort_values(
+                "quote_volume_24h", ascending=False
+            ).head(cfg["scanner"]["max_symbols_per_run"]).reset_index(drop=True)
+            print(f"[scanner] CoinPaprika produced {len(filtered)} matches.",
+                  flush=True)
+    except Exception as e:
+        print(f"[scanner] CoinPaprika failed: {e}", flush=True)
+
     if filtered.empty:
-        print("[scanner] CoinGecko yielded no matches; trying CoinPaprika...",
-              flush=True)
-        try:
-            mc_map = coingpaprika.get_market_caps_for_symbols(
-                tickers["symbol"].tolist()
-            )
-            if mc_map:
-                t2 = tickers.copy()
-                t2["market_cap_usd"] = t2["symbol"].map(mc_map).fillna(0.0)
-                t2 = t2[
-                    (t2["market_cap_usd"] > 0)
-                    & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
-                    & (t2["quote_volume_24h"] >= cfg["scanner"]["min_24h_volume_usd"])
-                ]
-                t2 = t2.sort_values(
-                    "quote_volume_24h", ascending=False
-                ).head(cfg["scanner"]["max_symbols_per_run"]).reset_index(drop=True)
-                filtered = t2
-                print(f"[scanner] CoinPaprika produced {len(filtered)} matches.",
-                      flush=True)
-        except Exception as e:
-            print(f"[scanner] CoinPaprika fallback failed: {e}", flush=True)
+        print("[scanner] Trying CoinGecko as fallback...", flush=True)
+        filtered = filter_small_cap_symbols(
+            tickers, coingecko,
+            max_market_cap_usd=cfg["scanner"]["max_market_cap_usd"],
+            min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
+            max_symbols=cfg["scanner"]["max_symbols_per_run"],
+        )
     if filtered.empty:
         print("[scanner] No symbols passed the filter.", flush=True)
         return {"alerts": [], "results": []}

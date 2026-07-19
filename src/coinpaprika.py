@@ -73,6 +73,8 @@ class CoinPaprikaClient:
             if sym not in sym_to_mc or mc > sym_to_mc[sym]:
                 sym_to_mc[sym] = float(mc)
         for sym in symbols:
+            if not sym:
+                continue
             base = sym.replace("USDT", "").upper()
             if base in sym_to_mc:
                 result[sym] = sym_to_mc[base]
