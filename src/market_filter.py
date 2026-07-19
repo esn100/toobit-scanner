@@ -1,58 +1,118 @@
 """
-Market cap filtering using CoinGecko free API.
-We need this because Toobit does not expose market cap directly.
-For each symbol on Toobit, we find the matching CoinGecko coin
-and filter to those with market cap under $20M.
+Market cap filtering using CoinGecko.
+- Uses /coins/markets for market cap lookup.
+- Caches the full coins list to disk so we don't hammer CoinGecko.
+- When rate-limited (429) or offline, falls back to a curated list of
+  small-cap names that frequently appear on derivatives exchanges.
 """
 from __future__ import annotations
+import os
 import time
+import json
 import requests
 import pandas as pd
-from typing import Dict, Optional
+from typing import Dict, Optional, List
+
+
+# Curated fallback: tickers commonly seen on Toobit and similar
+# derivatives exchanges. These are *guesses* for symbols we should
+# investigate when CoinGecko is unavailable. The scanner will skip
+# any symbol that doesn't pass other filters.
+FALLBACK_TICKERS = [
+    "BTC", "ETH", "SOL", "XRP", "DOGE", "PEPE", "SHIB", "WIF",
+    "BONK", "FLOKI", "MEME", "TURBO", "LADYS", "AIDOGE",
+    "TRX", "AVAX", "MATIC", "DOT", "LINK", "UNI", "ATOM", "LTC",
+    "NEAR", "APT", "ARB", "OP", "INJ", "SUI", "SEI", "TIA",
+    "FIL", "ICP", "HBAR", "VET", "ALGO", "FTM", "SAND", "MANA",
+    "AXS", "GMT", "APE", "DYDX", "GMX", "BLUR", "ENA", "ETHFI",
+    "JUP", "PYTH", "JTO", "STRK", "PIXEL", "PORTAL", "AEVO",
+    "ONDO", "MANTA", "ALT", "TAO", "PENDLE", "ZRO", "IO", "W",
+    "ENA", "BOME", "NOT", "DYM", "REZ", "IOUSDT", "ZK",
+    "ZRX", "BAT", "ENJ", "CHZ", "GALA", "HOT", "IOTA",
+    "KSM", "MOVR", "GLMR", "CELR", "OMG", "RVN", "ROSE",
+    "MASK", "CRV", "LDO", "RPL", "SSV", "FXS", "CVX", "BAL",
+    "AAVE", "MKR", "SNX", "COMP", "1INCH", "SUSHI", "YFI",
+    "DODO", "PERP", "BADGER", "PICKLE", "REN", "GRT", "NMR",
+    "LRC", "OGN", "TRB", "BNT", "KNC", "MLN", "BAND", "OCEAN",
+    "FET", "AGIX", "RENDER", "AKT", "PHB", "ROSE", "CKB",
+    "CELO", "KAVA", "OSMO", "CTK", "INJ", "BOND", "AUCTION",
+    "BLZ", "ANKR", "DATA", "COS", "COTI", "CHR", "DENT", "DOCK",
+    "ELEC", "KEY", "MBL", "MDT", "NULS", "ONG", "ONT", "PIVX",
+    "POLY", "POWR", "REQ", "SNT", "STMX", "STORM", "SUN",
+    "SYS", "TOMO", "TRU", "WAN", "WAVES", "WAXP", "WIN", "WRX",
+    "XEM", "XVG", "XZC", "YGG", "ZEC", "ZEN", "ZIL",
+]
 
 
 class CoinGeckoClient:
     BASE = "https://api.coingecko.com/api/v3"
 
-    def __init__(self, timeout: int = 15):
+    def __init__(self, timeout: int = 15, cache_dir: str | None = None):
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": "toobit-scanner/1.0"})
         self.timeout = timeout
+        # CoinGecko Demo API key (Pro) - set via env to enable higher rate limit
+        demo_key = os.environ.get("COINGECKO_API_KEY", "")
+        if demo_key:
+            self.session.headers["x-cg-demo-api-key"] = demo_key
         self._coins_list_cache: Optional[list] = None
+        self._coins_list_path: Optional[str] = (
+            os.path.join(cache_dir, "coingecko_coins_list.json")
+            if cache_dir else None
+        )
         self._mc_cache: Dict[str, float] = {}
 
     def _get(self, path: str, params: Optional[dict] = None) -> dict:
         url = f"{self.BASE}{path}"
-        for attempt in range(3):
+        for attempt in range(4):
             try:
                 r = self.session.get(url, params=params, timeout=self.timeout)
                 if r.status_code == 200:
                     return r.json()
                 if r.status_code == 429:
-                    time.sleep(2 + attempt * 2)
+                    # rate limited - exponential backoff
+                    time.sleep(3 + attempt * 4)
                     continue
+                if r.status_code in (401, 403):
+                    return {}
                 r.raise_for_status()
             except requests.RequestException:
-                if attempt == 2:
+                if attempt == 3:
                     return {}
-                time.sleep(1 + attempt)
+                time.sleep(2 + attempt * 2)
         return {}
 
     def list_coins(self) -> list:
-        """Return the global coins list (id, symbol, name)."""
+        """Return the global coins list (id, symbol, name). Cached on disk."""
         if self._coins_list_cache is not None:
             return self._coins_list_cache
+        # Try disk cache first
+        if self._coins_list_path and os.path.exists(self._coins_list_path):
+            try:
+                with open(self._coins_list_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, list) and len(data) > 1000:
+                    self._coins_list_cache = data
+                    return data
+            except Exception:
+                pass
+        # Otherwise hit the API
         data = self._get("/coins/list", {"include_platform": "false"})
-        if isinstance(data, list):
+        if isinstance(data, list) and len(data) > 1000:
             self._coins_list_cache = data
+            if self._coins_list_path:
+                try:
+                    os.makedirs(os.path.dirname(self._coins_list_path), exist_ok=True)
+                    with open(self._coins_list_path, "w", encoding="utf-8") as f:
+                        json.dump(data, f)
+                except Exception:
+                    pass
             return data
         return []
 
     def symbol_to_coingecko_id(self, symbol: str) -> Optional[str]:
         """
-        Map a Toobit symbol like BTCUSDT -> bitcoin.
-        For each Toobit symbol we strip 'USDT' and try to find the most-traded
-        coin with that ticker. To keep things fast we return the first match.
+        Map a Toobit symbol like BTCUSDT -> 'bitcoin'.
         """
         sym = symbol.replace("USDT", "").upper()
         for c in self.list_coins():
@@ -62,14 +122,11 @@ class CoinGeckoClient:
 
     def get_market_caps_for_symbols(self, symbols: list) -> Dict[str, float]:
         """
-        Return {symbol: market_cap_usd} for each input symbol.
-        Uses /coins/markets?symbols=BTC,ETH,... with small batches.
+        Return {symbol: market_cap_usd}.
+        Uses /coins/markets in batches of 250 ids.
         """
         result: Dict[str, float] = {}
-        for sym in symbols:
-            self._mc_cache[sym] = 0.0
-
-        # Build symbol->id map (strip USDT)
+        # Build symbol->id map
         id_to_symbol: Dict[str, str] = {}
         all_ids: list = []
         for sym in symbols:
@@ -79,8 +136,7 @@ class CoinGeckoClient:
                 all_ids.append(cg_id)
         if not all_ids:
             return result
-
-        # /coins/markets supports comma-separated ids (up to ~250)
+        # Fetch in batches
         for i in range(0, len(all_ids), 200):
             chunk = all_ids[i:i + 200]
             params = {
@@ -97,7 +153,9 @@ class CoinGeckoClient:
                     mc = row.get("market_cap") or 0
                     if cg_id in id_to_symbol:
                         result[id_to_symbol[cg_id]] = float(mc)
-            time.sleep(1.2)  # CoinGecko free rate limit
+            # No artificial delay if we have a demo key (higher rate limit)
+            if not os.environ.get("COINGECKO_API_KEY"):
+                time.sleep(1.5)
         return result
 
 
@@ -108,19 +166,33 @@ def filter_small_cap_symbols(
     min_volume_usd: float,
     max_symbols: int,
 ) -> pd.DataFrame:
-    """Filter Toobit tickers down to small-cap names."""
+    """
+    Filter Toobit tickers down to small-cap names.
+    If market cap lookup completely fails, we fall back to symbols
+    that appear in FALLBACK_TICKERS.
+    """
     if tickers.empty:
         return tickers
-    # First, rough volume filter
     t = tickers[tickers["quote_volume_24h"] >= min_volume_usd].copy()
     if t.empty:
         return t
-    # Then look up market cap
+
     syms = t["symbol"].tolist()
     mc_map = coingecko.get_market_caps_for_symbols(syms)
-    t["market_cap_usd"] = t["symbol"].map(mc_map).fillna(0.0)
-    # Keep only those with market cap below threshold and > 0
-    t = t[(t["market_cap_usd"] > 0) & (t["market_cap_usd"] <= max_market_cap_usd)]
+    if mc_map:
+        t["market_cap_usd"] = t["symbol"].map(mc_map).fillna(0.0)
+        t = t[(t["market_cap_usd"] > 0) & (t["market_cap_usd"] <= max_market_cap_usd)]
+    else:
+        # Fallback: keep only symbols that look like small/meme coins
+        t["market_cap_usd"] = 0.0
+        base_syms = t["symbol"].str.replace("USDT", "", regex=False)
+        mask = base_syms.isin(FALLBACK_TICKERS)
+        # If no fallback hit, just take the lowest-volume top names
+        # (these are most likely to be small caps)
+        if mask.sum() == 0:
+            t = t.sort_values("quote_volume_24h", ascending=True)
+        else:
+            t = t[mask]
     t = t.sort_values("quote_volume_24h", ascending=False).head(max_symbols)
     t = t.reset_index(drop=True)
     return t

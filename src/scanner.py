@@ -159,7 +159,10 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
 
     # 1. Resolve previous labels (use latest 24h prices as a proxy)
     history_path = cfg["ml"]["history_path"]
-    coingecko = CoinGeckoClient()
+    # Cache the CoinGecko coins list inside data/ so the next run reuses it
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    cache_dir = os.path.join(project_root, "data")
+    coingecko = CoinGeckoClient(cache_dir=cache_dir)
     cg_simple = coingecko._get("/simple/price", {
         "vs_currencies": "usd",
         "ids": "",  # we'll use market caps for major coins

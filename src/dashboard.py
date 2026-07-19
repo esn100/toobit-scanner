@@ -9,7 +9,15 @@ import html
 from datetime import datetime
 
 
-def render_dashboard(scan_path: str = "data/last_scan.json", out_path: str = "dashboard.html") -> str:
+def render_dashboard(
+    scan_path: str | None = None,
+    out_path: str = "dashboard.html",
+) -> str:
+    # Default: data/last_scan.json at the project root
+    if scan_path is None:
+        here = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(here)
+        scan_path = os.path.join(project_root, "data", "last_scan.json")
     if not os.path.exists(scan_path):
         with open(out_path, "w", encoding="utf-8") as f:
             f.write("<h1>No scan data yet.</h1>")
