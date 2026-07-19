@@ -74,6 +74,11 @@ def detect_market_regime(sentiment: SentimentSnapshot, btc_change_24h: float) ->
 
 
 def compute_long_score(pack: Dict) -> float:
+    """Score 0-100 for LONG (pump) signal.
+
+    Early-pump detection: if higher_lows + positive M6 + volume spike,
+    this is the start of a pump. Award heavily.
+    """
     ind_1h = pack.get("ind_1h", {})
     tech_1h = pack.get("tech_1h", {})
     struct_1h = pack.get("struct_1h", {})
@@ -82,22 +87,34 @@ def compute_long_score(pack: Dict) -> float:
     rvol = ind_1h.get("rvol", 1.0)
     m1 = ind_1h.get("momentum_1_pct", 0)
     m3 = ind_1h.get("momentum_3_pct", 0)
+    m6 = ind_1h.get("momentum_6_pct", 0)
     mom_acc = ind_1h.get("momentum_acceleration", 0)
     rsi_1h = tech_1h.get("rsi_value", 50)
+    higher_lows = struct_1h.get("higher_lows", False)
     bb_squeeze = ind_1h.get("bb_squeeze", False)
     volume_spike = ind_1h.get("volume_spike", False)
     score = 0.0
+    # Volume king
     if rvol >= 5.0: score += 35
     elif rvol >= 3.0: score += 25
     elif rvol >= 2.0: score += 15
     elif rvol < 0.5: score -= 10
     if volume_spike: score += 8
+    # Early pump detection: higher_lows + positive M6
+    if higher_lows and m6 > 0: score += 12
+    if higher_lows and m6 > 3.0: score += 8  # strong uptrend
+    # Momentum
     if m3 > 5.0: score += 15
     elif m3 > 2.0: score += 10
     elif m3 > 0: score += 5
     if m1 > 1.0: score += 8
     elif m1 > 0: score += 4
     if mom_acc > 0: score += min(10, mom_acc * 5)
+    # M6 trend
+    if m6 > 5.0: score += 10
+    elif m6 > 2.0: score += 6
+    elif m6 > 0: score += 3
+    # RSI sweet spot
     if 30 <= rsi_1h <= 65: score += 10
     elif rsi_1h > 75: score -= 12
     if bb_squeeze: score += 5
@@ -109,6 +126,12 @@ def compute_long_score(pack: Dict) -> float:
 
 
 def compute_short_score(pack: Dict) -> float:
+    """Score 0-100 for SHORT (dump) signal.
+
+    Anti-pump-early detection: if the symbol is in an uptrend
+    (higher_lows + positive M6) with volume spike, it's likely
+    an EARLY PUMP, not a dump. Heavy penalty to avoid SHORT traps.
+    """
     ind_1h = pack.get("ind_1h", {})
     tech_1h = pack.get("tech_1h", {})
     struct_1h = pack.get("struct_1h", {})
@@ -117,24 +140,42 @@ def compute_short_score(pack: Dict) -> float:
     rvol = ind_1h.get("rvol", 1.0)
     m1 = ind_1h.get("momentum_1_pct", 0)
     m3 = ind_1h.get("momentum_3_pct", 0)
+    m6 = ind_1h.get("momentum_6_pct", 0)
     mom_acc = ind_1h.get("momentum_acceleration", 0)
     rsi_1h = tech_1h.get("rsi_value", 50)
     higher_highs = struct_1h.get("higher_highs", False)
     higher_lows = struct_1h.get("higher_lows", False)
     big_wick = candle_1h.get("big_wick_top", False)
     score = 0.0
+    # === EARLY PUMP DETECTION (heavy penalty) ===
+    # If higher_lows AND M6>0 AND rvol>2: this is a pump, not a dump
+    if higher_lows and m6 > 0 and rvol >= 1.5:
+        # Volume spike in an uptrend = early pump, not dump
+        score -= 25
+    if higher_lows and m6 > 3.0:
+        # Strong uptrend confirmed
+        score -= 15
+    # === Normal SHORT scoring ===
     if higher_highs: score += 15
     if higher_lows: score += 10
     if m3 < -5.0: score += 15
     elif m3 < -2.0: score += 10
     elif m3 < 0: score += 5
+    # M6 negative: confirmed downtrend
+    if m6 < -3.0: score += 10
+    elif m6 < 0: score += 5
+    # M6 positive: downtrend penalty (no short in uptrend)
+    if m6 > 0: score -= 8
     if m1 < -1.0: score += 8
     elif m1 < 0: score += 4
     if mom_acc < 0: score += min(10, abs(mom_acc) * 5)
     if rsi_1h > 75: score += 15
     elif rsi_1h > 65: score += 8
-    if rvol >= 3.0 and m1 < 0: score += 12
-    elif rvol >= 2.0 and m1 < 0: score += 8
+    # High volume on negative move only (not on early pump)
+    if rvol >= 3.0 and m1 < 0 and m3 < 0 and not (higher_lows and m6 > 0):
+        score += 12
+    elif rvol >= 2.0 and m1 < 0 and m3 < 0:
+        score += 8
     if big_wick: score += 12
     btc_corr_2d = btc_corr.get("btc_corr_2d", 0)
     if btc_corr_2d > 0.6:
