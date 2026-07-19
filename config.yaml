@@ -58,17 +58,18 @@ data_sources:
   telegram:
     enabled: true
 
-# Rule-based scoring weights (sum will be renormalised)
+# Rule-based scoring weights (backtest-optimised on 90 days / 20 symbols)
+# Total = 100. The grid-search found these to maximise top-10% precision.
 rule_weights:
-  technical: 12
-  momentum: 12
-  volume: 18
-  vwap: 8
-  atr_bb: 6
-  structure: 10
-  candle: 8
-  mtf: 8
-  pattern: 8
+  technical: 9.9
+  momentum: 9.9
+  volume: 14.8
+  vwap: 4.9
+  atr_bb: 12.3
+  structure: 18.5
+  candle: 14.8
+  mtf: 4.9
+  pattern: 9.9
 
 # ML auto-tuning
 ml:

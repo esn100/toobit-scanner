@@ -1,0 +1,29 @@
+{
+  "best_weights": {
+    "technical": 8,
+    "momentum": 8,
+    "volume": 12,
+    "vwap": 4,
+    "atr_bb": 10,
+    "structure": 15,
+    "candle": 12,
+    "mtf": 4,
+    "pattern": 8
+  },
+  "best_normalized": {
+    "technical": 0.09876543209876543,
+    "momentum": 0.09876543209876543,
+    "volume": 0.14814814814814814,
+    "vwap": 0.04938271604938271,
+    "atr_bb": 0.12345679012345678,
+    "structure": 0.18518518518518517,
+    "candle": 0.14814814814814814,
+    "mtf": 0.04938271604938271,
+    "pattern": 0.09876543209876543
+  },
+  "best_metric": 0.14083475893084227,
+  "best_precision_top10": 0.2051792828685259,
+  "best_separation": -0.9302463590419521,
+  "baseline_precision_top10": 0.18326693227091634,
+  "n_combinations": 19683
+}

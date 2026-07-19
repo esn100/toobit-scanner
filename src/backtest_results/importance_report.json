@@ -1,0 +1,274 @@
+{
+  "n_samples": 5016,
+  "n_features": 28,
+  "positive_rate": 0.17703349282296652,
+  "feature_names": [
+    "rsi_value",
+    "rsi_divergence",
+    "macd_hist",
+    "macd_divergence",
+    "ema_alignment",
+    "rvol",
+    "volume_spike",
+    "vwap_distance_pct",
+    "price_above_vwap",
+    "atr_pct",
+    "atr_expanding",
+    "bb_squeeze",
+    "bb_breakout_above",
+    "momentum_1_pct",
+    "momentum_3_pct",
+    "momentum_6_pct",
+    "momentum_12_pct",
+    "momentum_acceleration",
+    "higher_highs",
+    "higher_lows",
+    "bos_up",
+    "in_range",
+    "candle_strength",
+    "big_wick_top",
+    "power_streak",
+    "mtf_alignment",
+    "btc_state",
+    "btc_momentum_12_pct"
+  ],
+  "pearson": {
+    "in_range": -0.15400353213679427,
+    "atr_pct": 0.09318518933273778,
+    "candle_strength": -0.06158241804593524,
+    "vwap_distance_pct": -0.05625670218879887,
+    "ema_alignment": -0.0558454799755164,
+    "rsi_value": -0.05304087851150432,
+    "price_above_vwap": -0.050455695939975946,
+    "momentum_6_pct": -0.049821210075572095,
+    "macd_divergence": 0.04490645793318293,
+    "momentum_12_pct": -0.04173447087434743,
+    "big_wick_top": 0.03951846243468988,
+    "mtf_alignment": -0.033808471212262804,
+    "momentum_3_pct": -0.033155823339944594,
+    "higher_highs": 0.03291035126632994,
+    "momentum_1_pct": -0.028066118962017664,
+    "rsi_divergence": 0.021317195040534382,
+    "atr_expanding": -0.01798275028827364,
+    "rvol": 0.017860462031913618,
+    "higher_lows": -0.014959678166185588,
+    "macd_hist": -0.014049325889745458,
+    "power_streak": -0.012509129653814668,
+    "bb_breakout_above": 0.010704717918744201,
+    "volume_spike": 0.0065636598841245,
+    "momentum_acceleration": 0.0027113849870927698,
+    "bos_up": 0.001824019662951854,
+    "bb_squeeze": -0.0010953119249160767,
+    "btc_state": NaN,
+    "btc_momentum_12_pct": NaN
+  },
+  "chi_square": {
+    "atr_pct": {
+      "chi2": 190.38053242195684,
+      "p_value": 2.625847270663692e-43,
+      "significant": true
+    },
+    "rvol": {
+      "chi2": 20.034366488581604,
+      "p_value": 7.60628172707457e-06,
+      "significant": true
+    },
+    "vwap_distance_pct": {
+      "chi2": 20.034366488581604,
+      "p_value": 7.60628172707457e-06,
+      "significant": true
+    },
+    "momentum_6_pct": {
+      "chi2": 19.377546878273623,
+      "p_value": 1.0726076528696637e-05,
+      "significant": true
+    },
+    "ema_alignment": {
+      "chi2": 17.078616853604885,
+      "p_value": 3.5863841931661065e-05,
+      "significant": true
+    },
+    "candle_strength": {
+      "chi2": 15.08632542426147,
+      "p_value": 0.00010270459231982696,
+      "significant": true
+    },
+    "macd_hist": {
+      "chi2": 11.835068353236958,
+      "p_value": 0.0005812556482006348,
+      "significant": true
+    },
+    "momentum_3_pct": {
+      "chi2": 10.838891944269852,
+      "p_value": 0.0009939019092816282,
+      "significant": true
+    },
+    "mtf_alignment": {
+      "chi2": 8.113090561491724,
+      "p_value": 0.004394673800131817,
+      "significant": true
+    },
+    "rsi_value": {
+      "chi2": 7.2920660486067455,
+      "p_value": 0.006925978155376652,
+      "significant": true
+    },
+    "momentum_12_pct": {
+      "chi2": 6.897974282421957,
+      "p_value": 0.008629347339489762,
+      "significant": true
+    },
+    "momentum_1_pct": {
+      "chi2": 4.763310548921014,
+      "p_value": 0.02907257865243729,
+      "significant": true
+    },
+    "momentum_acceleration": {
+      "chi2": 3.0227385816048606,
+      "p_value": 0.08210471010265227,
+      "significant": false
+    },
+    "macd_divergence": {
+      "chi2": 1.1728845222910682,
+      "p_value": 0.2788093406307964,
+      "significant": false
+    },
+    "rsi_divergence": {
+      "chi2": 0.2782715713625846,
+      "p_value": 0.5978363342456654,
+      "significant": false
+    }
+  },
+  "mutual_info": {
+    "atr_pct": 0.0332425885289378,
+    "macd_hist": 0.01942481242743943,
+    "in_range": 0.018292631223177258,
+    "momentum_12_pct": 0.013430854284773863,
+    "momentum_1_pct": 0.010109789952903014,
+    "mtf_alignment": 0.009218779788980891,
+    "momentum_6_pct": 0.008769322880140207,
+    "higher_lows": 0.008311132198790538,
+    "volume_spike": 0.00674656306699295,
+    "vwap_distance_pct": 0.005127162574996236,
+    "momentum_3_pct": 0.00467815146277939,
+    "price_above_vwap": 0.00458024638900989,
+    "big_wick_top": 0.0034238761311191634,
+    "candle_strength": 0.0029676549102040095,
+    "rsi_value": 0.0017222423408691512,
+    "btc_momentum_12_pct": 0.0016602947238792964,
+    "rvol": 0.0015171475335113982,
+    "momentum_acceleration": 0.0008121211419576113,
+    "rsi_divergence": 0.0005154096789281581,
+    "higher_highs": 0.00020702091285729196,
+    "ema_alignment": 0.0001908865608943877,
+    "macd_divergence": 0.0,
+    "atr_expanding": 0.0,
+    "bb_squeeze": 0.0,
+    "bb_breakout_above": 0.0,
+    "bos_up": 0.0,
+    "power_streak": 0.0,
+    "btc_state": 0.0
+  },
+  "logreg_coef": {
+    "in_range": -0.5145086895964426,
+    "atr_pct": 0.17185203441401528,
+    "higher_highs": 0.15388693896783928,
+    "bb_squeeze": 0.14772262656043064,
+    "bb_breakout_above": 0.13202231945882584,
+    "candle_strength": -0.12568283200270408,
+    "vwap_distance_pct": 0.12154052871748143,
+    "atr_expanding": -0.12124217027740843,
+    "momentum_6_pct": -0.10959123479844364,
+    "rsi_value": -0.09573737094237914,
+    "momentum_1_pct": -0.09157231672994275,
+    "power_streak": 0.08868471113475947,
+    "macd_divergence": 0.08807013302759358,
+    "momentum_acceleration": 0.08333404910768394,
+    "ema_alignment": -0.08107394413584372,
+    "bos_up": 0.06847967253150751,
+    "macd_hist": -0.06493404039794415,
+    "rvol": 0.0635772974228547,
+    "big_wick_top": 0.05672540869589067,
+    "price_above_vwap": -0.05468587178345952,
+    "mtf_alignment": 0.04243143822391742,
+    "higher_lows": -0.03632699699160465,
+    "momentum_12_pct": -0.026529524798915557,
+    "momentum_3_pct": -0.025125458542867452,
+    "volume_spike": -0.011786230948455633,
+    "rsi_divergence": 0.0020088119379324727,
+    "btc_state": 0.0,
+    "btc_momentum_12_pct": 0.0
+  },
+  "logreg_cv_f1_mean": 0.33545671753492423,
+  "logreg_cv_f1_std": 0.03384754224918411,
+  "rf_importance": {
+    "atr_pct": 0.18947110104928327,
+    "macd_hist": 0.09770500439291664,
+    "momentum_6_pct": 0.0688126112691982,
+    "momentum_acceleration": 0.06612838849254091,
+    "momentum_12_pct": 0.06278680981562836,
+    "vwap_distance_pct": 0.05968886400442334,
+    "rsi_value": 0.05954151937274554,
+    "momentum_3_pct": 0.056257255135620535,
+    "mtf_alignment": 0.05550731957784175,
+    "in_range": 0.0554753295908603,
+    "rvol": 0.05538008698613688,
+    "momentum_1_pct": 0.05536728304064839,
+    "candle_strength": 0.04983530191808356,
+    "macd_divergence": 0.008592807876649493,
+    "higher_highs": 0.008519366987342333,
+    "ema_alignment": 0.007183359637371442,
+    "power_streak": 0.005893291044858692,
+    "rsi_divergence": 0.005630068736742176,
+    "bos_up": 0.00546034201414445,
+    "big_wick_top": 0.005398881236378256,
+    "bb_squeeze": 0.0051197910917968196,
+    "higher_lows": 0.005047351022458346,
+    "bb_breakout_above": 0.0031769177509477255,
+    "volume_spike": 0.003105834336722911,
+    "price_above_vwap": 0.0029332502123194993,
+    "atr_expanding": 0.00198186340634025,
+    "btc_state": 0.0,
+    "btc_momentum_12_pct": 0.0
+  },
+  "rf_cv_f1_mean": 0.28263327300948793,
+  "rf_cv_f1_std": 0.08234859541728907,
+  "sub_score_pearson": {
+    "technical": {
+      "pearson": -0.026082251120285487,
+      "n_features": 5
+    },
+    "momentum": {
+      "pearson": -0.041436529940619395,
+      "n_features": 5
+    },
+    "volume": {
+      "pearson": 0.016815845358276182,
+      "n_features": 2
+    },
+    "vwap": {
+      "pearson": -0.05772521497701836,
+      "n_features": 2
+    },
+    "atr_bb": {
+      "pearson": 0.09001135016024947,
+      "n_features": 4
+    },
+    "structure": {
+      "pearson": -0.06150850439084675,
+      "n_features": 4
+    },
+    "candle": {
+      "pearson": 0.011302527269508247,
+      "n_features": 3
+    },
+    "mtf": {
+      "pearson": -0.033808471212262804,
+      "n_features": 1
+    },
+    "pattern": {
+      "pearson": 0.02014351698985,
+      "n_features": 4
+    }
+  }
+}
