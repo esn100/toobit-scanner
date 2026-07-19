@@ -1,0 +1,26 @@
+{
+  "fear_greed": 28.0,
+  "fear_greed_label": "Fear",
+  "btc_dominance": 56.47844760524233,
+  "btc_dominance_change_24h": 0.7679950425769675,
+  "stablecoin_supply_change_7d_pct": -0.44550420964171955,
+  "news_sentiment": 50.0,
+  "news_volume_24h": 0,
+  "bullish_news_pct": 50.0,
+  "btc_change_24h_pct": 0.8866006565190614,
+  "btc_change_7d_pct": 1.1245932092564088,
+  "btc_drawdown_30d_pct": -1.2893794056330976,
+  "btc_volatility_24h_pct": 0.1385821983944211,
+  "aggregate": 49.51916317552393,
+  "risk_regime": "NEUTRAL",
+  "long_bias": 1.0,
+  "short_bias": 1.0,
+  "sources_used": [
+    "fear_greed",
+    "btc_dominance",
+    "stablecoin_supply",
+    "news",
+    "btc_action"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,38 @@
+{
+  "n_snapshots": 255,
+  "base_pump_5": 0.15294117647058825,
+  "base_dump_5": 0.17647058823529413,
+  "regime_distribution": {
+    "SIDEWAYS": 255
+  },
+  "best_30": {
+    "n": 115,
+    "long_count": 59,
+    "success_5pct": 0.1826086956521739,
+    "success_10pct": 0.043478260869565216
+  },
+  "best_40": {
+    "n": 56,
+    "long_count": 31,
+    "success_5pct": 0.16071428571428573,
+    "success_10pct": 0.03571428571428571
+  },
+  "best_50": {
+    "n": 27,
+    "long_count": 14,
+    "success_5pct": 0.2222222222222222,
+    "success_10pct": 0.037037037037037035
+  },
+  "best_60": {
+    "n": 9,
+    "long_count": 7,
+    "success_5pct": 0.2222222222222222,
+    "success_10pct": 0.0
+  },
+  "best_70": {
+    "n": 5,
+    "long_count": 3,
+    "success_5pct": 0.4,
+    "success_10pct": 0.0
+  }
+}
