@@ -578,6 +578,14 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                         "f_atr_pct": r.get("f_atr_pct", 0),
                         "f_a_ichi_above_cloud": r.get("f_a_ichi_above_cloud", 0),
                         "f_a_ichi_below_cloud": r.get("f_a_ichi_below_cloud", 0),
+                        "f_a_fib_dist_0.618": r.get("f_a_fib_dist_0.618", 99),
+                        "f_a_fib_distance_pct": r.get("f_a_fib_distance_pct", 0),
+                        "f_volume_spike": r.get("f_volume_spike", 0),
+                        "f_m_5m_volume_spike": r.get("f_m_5m_volume_spike", 0),
+                        "f_m_obi_10": r.get("f_m_obi_10", 0),
+                        "f_m_cvd": r.get("f_m_cvd", 0),
+                        "f_m_5m_rvol": r.get("f_m_5m_rvol", 0),
+                        "f_m_spread_pct": r.get("f_m_spread_pct", 0),
                     }
                     sig_id = open_signal(
                         symbol=r["symbol"],
@@ -590,6 +598,12 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                         tp_pct=5.0,
                         sl_pct=3.0,
                         max_hold_hours=12.0,
+                        trailing_pct=2.0,
+                        use_trailing=True,
+                        use_scaled=False,
+                        btc_state=btc_state,
+                        btc_momentum=btc_mom_12,
+                        market_regime="NEUTRAL",
                     )
                     if sig_id:
                         n_opened += 1
@@ -604,11 +618,11 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                       if r.get("close", 0) > 0}
     if current_prices:
         try:
-            n_resolved, n_tp, n_sl = check_and_resolve(current_prices)
+            n_resolved, n_tp, n_sl, n_trail, n_to = check_and_resolve(current_prices)
             if n_resolved > 0:
                 stats = get_stats()
                 print(f"[{now.isoformat()}] resolved {n_resolved}: "
-                      f"TP={n_tp}, SL={n_sl}, "
+                      f"TP={n_tp}, SL={n_sl}, Trail={n_trail}, Timeout={n_to}, "
                       f"win_rate={stats.get('win_rate', 0):.2f} "
                       f"({stats.get('n_total', 0)} total)")
         except Exception as e:
