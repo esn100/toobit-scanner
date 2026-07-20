@@ -1,0 +1,57 @@
+name: Database Maintenance
+
+on:
+  schedule:
+    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PUSH_TOKEN }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run retention (extract knowledge, delete old data)
+        run: |
+          python -m src.retention prune --keep-days 7
+
+      - name: Optimize DB (VACUUM + ANALYZE)
+        run: |
+          python -c "from src import db; db.optimize()"
+
+      - name: Report DB stats
+        run: |
+          python -m src.migrate_to_sqlite report
+
+      - name: Commit and push
+        run: |
+          git config user.email "toobit-scanner@arena.local"
+          git config user.name "Toobit Scanner"
+          git remote set-url origin https://x-access-token:${{ secrets.PUSH_TOKEN }}@github.com/${{ github.repository }}.git
+          git add -A data/ knowledge_base.json 2>/dev/null || git add -A data/
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "maint: $(date -u +%Y-%m-%dT%H:%M:%S) retention+optimize"
+            git push
+          fi
