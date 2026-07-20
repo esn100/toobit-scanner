@@ -57,6 +57,9 @@ from .signal_tracker import (
 )
 from .adaptive_tp_sl import get_signal_tp_sl, format_tp_sl_for_log
 from . import db as database
+from .auto_trader import (
+    open_ultra_signals, check_signals_smart_v2, run_auto_trader_cycle,
+)
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -584,69 +587,38 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     n_tp = 0
     n_sl = 0
     tp_sl_log = []
-    for r in rows:
-        if r.get("direction") in ("LONG", "SHORT") and r.get("confidence", 0) >= 50:
+    # ULTRA STRICT MODE: only open signals that pass ultra-strict filter
+    # (14+ criteria). Expected: 0-3 signals per day.
+    ultra_ids = open_ultra_signals(
+        min_confidence=60.0, tp_pct=5.0, sl_pct=3.0, max_hours=8.0
+    )
+    n_opened = len(ultra_ids)
+    if ultra_ids:
+        # Build log of what was opened with their TP/SL
+        from .adaptive_tp_sl import format_tp_sl_for_log
+        for sid in ultra_ids:
+            sig_row = None
             try:
-                # Use the current close as entry price
-                entry = float(r.get("close", 0))
-                if entry > 0:
-                    feats = {
-                        "n_long_signals": r.get("n_long_signals", 0),
-                        "n_short_signals": r.get("n_short_signals", 0),
-                        "f_momentum_3_pct": r.get("f_momentum_3_pct", 0),
-                        "f_momentum_6_pct": r.get("f_momentum_6_pct", 0),
-                        "f_rvol": r.get("f_rvol", 1),
-                        "f_atr_pct": r.get("f_atr_pct", 0),
-                        "f_a_ichi_above_cloud": r.get("f_a_ichi_above_cloud", 0),
-                        "f_a_ichi_below_cloud": r.get("f_a_ichi_below_cloud", 0),
-                        "f_a_fib_dist_0.618": r.get("f_a_fib_dist_0.618", 99),
-                        "f_a_fib_distance_pct": r.get("f_a_fib_distance_pct", 0),
-                        "f_volume_spike": r.get("f_volume_spike", 0),
-                        "f_m_5m_volume_spike": r.get("f_m_5m_volume_spike", 0),
-                        "f_m_obi_10": r.get("f_m_obi_10", 0),
-                        "f_m_cvd": r.get("f_m_cvd", 0),
-                        "f_m_5m_rvol": r.get("f_m_5m_rvol", 0),
-                        "f_m_spread_pct": r.get("f_m_spread_pct", 0),
-                        "f_bb_breakout_above": r.get("f_bb_breakout_above", 0),
-                        "f_bos_up": r.get("f_bos_up", 0),
-                        "f_atr_expanding": r.get("f_atr_expanding", 0),
-                        "btc_state": btc_state,
-                        "btc_momentum_12_pct": btc_mom_12,
-                        "direction": r.get("direction"),
-                        "confidence": float(r.get("confidence", 0)),
-                    }
-                    # Compute adaptive TP/SL
-                    tp_sl = get_signal_tp_sl(feats)
-                    sig_id = open_signal(
-                        symbol=r["symbol"],
-                        direction=r["direction"],
-                        entry_price=entry,
-                        score_long=float(r.get("score_long", 0)),
-                        score_short=float(r.get("score_short", 0)),
-                        confidence=float(r.get("confidence", 0)),
-                        features=feats,
-                        tp_pct=tp_sl["tp_pct"],
-                        sl_pct=tp_sl["sl_pct"],
-                        max_hold_hours=12.0,
-                        trailing_pct=tp_sl["trailing_pct"],
-                        use_trailing=tp_sl["use_trailing"],
-                        use_scaled=tp_sl["use_scaled"],
-                        btc_state=btc_state,
-                        btc_momentum=btc_mom_12,
-                        market_regime="NEUTRAL",
-                    )
-                    if sig_id:
-                        n_opened += 1
-                        tp_sl_log.append(
-                            f"{r['symbol']:<14} {r['direction']:<6} "
-                            f"{format_tp_sl_for_log(tp_sl)}"
-                        )
-            except Exception as e:
-                if failures < 5:
-                    print(f"  signal open error: {type(e).__name__}: {e}")
-    print(f"[{now.isoformat()}] signals: opened {n_opened} new")
+                open_df = get_open_signals()
+                matches = open_df[open_df["signal_id"] == sid]
+                if not matches.empty:
+                    sig_row = matches.iloc[0]
+            except Exception:
+                pass
+            if sig_row is not None:
+                tp_sl = {
+                    "tp_pct": sig_row.get("tp_pct", 5),
+                    "sl_pct": sig_row.get("sl_pct", 3),
+                    "trailing_pct": sig_row.get("trailing_pct", 1.5),
+                    "use_trailing": bool(sig_row.get("use_trailing", True)),
+                }
+                tp_sl_log.append(
+                    f"{sig_row['symbol']:<14} {sig_row['direction']:<6} "
+                    f"{format_tp_sl_for_log(tp_sl)}"
+                )
+    print(f"[{now.isoformat()}] signals: opened {n_opened} new (ultra-strict)")
     if tp_sl_log:
-        print(f"  adaptive TP/SL:")
+        print(f"  ultra signals with smart v2 exit:")
         for line in tp_sl_log:
             print(f"    {line}")
 
@@ -656,16 +628,17 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                       if r.get("close", 0) > 0}
     if current_prices:
         try:
-            n_resolved, n_tp, n_sl, n_trail, n_to = check_and_resolve(current_prices)
+            # Use smart v2 logic for existing positions
+            n_resolved, n_tp, n_sl, n_be = check_signals_smart_v2(current_prices)
             if n_resolved > 0:
                 stats = get_stats()
                 print(f"[{now.isoformat()}] resolved {n_resolved}: "
-                      f"TP={n_tp}, SL={n_sl}, Trail={n_trail}, Timeout={n_to}, "
+                      f"TP={n_tp}, SL={n_sl}, Breakeven={n_be}, "
                       f"win_rate={stats.get('win_rate', 0):.2f} "
                       f"({stats.get('n_total', 0)} total)")
         except Exception as e:
             if failures < 5:
-                print(f"  check_and_resolve error: {type(e).__name__}: {e}")
+                print(f"  check_signals error: {type(e).__name__}: {e}")
     return len(rows)
 
 

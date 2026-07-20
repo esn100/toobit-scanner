@@ -102,6 +102,16 @@ def is_ultra_setup(features: Dict, direction: str) -> Tuple[bool, str]:
     return True, ""
 
 
+def _get_feat(full_feats, row, key, default=0):
+    """Get feature from features_json first, then row, then default."""
+    if key in full_feats and full_feats[key] is not None:
+        return full_feats[key]
+    # Map f_/a_/m_/s_ keys to ind_/btc_ columns
+    if key in row.index and pd.notna(row[key]):
+        return row[key]
+    return default
+
+
 def get_ultra_picks(min_confidence: float = 80.0) -> Dict:
     """
     Get today's ULTRA-STRICT picks (top quality only).
@@ -134,23 +144,24 @@ def get_ultra_picks(min_confidence: float = 80.0) -> Dict:
                 full = {}
         else:
             full = {}
+        # Build features dict from BOTH features_json and row
         feats = {
-            "f_atr_pct": full.get("f_atr_pct", r.get("ind_atr_pct", 0)),
-            "f_rvol": full.get("f_rvol", r.get("ind_rvol", 0)),
-            "f_momentum_3_pct": full.get("f_momentum_3_pct",
-                                       r.get("ind_momentum_3_pct", 0)),
-            "f_momentum_6_pct": full.get("f_momentum_6_pct",
-                                       r.get("ind_momentum_6_pct", 0)),
-            "f_momentum_12_pct": full.get("f_momentum_12_pct", 0),
-            "f_a_ichi_above_cloud": full.get("f_a_ichi_above_cloud", 0),
-            "f_a_ichi_below_cloud": full.get("f_a_ichi_below_cloud", 0),
-            "f_bb_breakout_above": full.get("f_bb_breakout_above", 0),
-            "f_bos_up": full.get("f_bos_up", 0),
-            "f_atr_expanding": full.get("f_atr_expanding", 0),
-            "f_m_5m_volume_spike": full.get("f_m_5m_volume_spike", 0),
-            "f_m_obi_10": full.get("f_m_obi_10", 1),
-            "f_m_cvd": full.get("f_m_cvd", 0),
-            "f_a_wave_position": full.get("f_a_wave_position", ""),
+            "f_atr_pct": _get_feat(full, r, "f_atr_pct", r.get("ind_atr_pct", 0)),
+            "f_rvol": _get_feat(full, r, "f_rvol", r.get("ind_rvol", 0)),
+            "f_momentum_3_pct": _get_feat(full, r, "f_momentum_3_pct",
+                                          r.get("ind_momentum_3_pct", 0)),
+            "f_momentum_6_pct": _get_feat(full, r, "f_momentum_6_pct",
+                                          r.get("ind_momentum_6_pct", 0)),
+            "f_momentum_12_pct": _get_feat(full, r, "f_momentum_12_pct", 0),
+            "f_a_ichi_above_cloud": _get_feat(full, r, "f_a_ichi_above_cloud", 0),
+            "f_a_ichi_below_cloud": _get_feat(full, r, "f_a_ichi_below_cloud", 0),
+            "f_bb_breakout_above": _get_feat(full, r, "f_bb_breakout_above", 0),
+            "f_bos_up": _get_feat(full, r, "f_bos_up", 0),
+            "f_atr_expanding": _get_feat(full, r, "f_atr_expanding", 0),
+            "f_m_5m_volume_spike": _get_feat(full, r, "f_m_5m_volume_spike", 0),
+            "f_m_obi_10": _get_feat(full, r, "f_m_obi_10", 1),
+            "f_m_cvd": _get_feat(full, r, "f_m_cvd", 0),
+            "f_a_wave_position": _get_feat(full, r, "f_a_wave_position", ""),
             "confidence": r.get("confidence", 0),
             "btc_momentum_12_pct": r.get("btc_momentum_12_pct", 0),
             "score_long": r.get("score_long", 0),
