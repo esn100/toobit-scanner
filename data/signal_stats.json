@@ -1,0 +1,64 @@
+{
+  "last_update": "2026-07-20T11:52:49.278941+00:00",
+  "by_confidence_bucket": {
+    "50-60": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "n_to": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "by_tp_sl": {
+    "tp5_sl3": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "by_symbol": {
+    "ACEUSDT": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "by_direction": {
+    "SHORT": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "by_hour_of_day": {
+    "h11": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "by_market_regime": {
+    "NEUTRAL": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 5.827
+    }
+  },
+  "rolling_24h": {
+    "n": 1,
+    "n_tp": 1,
+    "n_sl": 0,
+    "n_to": 0,
+    "n_trailing": 0,
+    "win_rate": 1.0,
+    "total_pnl": 5.83,
+    "avg_pnl": 5.827
+  },
+  "consecutive_losses": 0,
+  "consecutive_wins": 1
+}

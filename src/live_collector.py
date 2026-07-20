@@ -55,6 +55,7 @@ from .per_coin_sentiment import CoinSocialAggregator
 from .signal_tracker import (
     open_signal, check_and_resolve, get_open_signals, get_stats,
 )
+from .adaptive_tp_sl import get_signal_tp_sl, format_tp_sl_for_log
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -558,11 +559,12 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
 
     # ---- Pass 5: open new signals for TP/SL tracking ----
     # For each LONG/SHORT signal with high confidence, open a tracked signal
-    # with TP/SL so we can measure win rate over time.
+    # with adaptive TP/SL (ATR/momentum/confidence-aware).
     n_opened = 0
     n_resolved = 0
     n_tp = 0
     n_sl = 0
+    tp_sl_log = []
     for r in rows:
         if r.get("direction") in ("LONG", "SHORT") and r.get("confidence", 0) >= 50:
             try:
@@ -586,7 +588,16 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                         "f_m_cvd": r.get("f_m_cvd", 0),
                         "f_m_5m_rvol": r.get("f_m_5m_rvol", 0),
                         "f_m_spread_pct": r.get("f_m_spread_pct", 0),
+                        "f_bb_breakout_above": r.get("f_bb_breakout_above", 0),
+                        "f_bos_up": r.get("f_bos_up", 0),
+                        "f_atr_expanding": r.get("f_atr_expanding", 0),
+                        "btc_state": btc_state,
+                        "btc_momentum_12_pct": btc_mom_12,
+                        "direction": r.get("direction"),
+                        "confidence": float(r.get("confidence", 0)),
                     }
+                    # Compute adaptive TP/SL
+                    tp_sl = get_signal_tp_sl(feats)
                     sig_id = open_signal(
                         symbol=r["symbol"],
                         direction=r["direction"],
@@ -595,22 +606,30 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
                         score_short=float(r.get("score_short", 0)),
                         confidence=float(r.get("confidence", 0)),
                         features=feats,
-                        tp_pct=5.0,
-                        sl_pct=3.0,
+                        tp_pct=tp_sl["tp_pct"],
+                        sl_pct=tp_sl["sl_pct"],
                         max_hold_hours=12.0,
-                        trailing_pct=2.0,
-                        use_trailing=True,
-                        use_scaled=False,
+                        trailing_pct=tp_sl["trailing_pct"],
+                        use_trailing=tp_sl["use_trailing"],
+                        use_scaled=tp_sl["use_scaled"],
                         btc_state=btc_state,
                         btc_momentum=btc_mom_12,
                         market_regime="NEUTRAL",
                     )
                     if sig_id:
                         n_opened += 1
+                        tp_sl_log.append(
+                            f"{r['symbol']:<14} {r['direction']:<6} "
+                            f"{format_tp_sl_for_log(tp_sl)}"
+                        )
             except Exception as e:
                 if failures < 5:
                     print(f"  signal open error: {type(e).__name__}: {e}")
     print(f"[{now.isoformat()}] signals: opened {n_opened} new")
+    if tp_sl_log:
+        print(f"  adaptive TP/SL:")
+        for line in tp_sl_log:
+            print(f"    {line}")
 
     # ---- Pass 6: check existing signals against current prices ----
     # Build current_prices dict from the rows we just collected
