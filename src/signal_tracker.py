@@ -30,6 +30,8 @@ from typing import Dict, List, Optional, Tuple
 import pandas as pd
 import numpy as np
 
+from . import db as database
+
 
 DATA_DIR = Path("data")
 SIGNAL_LOG = DATA_DIR / "active_signals.csv"
@@ -253,6 +255,12 @@ def open_signal(
     }
     df = pd.concat([df, pd.DataFrame([rec])], ignore_index=True)
     _save_active(df)
+    # Also insert into SQLite
+    try:
+        database.init_db()
+        database.upsert_signal(rec)
+    except Exception as e:
+        pass  # don't fail signal opening
     return signal_id
 
 
@@ -386,6 +394,7 @@ def check_and_resolve(
             df.at[idx, "exit_reason"] = reason
             rows_to_resolve.append(idx)
             n_resolved += 1
+    # Sync to SQLite (faster than CSV)
     _save_active(df)
     if rows_to_resolve:
         resolved_df = df.loc[rows_to_resolve].copy()
@@ -414,12 +423,32 @@ def check_and_resolve(
         for c in RESOLVED_COLS:
             if c not in resolved_df.columns:
                 resolved_df[c] = pd.NA
+        # Save to CSV (for backward compat)
         existing = _load_resolved()
         combined = pd.concat([existing, resolved_df[RESOLVED_COLS]],
                              ignore_index=True, sort=False)
         _save_resolved(combined)
+        # Also save to SQLite
+        try:
+            for _, r in resolved_df.iterrows():
+                sig_dict = r.to_dict()
+                sig_dict["duration_hours"] = duration_h if 'duration_h' in dir() else 0
+                database.move_to_resolved(sig_dict)
+        except Exception as e:
+            pass
         df = df.drop(rows_to_resolve).reset_index(drop=True)
         _save_active(df)
+        # Delete from SQLite signals
+        try:
+            with database.get_conn() as conn:
+                for idx in rows_to_resolve:
+                    sig_id = df.iloc[idx]["signal_id"] if idx < len(df) else None
+                    if sig_id:
+                        conn.execute("DELETE FROM signals WHERE signal_id = ?",
+                                     (sig_id,))
+                conn.commit()
+        except Exception:
+            pass
         # Update stats
         try:
             update_stats(resolved_df)

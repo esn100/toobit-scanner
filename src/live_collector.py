@@ -56,6 +56,7 @@ from .signal_tracker import (
     open_signal, check_and_resolve, get_open_signals, get_stats,
 )
 from .adaptive_tp_sl import get_signal_tp_sl, format_tp_sl_for_log
+from . import db as database
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -550,12 +551,30 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     # Make sure all expected columns exist (forward compat with new features)
     expected_min = ["ts", "symbol", "close"]
     _ensure_columns(out, expected_min)
+    # Write to SQLite (primary store)
+    try:
+        database.init_db()
+        database.insert_features(rows)
+    except Exception as e:
+        print(f"  SQLite insert error: {type(e).__name__}: {e}")
+    # Also keep CSV as backup (for backward compat)
     if FEATURE_LOG.exists():
-        old = pd.read_csv(FEATURE_LOG)
-        out = pd.concat([old, out], ignore_index=True, sort=False)
+        try:
+            old = pd.read_csv(FEATURE_LOG)
+            out = pd.concat([old, out], ignore_index=True, sort=False)
+        except Exception:
+            pass
     out.to_csv(FEATURE_LOG, index=False)
-    print(f"[{now.isoformat()}] cycle: {len(rows)} rows appended, "
-          f"failures={failures}, total={len(out)}")
+    # Print DB size
+    try:
+        db_info = database.get_db_size()
+        print(f"[{now.isoformat()}] cycle: {len(rows)} rows appended, "
+              f"failures={failures}, total={len(out)}, "
+              f"DB={db_info['size_mb']:.2f}MB "
+              f"(feat={db_info['row_counts']['features']})")
+    except Exception:
+        print(f"[{now.isoformat()}] cycle: {len(rows)} rows appended, "
+              f"failures={failures}, total={len(out)}")
 
     # ---- Pass 5: open new signals for TP/SL tracking ----
     # For each LONG/SHORT signal with high confidence, open a tracked signal
@@ -721,9 +740,19 @@ def label_outcomes(horizon_hours: int = 12) -> int:
     if not outcomes:
         return 0
     out = pd.DataFrame(outcomes)
+    # Save to SQLite
+    try:
+        database.init_db()
+        database.insert_outcomes(outcomes)
+    except Exception as e:
+        pass
+    # Also keep CSV as backup
     if OUTCOME_LOG.exists():
-        old = pd.read_csv(OUTCOME_LOG)
-        out = pd.concat([old, out], ignore_index=True, sort=False)
+        try:
+            old = pd.read_csv(OUTCOME_LOG)
+            out = pd.concat([old, out], ignore_index=True, sort=False)
+        except Exception:
+            pass
     out.to_csv(OUTCOME_LOG, index=False)
     print(f"[{now.isoformat()}] labeled {len(outcomes)} outcomes")
     return len(outcomes)
