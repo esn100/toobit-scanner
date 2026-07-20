@@ -177,9 +177,9 @@ def direction_score(features: Dict, symbol: str = "") -> DirectionResult:
     """
     long_score, long_n, long_fired = score_long(features)
     short_score, short_n, short_fired = score_short(features)
-    if long_score > short_score and long_score >= 50:
+    if long_score > short_score and long_score >= 25:
         direction = "LONG"
-    elif short_score > long_score and short_score >= 50:
+    elif short_score > long_score and short_score >= 25:
         direction = "SHORT"
     else:
         direction = "NEUTRAL"
