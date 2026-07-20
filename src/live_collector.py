@@ -52,6 +52,9 @@ from .microstructure_score import (
 )
 from .direction_scoring import direction_score, score_long, score_short
 from .per_coin_sentiment import CoinSocialAggregator
+from .signal_tracker import (
+    open_signal, check_and_resolve, get_open_signals, get_stats,
+)
 
 # Cache for BTC 4h klines (one fetch per cycle is enough)
 _BTC_CACHE: dict = {"df": None, "ts": 0.0}
@@ -552,6 +555,65 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     out.to_csv(FEATURE_LOG, index=False)
     print(f"[{now.isoformat()}] cycle: {len(rows)} rows appended, "
           f"failures={failures}, total={len(out)}")
+
+    # ---- Pass 5: open new signals for TP/SL tracking ----
+    # For each LONG/SHORT signal with high confidence, open a tracked signal
+    # with TP/SL so we can measure win rate over time.
+    n_opened = 0
+    n_resolved = 0
+    n_tp = 0
+    n_sl = 0
+    for r in rows:
+        if r.get("direction") in ("LONG", "SHORT") and r.get("confidence", 0) >= 50:
+            try:
+                # Use the current close as entry price
+                entry = float(r.get("close", 0))
+                if entry > 0:
+                    feats = {
+                        "n_long_signals": r.get("n_long_signals", 0),
+                        "n_short_signals": r.get("n_short_signals", 0),
+                        "f_momentum_3_pct": r.get("f_momentum_3_pct", 0),
+                        "f_momentum_6_pct": r.get("f_momentum_6_pct", 0),
+                        "f_rvol": r.get("f_rvol", 1),
+                        "f_atr_pct": r.get("f_atr_pct", 0),
+                        "f_a_ichi_above_cloud": r.get("f_a_ichi_above_cloud", 0),
+                        "f_a_ichi_below_cloud": r.get("f_a_ichi_below_cloud", 0),
+                    }
+                    sig_id = open_signal(
+                        symbol=r["symbol"],
+                        direction=r["direction"],
+                        entry_price=entry,
+                        score_long=float(r.get("score_long", 0)),
+                        score_short=float(r.get("score_short", 0)),
+                        confidence=float(r.get("confidence", 0)),
+                        features=feats,
+                        tp_pct=5.0,
+                        sl_pct=3.0,
+                        max_hold_hours=12.0,
+                    )
+                    if sig_id:
+                        n_opened += 1
+            except Exception as e:
+                if failures < 5:
+                    print(f"  signal open error: {type(e).__name__}: {e}")
+    print(f"[{now.isoformat()}] signals: opened {n_opened} new")
+
+    # ---- Pass 6: check existing signals against current prices ----
+    # Build current_prices dict from the rows we just collected
+    current_prices = {r["symbol"]: float(r["close"]) for r in rows
+                      if r.get("close", 0) > 0}
+    if current_prices:
+        try:
+            n_resolved, n_tp, n_sl = check_and_resolve(current_prices)
+            if n_resolved > 0:
+                stats = get_stats()
+                print(f"[{now.isoformat()}] resolved {n_resolved}: "
+                      f"TP={n_tp}, SL={n_sl}, "
+                      f"win_rate={stats.get('win_rate', 0):.2f} "
+                      f"({stats.get('n_total', 0)} total)")
+        except Exception as e:
+            if failures < 5:
+                print(f"  check_and_resolve error: {type(e).__name__}: {e}")
     return len(rows)
 
 
