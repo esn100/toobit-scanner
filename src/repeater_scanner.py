@@ -68,18 +68,21 @@ def _gate_get(path: str) -> Optional[list]:
 def _fetch_klines_1h(symbol: str, limit: int = 100) -> List[dict]:
     """Fetch 1h klines. Try Toobit first, fallback to Gate.io."""
     base = symbol.replace("USDT", "")
-    # Try Toobit
-    data = _toobit_get(f"/quote/v1/klines?symbol={symbol}&interval=60&limit={limit}")
+    # Try Toobit (interval=1h, ts in milliseconds)
+    data = _toobit_get(f"/quote/v1/klines?symbol={symbol}&interval=1h&limit={limit}")
     if data and isinstance(data, list):
         rows = []
         for r in data:
+            # Toobit format: [ts_ms, open, high, low, close, vol, ...]
+            ts_ms = int(r[0]) if isinstance(r, list) else int(r.get("t", 0))
+            ts = ts_ms // 1000  # convert ms -> s
             rows.append({
-                "ts": int(r["t"]),
-                "o": float(r["o"]),
-                "h": float(r["h"]),
-                "l": float(r["l"]),
-                "c": float(r["c"]),
-                "v": float(r["v"]),
+                "ts": ts,
+                "o": float(r[1]) if isinstance(r, list) else float(r.get("o", 0)),
+                "h": float(r[2]) if isinstance(r, list) else float(r.get("h", 0)),
+                "l": float(r[3]) if isinstance(r, list) else float(r.get("l", 0)),
+                "c": float(r[4]) if isinstance(r, list) else float(r.get("c", 0)),
+                "v": float(r[5]) if isinstance(r, list) else float(r.get("v", 0)),
             })
         rows.sort(key=lambda x: x["ts"])
         if rows:
