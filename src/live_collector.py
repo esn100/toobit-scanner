@@ -52,6 +52,7 @@ from .microstructure_score import (
 )
 from .direction_scoring import direction_score, score_long, score_short
 from .per_coin_sentiment import CoinSocialAggregator
+from .extended_indicators import compute_all_extended
 from .signal_tracker import (
     open_signal, check_and_resolve, get_open_signals, get_stats,
 )
@@ -388,6 +389,13 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
             )
             for k, v in btc_corr.items():
                 feats[k] = float(v) if isinstance(v, (int, float, bool)) else 0.0
+            # Extended indicators (Stoch, ADX, MFI, etc.) — 99 new features
+            try:
+                ex_feats = compute_all_extended(df)
+                for k, v in ex_feats.items():
+                    row[f"f_{k}"] = v if not isinstance(v, bool) else int(v)
+            except Exception:
+                pass
             # Pick candidates for expensive microstructure fetch.
             # Heuristic: rvol >= 1.3 OR atr_pct >= 5 OR mom_6 >= 5%
             if (ind.get("rvol", 1.0) >= 1.3
@@ -578,6 +586,22 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     except Exception:
         print(f"[{now.isoformat()}] cycle: {len(rows)} rows appended, "
               f"failures={failures}, total={len(out)}")
+
+    # ---- Pass 4.5: REPEATER scanner (priority: 6 known pump symbols 24/7) ----
+    # Detects pre-pump patterns on symbols that have pumped before
+    # (EVAA, TLM, LAB, BANK, AKE, DN). Catches ~25% of all pumps.
+    n_repeater = 0
+    try:
+        from .repeater_scanner import run_repeater_cycle
+        repeater_summary = run_repeater_cycle(verbose=False)
+        n_repeater = len(repeater_summary.get("pre_pumps", [])) + \
+                     len(repeater_summary.get("confirmed", []))
+        if n_repeater > 0:
+            print(f"  [REPEATER] Opened {n_repeater} signals "
+                  f"(pre={len(repeater_summary.get('pre_pumps',[]))}, "
+                  f"confirm={len(repeater_summary.get('confirmed',[]))})")
+    except Exception as e:
+        print(f"  [REPEATER] error: {e}")
 
     # ---- Pass 5: open new signals for TP/SL tracking ----
     # For each LONG/SHORT signal with high confidence, open a tracked signal
