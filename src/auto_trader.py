@@ -7,14 +7,18 @@ Each cycle:
   3. For each approved signal:
      - Open position via signal_tracker
      - Use Smart v2 exit (breakeven + locks + trail)
-     - TP=+5%, SL=-3% initially
+     - TP/SL from self-trained params (default +5%/-3%)
      - 8 hour max hold
   4. Check existing positions (smart exit v2 logic)
 
 Quality over quantity: 0-3 signals per day.
+
+NEW: Reads TP/SL/trail from data/self_trained_params.json if available.
+     Self-training loop updates this file every hour.
 """
 from __future__ import annotations
 import json
+import os
 from typing import Dict, List, Tuple
 from datetime import datetime, timezone
 
@@ -28,33 +32,66 @@ from .signal_tracker import (
 from .smart_exit_v2 import smart_exit_v2_logic
 
 
+def load_self_trained_params() -> dict:
+    """Load self-trained params from data/self_trained_params.json."""
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                       "data", "self_trained_params.json")
+    if not os.path.exists(path):
+        return {
+            "tp_pct": 5.0,
+            "sl_pct": 3.0,
+            "trail_pct": 1.5,
+            "conf_threshold": 60.0,
+        }
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return {
+            "tp_pct": 5.0,
+            "sl_pct": 3.0,
+            "trail_pct": 1.5,
+            "conf_threshold": 60.0,
+        }
+
+
 def open_ultra_signals(
     min_confidence: float = 60.0,
-    tp_pct: float = 5.0,
-    sl_pct: float = 3.0,
+    tp_pct: float = None,
+    sl_pct: float = None,
     max_hours: float = 8.0,
 ) -> List[str]:
     """
     Open signals for all ultra-approved setups.
     Uses smart v2 exit strategy.
+    If tp_pct/sl_pct not provided, reads from self_trained_params.json.
     Returns list of signal_ids opened.
     """
-    picks = get_ultra_picks(min_confidence=min_confidence)
+    # Load params (from self-training if available)
+    params = load_self_trained_params()
+    if tp_pct is None:
+        tp_pct = params.get("tp_pct", 5.0)
+    if sl_pct is None:
+        sl_pct = params.get("sl_pct", 3.0)
+    # Use conf threshold from params
+    conf_threshold = params.get("conf_threshold", min_confidence)
+    min_conf = min(conf_threshold, min_confidence)  # take the more permissive
+    picks = get_ultra_picks(min_confidence=min_conf)
     if "error" in picks:
         return []
     signal_ids = []
-    # Process LONG signals
     for r, feats in picks.get("longs", []):
         signal_id = _open_one(r, "LONG", feats,
                               tp_pct=tp_pct, sl_pct=sl_pct,
-                              max_hours=max_hours)
+                              max_hours=max_hours,
+                              trail_pct=params.get("trail_pct", 1.5))
         if signal_id:
             signal_ids.append(signal_id)
-    # Process SHORT signals
     for r, feats in picks.get("shorts", []):
         signal_id = _open_one(r, "SHORT", feats,
                               tp_pct=tp_pct, sl_pct=sl_pct,
-                              max_hours=max_hours)
+                              max_hours=max_hours,
+                              trail_pct=params.get("trail_pct", 1.5))
         if signal_id:
             signal_ids.append(signal_id)
     return signal_ids
@@ -67,6 +104,7 @@ def _open_one(
     tp_pct: float = 5.0,
     sl_pct: float = 3.0,
     max_hours: float = 8.0,
+    trail_pct: float = 1.5,
 ) -> str:
     """Open a single signal with smart v2 exit."""
     symbol = r["symbol"]
@@ -105,7 +143,7 @@ def _open_one(
             tp_pct=tp_pct,
             sl_pct=sl_pct,
             max_hold_hours=max_hours,
-            trailing_pct=1.5,  # smart v2 trailing
+            trailing_pct=trail_pct,  # from self-trained params
             use_trailing=True,
             use_scaled=False,  # no scaled exit (was hurting)
             btc_state=r.get("btc_state", "NEUTRAL"),
@@ -198,14 +236,16 @@ def run_auto_trader_cycle(verbose: bool = True) -> Dict:
     Main auto-trader cycle. Run this every 10 minutes.
 
     Steps:
-      1. Open new signals (ultra-approved)
-      2. Check existing signals against current prices
-      3. Report stats
+      1. Run REPEATER scanner (priority - 6 known pump symbols, 24/7)
+      2. Open new signals (ultra-approved + repeater)
+      3. Check existing signals against current prices
+      4. Report stats
 
     Returns dict with cycle stats.
     """
     from .toobit_client import ToobitClient
     from .live_collector import _get_btc_df
+    from .repeater_scanner import run_repeater_cycle as run_repeaters
     client = ToobitClient()
     # Get latest prices
     features_df = database.get_features()
@@ -222,6 +262,12 @@ def run_auto_trader_cycle(verbose: bool = True) -> Dict:
                       if r.get("close", 0) > 0}
     if not current_prices:
         return {"error": "no prices"}
+    # Step 0: REPEATER scanner (priority: catches 6 known pump symbols 24/7)
+    repeater_summary = run_repeaters(verbose=verbose)
+    if verbose:
+        n_repeater = len(repeater_summary.get("pre_pumps", [])) + len(repeater_summary.get("confirmed", []))
+        if n_repeater > 0:
+            print(f"  Repeater scanner: {n_repeater} signals opened")
     # Step 1: open new ultra signals
     opened = open_ultra_signals(min_confidence=60.0)
     if verbose:
@@ -242,4 +288,7 @@ def run_auto_trader_cycle(verbose: bool = True) -> Dict:
         "win_rate": stats.get("win_rate", 0),
         "total_resolved": stats.get("n_total", 0),
         "total_pnl": stats.get("total_pnl", 0),
+        "repeater_pre": len(repeater_summary.get("pre_pumps", [])),
+        "repeater_confirmed": len(repeater_summary.get("confirmed", [])),
+        "repeater_cluster_active": repeater_summary.get("cluster_active", False),
     }

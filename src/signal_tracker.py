@@ -72,6 +72,9 @@ SIGNAL_COLS = [
     # Microstructure at entry
     "m_obi_10_at_entry", "m_cvd_at_entry", "m_5m_rvol_at_entry",
     "m_spread_pct_at_entry",
+    # Position sizing (for partial entries)
+    "position_size",  # 1.0 = full, 0.3 = 30% (repeater pre-pump)
+    "entry_mode",  # PRE_PUMP_30 / CONFIRM_100 / ULTRA_STRICT / etc.
 ]
 
 RESOLVED_COLS = SIGNAL_COLS + [
@@ -171,6 +174,8 @@ def open_signal(
     btc_state: str = "NEUTRAL",
     btc_momentum: float = 0.0,
     market_regime: str = "NEUTRAL",
+    position_size: float = 1.0,
+    entry_mode: str = "",
 ) -> Optional[str]:
     """
     Open a new tracked signal. Returns signal_id or None.
@@ -252,6 +257,8 @@ def open_signal(
         "m_cvd_at_entry": features.get("f_m_cvd", 0),
         "m_5m_rvol_at_entry": features.get("f_m_5m_rvol", 0),
         "m_spread_pct_at_entry": features.get("f_m_spread_pct", 0),
+        "position_size": position_size,
+        "entry_mode": entry_mode,
     }
     df = pd.concat([df, pd.DataFrame([rec])], ignore_index=True)
     _save_active(df)
@@ -387,6 +394,9 @@ def check_and_resolve(
                 final_pnl = partial_pnl + size_remaining * exit_pct
             else:
                 final_pnl = exit_pct
+            # Apply position size (for partial entries like repeater pre-pump 30%)
+            pos_size = float(row.get("position_size", 1.0))
+            final_pnl = final_pnl * pos_size
             df.at[idx, "status"] = reason
             df.at[idx, "ts_exit"] = now.isoformat()
             df.at[idx, "exit_price"] = cur_price
