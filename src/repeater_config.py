@@ -87,27 +87,45 @@ REPEATERS = {
         "pre_pump_mom_3_max": 10.0,
         "pre_pump_flat_min_hours": 1.0,  # AKE pumps come fast
     },
-    "DNUSDT": {
-        "name": "Denarius",
-        "pump_count_30d": 3,
-        "avg_gain": 87.5,
-        "last_pump": "2026-07-11T11:00:00+00:00",
-        "volatility": "MEDIUM",
-        "tp_pct": 7.0,
-        "sl_pct": 2.0,
-        "trail_pct": 2.5,
+    "IKAUSDT": {
+        "name": "Ika",
+        "pump_count_30d": 1,
+        "avg_gain": 235.2,
+        "last_pump": "2026-07-01T13:00:00+00:00",
+        "volatility": "VERY_HIGH",
+        # IKA: highest single gain. Aggressive params.
+        "tp_pct": 12.0,
+        "sl_pct": 2.5,
+        "trail_pct": 4.0,
+        "max_hold_hours": 6.0,
+        "pre_pump_rvol_min": 0.8,
+        "pre_pump_max_rvol_4h_min": 2.0,
+        "pre_pump_mom_3_min": -8.0,
+        "pre_pump_mom_3_max": 8.0,
+        "pre_pump_flat_min_hours": 1.0,
+    },
+    "SYNUSDT": {
+        "name": "Synapse",
+        "pump_count_30d": 2,
+        "avg_gain": 102.7,
+        "last_pump": "2026-06-24T13:00:00+00:00",
+        "volatility": "HIGH",
+        "tp_pct": 8.0,
+        "sl_pct": 2.5,
+        "trail_pct": 3.0,
         "max_hold_hours": 6.0,
         "pre_pump_rvol_min": 0.5,
-        "pre_pump_max_rvol_4h_min": 1.3,
-        "pre_pump_mom_3_min": -3.0,
-        "pre_pump_mom_3_max": 3.0,
+        "pre_pump_max_rvol_4h_min": 1.5,
+        "pre_pump_mom_3_min": -5.0,
+        "pre_pump_mom_3_max": 5.0,
         "pre_pump_flat_min_hours": 2.0,
     },
 }
 
-# Secondary watchlist: 2+ pumps but lower confidence
+# Secondary watchlist: 2+ pumps but lower confidence (DN demoted here)
 SECONDARY_WATCHLIST = {
-    "SYNUSDT", "CHECKUSDT", "ZEUSUSDT", "CAMPUSDT", "ARGUSDT", "VELVETUSDT",
+    "DNUSDT",  # demoted: vol 24h too low ($140K) for primary watch
+    "CHECKUSDT", "ZEUSUSDT", "CAMPUSDT", "ARGUSDT", "VELVETUSDT",
     "INUSDT", "OXTUSDT", "IDOLUSDT", "SAROSUSDT", "EGL1USDT", "UNIONUSDT"
 }
 
