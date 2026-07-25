@@ -220,5 +220,10 @@ PRE_PUMP_SIZE_FRACTION = 0.30  # 30% at pre-pump (t-1h)
 CONFIRM_SIZE_FRACTION = 0.70   # 70% at confirmation (t+0)
 
 # Confidence thresholds
+# Based on backtest of 9 signals: conf 75-85% = 100% WR
+# Higher conf (95%+) actually WORSE due to overfitting on edge cases
 PRE_PUMP_CONFIDENCE_MIN = 50.0  # Min conf to enter with 30% size
 CONFIRM_CONFIDENCE_MIN = 60.0   # Min conf to add 70% more
+# Cap confidence to prevent overconfidence
+# (a 100% conf signal was actually worse than 75-85%)
+MAX_USABLE_CONFIDENCE = 85.0    # Cap at 85% even if pattern scores higher

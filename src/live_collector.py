@@ -650,6 +650,18 @@ def collect_cycle(client: ToobitClient, symbols: list[str]) -> int:
     # Build current_prices dict from the rows we just collected
     current_prices = {r["symbol"]: float(r["close"]) for r in rows
                       if r.get("close", 0) > 0}
+    # ALSO add prices for repeater symbols (not in feature_log normally)
+    try:
+        from .repeater_scanner import REPEATERS, _fetch_klines_1h
+        for sym in REPEATERS:
+            if sym in current_prices:
+                continue
+            klines = _fetch_klines_1h(sym, limit=2)
+            if klines:
+                current_prices[sym] = klines[-1]["c"]
+    except Exception as e:
+        if failures < 5:
+            print(f"  repeater price fetch error: {e}")
     if current_prices:
         try:
             # Use smart v2 logic for existing positions

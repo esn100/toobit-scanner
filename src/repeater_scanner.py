@@ -34,6 +34,7 @@ from .repeater_config import (
     REPEATERS, SECONDARY_WATCHLIST, CLUSTER_FOLLOW_HOURS,
     PRE_PUMP_SIZE_FRACTION, CONFIRM_SIZE_FRACTION,
     PRE_PUMP_CONFIDENCE_MIN, CONFIRM_CONFIDENCE_MIN,
+    MAX_USABLE_CONFIDENCE,
 )
 from .signal_tracker import open_signal, get_open_signals
 
@@ -277,7 +278,7 @@ def _check_pre_pump_pattern(features: Dict, repeater: Dict) -> Tuple[bool, float
 
     confidence = (score / max_score * 100) if max_score > 0 else 0
     is_match = confidence >= 60
-    return is_match, confidence
+    return is_match, min(confidence, MAX_USABLE_CONFIDENCE)
 
 
 def _check_confirm_signal(features: Dict, repeater: Dict) -> Tuple[bool, float]:
@@ -329,6 +330,7 @@ def _check_confirm_signal(features: Dict, repeater: Dict) -> Tuple[bool, float]:
 
     confidence = score
     is_match = confidence >= 60
+    return is_match, min(confidence, MAX_USABLE_CONFIDENCE)
     return is_match, confidence
 
 

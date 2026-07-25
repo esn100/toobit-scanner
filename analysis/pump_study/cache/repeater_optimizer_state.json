@@ -1,0 +1,12 @@
+{
+  "n_signals": 9,
+  "n_wins": 6,
+  "win_rate": 66.66666666666666,
+  "total_pct": 20.167,
+  "avg_pct": 2.2407777777777778,
+  "best_trade": 11.609,
+  "worst_trade": -1.24,
+  "suggested_conf_min": 90,
+  "per_symbol_suggestions": {},
+  "last_update": "2026-07-25T20:41:20.514056+00:00"
+}
