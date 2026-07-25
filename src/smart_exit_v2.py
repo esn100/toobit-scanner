@@ -27,44 +27,63 @@ def smart_exit_v2_logic(
     highest_pct: float,
     entry_price: float,
     current_price: float,
+    breakeven_pct: float = 1.5,
+    lock1_pct: float = 3.0,
+    lock1_amount: float = 1.0,
+    lock2_pct: float = 5.0,
+    lock2_amount: float = 2.0,
+    trail_activate_pct: float = 4.0,
+    trail_pct: float = 1.5,
 ) -> Tuple[float, str]:
     """
-    Smart exit v2 — tighten the locks but keep wider TP.
+    Smart exit v2 — multi-stage profit lock + trail.
+    All thresholds are configurable for different strategy modes (normal vs pump-runner).
+
+    Stages (LONG):
+      - breakeven_pct (default 1.5%): move SL to entry
+      - lock1_pct (default 3%): lock lock1_amount% profit (default 1%)
+      - lock2_pct (default 5%): lock lock2_amount% profit (default 2%)
+      - trail_activate_pct (default 4%): start trailing, trail_pct below highest (default 1.5%)
+
+    For PUMP_RUNNER mode, pass:
+      breakeven_pct=2.0, lock1_pct=8.0, lock1_amount=5.0,
+      lock2_pct=15.0, lock2_amount=10.0,
+      trail_activate_pct=20.0, trail_pct=8.0
 
     Returns (new_sl, reason).
     """
     if direction == "LONG":
-        # Stage 1: breakeven at +1.5% (LONG: just protect capital)
-        if current_pct >= 1.5 and current_sl < entry_price:
+        # Stage 1: breakeven at breakeven_pct
+        if current_pct >= breakeven_pct and current_sl < entry_price:
             return entry_price, "BREAKEVEN"
-        # Stage 2: lock 1% profit at +3%
-        if current_pct >= 3.0:
-            target_sl = entry_price * 1.01
+        # Stage 2: lock lock1_amount profit at lock1_pct
+        if current_pct >= lock1_pct:
+            target_sl = entry_price * (1 + lock1_amount / 100)
             if current_sl < target_sl:
                 return target_sl, "LOCK_25"
-        # Stage 3: lock 2% profit at +5%
-        if current_pct >= 5.0:
-            target_sl = entry_price * 1.02
+        # Stage 3: lock lock2_amount profit at lock2_pct
+        if current_pct >= lock2_pct:
+            target_sl = entry_price * (1 + lock2_amount / 100)
             if current_sl < target_sl:
                 return target_sl, "LOCK_50"
-        # Stage 4: trail at 1.5% below highest after +4%
-        if current_pct >= 4.0 and highest_pct > 4.0:
-            trail_price = current_price * 0.985
+        # Stage 4: trail at trail_pct below highest after trail_activate_pct
+        if current_pct >= trail_activate_pct and highest_pct > trail_activate_pct:
+            trail_price = current_price * (1 - trail_pct / 100)
             if trail_price > current_sl:
                 return trail_price, "TRAIL"
     else:  # SHORT
-        if current_pct >= 1.5 and current_sl > entry_price:
+        if current_pct >= breakeven_pct and current_sl > entry_price:
             return entry_price, "BREAKEVEN"
-        if current_pct >= 3.0:
-            target_sl = entry_price * 0.99
+        if current_pct >= lock1_pct:
+            target_sl = entry_price * (1 - lock1_amount / 100)
             if current_sl > target_sl:
                 return target_sl, "LOCK_25"
-        if current_pct >= 5.0:
-            target_sl = entry_price * 0.98
+        if current_pct >= lock2_pct:
+            target_sl = entry_price * (1 - lock2_amount / 100)
             if current_sl > target_sl:
                 return target_sl, "LOCK_50"
-        if current_pct >= 4.0 and highest_pct > 4.0:
-            trail_price = current_price * 1.015
+        if current_pct >= trail_activate_pct and highest_pct > trail_activate_pct:
+            trail_price = current_price * (1 + trail_pct / 100)
             if trail_price < current_sl:
                 return trail_price, "TRAIL"
     return current_sl, "NO_CHANGE"

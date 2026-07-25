@@ -469,6 +469,12 @@ def execute_entry(action: Dict) -> Optional[str]:
     sl_pct = repeater["sl_pct"]
     trail_pct = repeater["trail_pct"]
     max_hold = repeater["max_hold_hours"]
+    # New: pump-runner mode (trail_activate + reentry)
+    trail_activate_pct = repeater.get("trail_activate_pct", 4.0)
+    strategy = repeater.get("strategy", "normal")
+    reentry_on_dip = repeater.get("reentry_on_dip", False)
+    reentry_rsi_max = repeater.get("reentry_rsi_max", 30.0)
+    reentry_size = repeater.get("reentry_size", 0.30)
 
     # For pre-pump entry: use looser SL (we expect volatility)
     # For confirm entry: standard SL
@@ -476,13 +482,13 @@ def execute_entry(action: Dict) -> Optional[str]:
         # Slightly wider SL for early entry
         sl_pct_adj = sl_pct * 1.3
         confidence = action["confidence"]
-        entry_mode = "PRE_PUMP_30"
+        entry_mode = f"PRE_PUMP_30_{strategy.upper()}"
         score_long = action["confidence"] * 0.5  # lower score for early
         position_size = PRE_PUMP_SIZE_FRACTION  # 30%
     else:
         sl_pct_adj = sl_pct
         confidence = action["confirm_confidence"]
-        entry_mode = "CONFIRM_100"
+        entry_mode = f"CONFIRM_100_{strategy.upper()}"
         score_long = action["confirm_confidence"]
         position_size = CONFIRM_SIZE_FRACTION  # 70% (the remaining 30% was pre-pump)
 
@@ -519,6 +525,27 @@ def execute_entry(action: Dict) -> Optional[str]:
             position_size=position_size,
             entry_mode=entry_mode,
         )
+        # Save pump-runner settings to state for later re-entry check
+        if signal_id and strategy == "pump_runner":
+            state = _load_state()
+            if "pump_runner_settings" not in state:
+                state["pump_runner_settings"] = {}
+            state["pump_runner_settings"][signal_id] = {
+                "symbol": symbol,
+                "entry_price": entry_price,
+                "entry_time": datetime.now(timezone.utc).isoformat(),
+                "tp_pct": tp_pct,
+                "sl_pct": sl_pct_adj,
+                "trail_pct": trail_pct,
+                "trail_activate_pct": trail_activate_pct,
+                "max_hold_hours": max_hold,
+                "reentry_on_dip": reentry_on_dip,
+                "reentry_rsi_max": reentry_rsi_max,
+                "reentry_size": reentry_size,
+                "reentry_done": False,  # only one re-entry allowed
+                "position_size": position_size,
+            }
+            _save_state(state)
         return signal_id
     except Exception as e:
         print(f"  repeater entry error for {symbol}: {e}")
@@ -551,9 +578,102 @@ def cluster_follow_active() -> bool:
         return False
 
 
+def check_reentry_opportunities(verbose: bool = False) -> List[Dict]:
+    """
+    Check all open pump-runner signals for re-entry opportunity.
+    Re-entry trigger: RSI < reentry_rsi_max AND signal is in profit (current_pct > 0).
+    Adds 30% more size on the dip to catch the second/third wave of a multi-wave pump.
+    """
+    state = _load_state()
+    runner_settings = state.get("pump_runner_settings", {})
+    if not runner_settings:
+        return []
+
+    # Get all open signals
+    try:
+        from .signal_tracker import get_open_signals
+        open_df = get_open_signals()
+    except Exception:
+        return []
+
+    if open_df.empty:
+        return []
+
+    reentries = []
+    for idx, row in open_df.iterrows():
+        signal_id = row["signal_id"]
+        sym = row["symbol"]
+        settings = runner_settings.get(signal_id)
+        if not settings:
+            continue
+        # Already re-entered?
+        if settings.get("reentry_done", False):
+            continue
+        # Re-entry enabled?
+        if not settings.get("reentry_on_dip", False):
+            continue
+        # Check current state
+        cur_pct = float(row.get("current_pct", 0) or 0)
+        # Only re-enter if currently in profit (the first leg worked)
+        if cur_pct <= 0:
+            continue
+        # Get current RSI
+        rows = _fetch_klines_1h(sym, limit=50)
+        if len(rows) < 30:
+            continue
+        features = _compute_features(rows)
+        rsi_now = features.get("rsi", 50)
+        reentry_rsi_max = settings.get("reentry_rsi_max", 35.0)
+        if rsi_now > reentry_rsi_max:
+            continue
+        # Re-entry triggered!
+        if verbose:
+            print(f"  [REENTRY] {sym:<14}  cur_pct={cur_pct:+.2f}%  rsi={rsi_now:.1f}  (max {reentry_rsi_max})")
+        # Open a new signal at current price with smaller size
+        reentry_size = settings.get("reentry_size", 0.30)
+        feats = {
+            "n_long_signals": 1, "n_short_signals": 0,
+            "f_momentum_3_pct": features.get("mom_3", 0),
+            "f_momentum_6_pct": features.get("mom_6", 0),
+            "f_rvol": features.get("rvol", 1),
+            "f_atr_pct": features.get("atr_pct", 0),
+        }
+        try:
+            new_signal = open_signal(
+                symbol=sym, direction="LONG",
+                entry_price=features["close"],
+                score_long=70, score_short=0,
+                confidence=75,
+                features=feats,
+                tp_pct=settings["tp_pct"],
+                sl_pct=settings["sl_pct"],
+                max_hold_hours=settings["max_hold_hours"],
+                trailing_pct=settings["trail_pct"],
+                use_trailing=True,
+                use_scaled=False,
+                btc_state="NEUTRAL", btc_momentum=0.0,
+                market_regime="REENTRY",
+                position_size=reentry_size,
+                entry_mode="REENTRY",
+            )
+            if new_signal:
+                # Mark reentry as done
+                settings["reentry_done"] = True
+                _save_state(state)
+                reentries.append({
+                    "symbol": sym, "signal_id": new_signal,
+                    "cur_pct": cur_pct, "rsi": rsi_now,
+                })
+        except Exception as e:
+            if verbose:
+                print(f"  reentry error for {sym}: {e}")
+    return reentries
+
+
 def run_repeater_cycle(verbose: bool = True) -> Dict:
     """
     Main cycle: scan all repeaters, take action on signals.
+    Also checks for re-entry opportunities on existing pump-runner signals.
     Returns summary dict.
     """
     if verbose:
@@ -562,10 +682,19 @@ def run_repeater_cycle(verbose: bool = True) -> Dict:
     cluster_active = cluster_follow_active()
     results = scan_all_repeaters()
 
+    # Check for re-entries on existing pump-runner positions
+    reentries = []
+    try:
+        reentries = check_reentry_opportunities(verbose=verbose)
+    except Exception as e:
+        if verbose:
+            print(f"  reentry check error: {e}")
+
     summary = {
         "n_scanned": len(results),
         "pre_pumps": [],
         "confirmed": [],
+        "reentries": reentries,
         "errors": [],
         "cluster_active": cluster_active,
     }

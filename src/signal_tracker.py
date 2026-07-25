@@ -317,11 +317,29 @@ def check_and_resolve(
         prev_low = float(row.get("lowest_pct", 0) or 0)
         new_high = max(prev_high, cur_pct)
         new_low = min(prev_low, cur_pct)
-        # Update trailing SL
+        # Update trailing SL using smart_exit_v2 (supports pump_runner mode)
+        from .smart_exit_v2 import smart_exit_v2_logic
+        market_regime = str(row.get("market_regime", "") or "")
+        is_pump_runner = "PUMP_RUNNER" in market_regime or "PUMP_RUNNER" in str(row.get("entry_mode", "") or "")
+        if is_pump_runner:
+            # Pump runner: loose thresholds, let it run
+            new_sl_v2, _ = smart_exit_v2_logic(
+                direction, cur_pct, cur_sl, new_high, entry, cur_price,
+                breakeven_pct=2.0, lock1_pct=8.0, lock1_amount=5.0,
+                lock2_pct=15.0, lock2_amount=10.0,
+                trail_activate_pct=20.0, trail_pct=8.0,
+            )
+        else:
+            # Normal: original smart v2
+            new_sl_v2, _ = smart_exit_v2_logic(
+                direction, cur_pct, cur_sl, new_high, entry, cur_price
+            )
+        if new_sl_v2 > cur_sl:  # Never lower SL
+            cur_sl = new_sl_v2
+        # Then apply original simple trailing (only if smart exit didn't override)
         if use_trailing and new_high > 0:
             if direction == "LONG":
                 new_sl = entry * (1 + (new_high - trailing_pct) / 100)
-                # Never lower the trailing SL (only ratchet up)
                 if new_sl > cur_sl:
                     cur_sl = new_sl
             else:  # SHORT

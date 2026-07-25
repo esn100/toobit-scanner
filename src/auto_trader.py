@@ -192,9 +192,22 @@ def check_signals_smart_v2(current_prices: Dict[str, float]) -> Tuple[int, int, 
         # Update highest pct
         new_high = max(highest_pct, cur_pct)
         # Apply smart v2 logic
-        new_sl, reason = smart_exit_v2_logic(
-            direction, cur_pct, current_sl, new_high, entry, cur_price
-        )
+        # If PUMP_RUNNER strategy, use loose thresholds (let runners run)
+        market_regime = str(row.get("market_regime", "") or "")
+        is_pump_runner = "PUMP_RUNNER" in market_regime or "PUMP_RUNNER" in str(row.get("entry_mode", "") or "")
+        if is_pump_runner:
+            # Pump runner: breakeven @ 2%, lock 5% at +8%, lock 10% at +15%, trail 8% after +20%
+            new_sl, reason = smart_exit_v2_logic(
+                direction, cur_pct, current_sl, new_high, entry, cur_price,
+                breakeven_pct=2.0, lock1_pct=8.0, lock1_amount=5.0,
+                lock2_pct=15.0, lock2_amount=10.0,
+                trail_activate_pct=20.0, trail_pct=8.0,
+            )
+        else:
+            # Normal: original smart v2
+            new_sl, reason = smart_exit_v2_logic(
+                direction, cur_pct, current_sl, new_high, entry, cur_price
+            )
         # Update DB
         updates = {
             "current_price": cur_price,
