@@ -450,7 +450,7 @@ def scan_all_repeaters() -> List[Dict]:
     return results
 
 
-def execute_entry(action: Dict) -> Optional[str]:
+def execute_entry(action: Dict, verbose: bool = False) -> Optional[str]:
     """
     Execute a pre-pump or confirm entry via signal_tracker.
     Returns signal_id if opened.
@@ -491,6 +491,29 @@ def execute_entry(action: Dict) -> Optional[str]:
         entry_mode = f"CONFIRM_100_{strategy.upper()}"
         score_long = action["confirm_confidence"]
         position_size = CONFIRM_SIZE_FRACTION  # 70% (the remaining 30% was pre-pump)
+
+    # ENHANCED SIGNAL CHECK: combine pattern + 4 intelligence sources
+    try:
+        from .signal_enhancer import enhance_signal
+        pre_confidence = action.get("confidence", 0) if action["action"] == "enter_pre" else action.get("confirm_confidence", 0)
+        enhancement = enhance_signal(symbol, pre_pump_confidence=pre_confidence,
+                                     pre_pump_features=features)
+        if enhancement.get("veto"):
+            if verbose:
+                print(f"  [VETO] {symbol} - {enhancement.get('veto_reason')}")
+            return None
+        # Boost confidence with intelligence score
+        boost = enhancement.get("boost", 0)
+        if action["action"] == "enter_pre":
+            action["confidence"] = min(MAX_USABLE_CONFIDENCE, pre_confidence + boost * 0.3)
+        else:
+            action["confirm_confidence"] = min(MAX_USABLE_CONFIDENCE, pre_confidence + boost * 0.3)
+        if verbose and boost > 5:
+            print(f"  [BOOST] {symbol}  intel={enhancement['intel_score']}  final={enhancement['final_score']}")
+    except Exception as e:
+        if verbose:
+            print(f"  enhancer err: {e}")
+        # Continue without enhancement if module fails
 
     feats_for_tracker = {
         "n_long_signals": 1,
@@ -705,14 +728,14 @@ def run_repeater_cycle(verbose: bool = True) -> Dict:
         if action == "enter_pre":
             if verbose:
                 print(f"  [PRE]  {sym:<14} conf={r['confidence']:.0f}%  size={r['size_fraction']*100:.0f}%  rvol={r['features']['rvol']:.2f}  mom_3={r['features']['mom_3']:+.2f}%  flat={r['features']['flat_hours']:.0f}h")
-            signal_id = execute_entry(r)
+            signal_id = execute_entry(r, verbose=verbose)
             if signal_id:
                 summary["pre_pumps"].append({"symbol": sym, "signal_id": signal_id, "confidence": r["confidence"]})
                 mark_pump_detected(sym)
         elif action == "confirm":
             if verbose:
                 print(f"  [CONFIRM] {sym:<14} pre_conf={r['pre_pump_confidence']:.0f}%  conf_conf={r['confirm_confidence']:.0f}%  rvol={r['features']['rvol']:.2f}  mom_3={r['features']['mom_3']:+.2f}%")
-            signal_id = execute_entry(r)
+            signal_id = execute_entry(r, verbose=verbose)
             if signal_id:
                 summary["confirmed"].append({"symbol": sym, "signal_id": signal_id, "confirm_confidence": r["confirm_confidence"]})
         elif action == "watch":
