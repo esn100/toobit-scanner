@@ -194,6 +194,60 @@ def scan_all(symbols: list, verbose: bool = False) -> dict:
             if verbose:
                 print(f'    news err {sym}: {e}')
 
+    # 5. ADVANCED INTEL (6 features)
+    if verbose:
+        print(f'  [5/5] Advanced intel (6 features)...')
+    from .advanced_intel import get_advanced_intel
+    for sym in symbols:
+        try:
+            r = get_advanced_intel(sym, verbose=False)
+            # Cache each component
+            obi_data = r.get('components', {}).get('obi', {})
+            cache.setdefault('obi', {})
+            cache['obi'][sym] = {
+                'value': obi_data.get('imbalance', 0.5),
+                'signal': r.get('components', {}).get('obi_signal', 'balanced'),
+                'ts': now.isoformat(),
+            }
+            ls_data = r.get('components', {}).get('ls', {})
+            cache.setdefault('ls_ratio', {})
+            cache['ls_ratio'][sym] = {
+                'value': ls_data.get('ratio', 0.5),
+                'signal': ls_data.get('signal_type', 'neutral'),
+                'ts': now.isoformat(),
+            }
+            taker_data = r.get('components', {}).get('taker', {})
+            cache.setdefault('taker_ratio', {})
+            cache['taker_ratio'][sym] = {
+                'value': taker_data.get('buy_ratio', 0.5),
+                'signal': r.get('components', {}).get('taker_signal', 'balanced'),
+                'ts': now.isoformat(),
+            }
+            sm_data = r.get('components', {}).get('smart_money', {})
+            cache.setdefault('smart_money', {})
+            cache['smart_money'][sym] = {
+                'value': sm_data.get('whale_net_flow_usd', 0),
+                'signal': r.get('components', {}).get('smart_signal', 'neutral'),
+                'ts': now.isoformat(),
+            }
+            liq_data = r.get('components', {}).get('liquidations', {})
+            cache.setdefault('liquidations', {})
+            cache['liquidations'][sym] = {
+                'value': liq_data.get('oi_change_24h_pct', 0),
+                'signal': r.get('components', {}).get('liq_signal', 'neutral'),
+                'ts': now.isoformat(),
+            }
+            arb_data = r.get('components', {}).get('arb', {})
+            cache.setdefault('arb_spread', {})
+            cache['arb_spread'][sym] = {
+                'value': arb_data.get('max_premium_pct', 0),
+                'signal': r.get('components', {}).get('arb_signal', 'aligned'),
+                'ts': now.isoformat(),
+            }
+        except Exception as e:
+            if verbose:
+                print(f'    advanced err {sym}: {e}')
+
     cache['last_full_scan'] = now.isoformat()
     _save_cache(cache)
     return cache
@@ -212,11 +266,55 @@ def enhance_signal(symbol: str, pre_pump_confidence: float = 0, pre_pump_feature
     """
     cache = _load_cache()
 
-    # Get all 4 scores
+    # Get all 4 base scores
     whale_str = get_whale_score(symbol, cache)
     inf_str, inf_mentions = get_influencer_score(symbol, cache)
     breakout_str, breakout_type = get_breakout_score(symbol, cache)
     news_str = get_news_score(symbol, cache)
+
+    # Get 6 ADVANCED scores
+    obi = cache.get('obi', {}).get(symbol, {}).get('value', 0.5)
+    ls_ratio = cache.get('ls_ratio', {}).get(symbol, {}).get('value', 0.5)
+    taker_buy = cache.get('taker_ratio', {}).get(symbol, {}).get('value', 0.5)
+    smart_money = cache.get('smart_money', {}).get(symbol, {}).get('value', 0)
+    liq_oi_chg = cache.get('liquidations', {}).get(symbol, {}).get('value', 0)
+    arb_premium = cache.get('arb_spread', {}).get(symbol, {}).get('value', 0)
+
+    # Calculate advanced intel score (0-100)
+    adv_score = 0
+    if obi > 0.65:
+        adv_score += 20
+    elif obi > 0.55:
+        adv_score += 12
+    elif obi < 0.4:
+        adv_score -= 10
+    if ls_ratio > 0.75 or ls_ratio < 0.25:
+        adv_score += 18
+    elif ls_ratio > 0.65 or ls_ratio < 0.35:
+        adv_score += 10
+    if taker_buy > 0.65:
+        adv_score += 20
+    elif taker_buy > 0.55:
+        adv_score += 12
+    elif taker_buy < 0.4:
+        adv_score -= 10
+    if smart_money > 10000:
+        adv_score += 20
+    elif smart_money > 0:
+        adv_score += 10
+    elif smart_money < -10000:
+        adv_score -= 12
+    if liq_oi_chg > 15:
+        adv_score += 12
+    elif liq_oi_chg > 5:
+        adv_score += 6
+    elif liq_oi_chg < -10:
+        adv_score -= 5
+    if arb_premium > 2:
+        adv_score += 15
+    elif arb_premium > 0.5:
+        adv_score += 8
+    adv_score = max(0, min(100, adv_score))
 
     components = {
         'whale': whale_str,
@@ -226,18 +324,26 @@ def enhance_signal(symbol: str, pre_pump_confidence: float = 0, pre_pump_feature
         'breakout_type': breakout_type,
         'news': news_str,
         'pre_pump': pre_pump_confidence,
+        'obi': round(obi, 2),
+        'ls_ratio': round(ls_ratio, 2),
+        'taker_buy': round(taker_buy, 2),
+        'smart_money': round(smart_money, 0),
+        'liq_oi_chg': round(liq_oi_chg, 1),
+        'arb_premium': round(arb_premium, 2),
+        'advanced_score': adv_score,
     }
 
     # Combined intelligence score (weighted)
-    intel_score = (
-        whale_str * 0.30 +         # whales are strong signal
-        inf_str * 0.15 +           # influencers are noisy
-        breakout_str * 0.35 +      # technical breakout is strong
-        news_str * 0.20            # real development is strong
+    base_intel = (
+        whale_str * 0.20 +
+        inf_str * 0.10 +
+        breakout_str * 0.25 +
+        news_str * 0.15
     )
+    intel_score = base_intel * 0.7 + adv_score * 0.3
 
-    # Final score: 60% pattern + 40% intelligence
-    final_score = pre_pump_confidence * 0.6 + intel_score * 0.4
+    # Final score: 50% pattern + 50% intelligence (more weight on intel)
+    final_score = pre_pump_confidence * 0.5 + intel_score * 0.5
 
     # Veto logic: ignore if fundamentals are bad
     veto = False
