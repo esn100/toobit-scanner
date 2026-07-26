@@ -1,0 +1,41 @@
+[2026-07-22 22:40:41] === Iteration #1 ===
+[2026-07-22 22:40:41] Training samples: 0, pumps: 0
+[2026-07-22 22:40:41]   -> Need more data. Lowered conf threshold to 55
+[2026-07-22 22:41:02] === Iteration #2 ===
+[2026-07-22 22:41:02] Training samples: 200, pumps: 32
+[2026-07-22 22:41:02]   -> Enough data (200 >= 30), calibrating...
+[2026-07-22 22:41:02]   -> LR CV F1: 0.376, Acc: 0.815
+[2026-07-22 22:41:02]   -> Top positive: f_m_obi_bearish(+0.72), f_macd_hist(+0.70), f_m_5m_trade_count(+0.66)
+[2026-07-22 22:41:02]   -> Top negative: f_atr_expanding(-1.11), f_in_range(-0.96), f_independent_mover(-0.82)
+[2026-07-22 22:41:02]   -> Best TP/SL: TP=2.5%, SL=1.5%, trail=0.5%, est. PnL=+23.5%
+[2026-07-22 22:41:02]   -> Updated params: {'tp_pct': 2.5, 'sl_pct': 1.5, 'trail_pct': 0.5, 'conf_threshold': 60}
+[2026-07-22 22:41:10] === Iteration #3 ===
+[2026-07-22 22:41:10] Training samples: 200, pumps: 32
+[2026-07-22 22:41:10]   -> Enough data (200 >= 30), calibrating...
+[2026-07-22 22:41:10]   -> LR CV F1: 0.376, Acc: 0.815
+[2026-07-22 22:41:10]   -> Top positive: f_m_obi_bearish(+0.72), f_macd_hist(+0.70), f_m_5m_trade_count(+0.66)
+[2026-07-22 22:41:10]   -> Top negative: f_atr_expanding(-1.11), f_in_range(-0.96), f_independent_mover(-0.82)
+[2026-07-22 22:41:10]   -> Best TP/SL: TP=2.5%, SL=1.5%, trail=0.5%, est. PnL=+23.5%
+[2026-07-22 22:41:10]   -> Updated params: {'tp_pct': 2.5, 'sl_pct': 1.5, 'trail_pct': 0.5, 'conf_threshold': 60}
+[2026-07-22 22:42:27] === Iteration #4 ===
+[2026-07-22 22:42:27] Training samples: 200, pumps: 32
+[2026-07-22 22:42:27]   -> Enough data (200 >= 30), calibrating...
+[2026-07-22 22:42:27]   -> LR CV F1: 0.376, Acc: 0.815
+[2026-07-22 22:42:27]   -> Pump rate: 16.0%, Best proba threshold: 0.639
+[2026-07-22 22:42:27]   -> Top positive: f_m_obi_bearish(+0.72), f_macd_hist(+0.70), f_m_5m_trade_count(+0.66)
+[2026-07-22 22:42:27]   -> Top negative: f_atr_expanding(-1.11), f_in_range(-0.96), f_independent_mover(-0.82)
+[2026-07-22 22:42:27]   -> Weak features to drop: 20
+[2026-07-22 22:42:27]   -> Best TP/SL: TP=3.0%, SL=1.5%, trail=0.5%, WR=40.0%, PnL=+18.4%
+[2026-07-22 22:42:27]   -> New params: {'tp_pct': 3.0, 'sl_pct': 1.5, 'trail_pct': 0.5, 'conf_threshold': 60}
+[2026-07-22 22:42:27]   -> Active features: 163
+[2026-07-22 22:42:40] === Iteration #5 ===
+[2026-07-22 22:42:41] Training samples: 200, pumps: 32
+[2026-07-22 22:42:41]   -> Enough data (200 >= 30), calibrating...
+[2026-07-22 22:42:41]   -> LR CV F1: 0.376, Acc: 0.815
+[2026-07-22 22:42:41]   -> Pump rate: 16.0%, Best proba threshold: 0.639
+[2026-07-22 22:42:41]   -> Top positive: f_m_obi_bearish(+0.72), f_macd_hist(+0.70), f_m_5m_trade_count(+0.66)
+[2026-07-22 22:42:41]   -> Top negative: f_atr_expanding(-1.11), f_in_range(-0.96), f_independent_mover(-0.82)
+[2026-07-22 22:42:41]   -> Weak features to drop: 20
+[2026-07-22 22:42:41]   -> Best TP/SL: TP=3.0%, SL=1.5%, trail=0.5%, WR=40.0%, PnL=+18.4%
+[2026-07-22 22:42:41]   -> New params: {'tp_pct': 3.0, 'sl_pct': 1.5, 'trail_pct': 0.5, 'conf_threshold': 60}
+[2026-07-22 22:42:41]   -> Active features: 163

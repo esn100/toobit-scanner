@@ -1,0 +1,121 @@
+{
+  "n_samples": 1744,
+  "pump_rate": 0.2448394495412844,
+  "n_features": 128,
+  "models": {
+    "lr": {
+      "f1": 0.44599441503070325,
+      "auc": 0.6624439615475126
+    },
+    "lgb": {
+      "f1": 0.5774558952564754,
+      "auc": 0.826061699159362
+    },
+    "xgb": {
+      "f1": 0.5678753565942506,
+      "auc": 0.830277041820997
+    }
+  },
+  "top_features": [
+    [
+      "ex_ex_obv_norm",
+      342
+    ],
+    [
+      "ex_ex_adx",
+      337
+    ],
+    [
+      "ex_ex_cmf",
+      332
+    ],
+    [
+      "ex_ex_obv_slope_norm",
+      297
+    ],
+    [
+      "ex_ex_ad_norm",
+      288
+    ],
+    [
+      "ex_ex_mass_index",
+      281
+    ],
+    [
+      "ex_ex_plus_di",
+      280
+    ],
+    [
+      "ind_atr_pct",
+      279
+    ],
+    [
+      "candle_last_body_ratio",
+      276
+    ],
+    [
+      "ind_rvol",
+      275
+    ],
+    [
+      "ex_ex_ad_slope_norm",
+      264
+    ],
+    [
+      "ex_ex_stochrsi_d",
+      253
+    ],
+    [
+      "ind_bb_width_pct",
+      244
+    ],
+    [
+      "ind_momentum_1_pct",
+      243
+    ],
+    [
+      "ex_ex_supertrend_distance_pct",
+      242
+    ],
+    [
+      "ind_momentum_acceleration",
+      236
+    ],
+    [
+      "candle_last_upper_wick",
+      228
+    ],
+    [
+      "ex_ex_stoch_d",
+      218
+    ],
+    [
+      "ex_ex_vortex_plus",
+      218
+    ],
+    [
+      "candle_candle_strength",
+      212
+    ],
+    [
+      "ex_ex_mfi",
+      210
+    ],
+    [
+      "ex_ex_uo",
+      205
+    ],
+    [
+      "ex_ex_eom",
+      203
+    ],
+    [
+      "ex_ex_ao",
+      199
+    ],
+    [
+      "ex_ex_vortex_minus",
+      193
+    ]
+  ]
+}

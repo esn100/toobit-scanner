@@ -1,5 +1,5 @@
 {
-  "last_update": "2026-07-20T12:02:12.168503+00:00",
+  "last_update": "2026-07-24T00:09:32.213633+00:00",
   "by_confidence_bucket": {
     "50-60": {
       "n": 1,
@@ -14,14 +14,32 @@
       "n_sl": 1,
       "n_to": 0,
       "total_pnl": -3.879
+    },
+    "60-70": {
+      "n": 1,
+      "n_tp": 0,
+      "n_sl": 1,
+      "total_pnl": -1.5
     }
   },
   "by_tp_sl": {
     "tp5_sl3": {
-      "n": 2,
+      "n": 3,
       "n_tp": 1,
+      "n_sl": 2,
+      "total_pnl": 0.44799999999999995
+    },
+    "tp5.0_sl3.0": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 8.237643534697952
+    },
+    "tp5.0_sl1.5": {
+      "n": 1,
+      "n_tp": 0,
       "n_sl": 1,
-      "total_pnl": 1.948
+      "total_pnl": -5.965909090909103
     }
   },
   "by_symbol": {
@@ -32,10 +50,22 @@
       "total_pnl": 5.827
     },
     "ALICEUSDT": {
+      "n": 2,
+      "n_tp": 0,
+      "n_sl": 2,
+      "total_pnl": -5.379
+    },
+    "EPICUSDT": {
+      "n": 1,
+      "n_tp": 1,
+      "n_sl": 0,
+      "total_pnl": 8.237643534697952
+    },
+    "OPNUSDT": {
       "n": 1,
       "n_tp": 0,
       "n_sl": 1,
-      "total_pnl": -3.879
+      "total_pnl": -5.965909090909103
     }
   },
   "by_direction": {
@@ -46,10 +76,10 @@
       "total_pnl": 5.827
     },
     "LONG": {
-      "n": 1,
-      "n_tp": 0,
-      "n_sl": 1,
-      "total_pnl": -3.879
+      "n": 4,
+      "n_tp": 1,
+      "n_sl": 3,
+      "total_pnl": -3.107265556211151
     }
   },
   "by_hour_of_day": {
@@ -69,15 +99,15 @@
     }
   },
   "rolling_24h": {
-    "n": 2,
-    "n_tp": 1,
-    "n_sl": 1,
+    "n": 5,
+    "n_tp": 2,
+    "n_sl": 3,
     "n_to": 0,
     "n_trailing": 0,
-    "win_rate": 0.5,
-    "total_pnl": 1.95,
-    "avg_pnl": 0.974
+    "win_rate": 0.4,
+    "total_pnl": 2.719734443788849,
+    "avg_pnl": 0.5439468887577699
   },
-  "consecutive_losses": 1,
+  "consecutive_losses": 2,
   "consecutive_wins": 0
 }

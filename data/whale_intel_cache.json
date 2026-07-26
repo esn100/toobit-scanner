@@ -1,0 +1,113 @@
+{
+  "whale_intel": {
+    "SYNUSDT": {
+      "symbol": "SYNUSDT",
+      "has_signal": false,
+      "signal_strength": 0,
+      "signal_type": null,
+      "sources_active": [
+        "geckoterminal",
+        "holder_proxy"
+      ],
+      "details": {
+        "geckoterminal": {
+          "total_liquidity_usd": 3528.5825,
+          "total_volume_24h": 858.4690327582603,
+          "total_volume_1h": 27.904909055799997,
+          "pools": [
+            {
+              "name": "SYN / BUSD",
+              "reserve_usd": 579.989,
+              "vol_24h": 406.2580507937,
+              "vol_1h": 8.2003623895,
+              "price_change_24h": "18.68"
+            },
+            {
+              "name": "SYN / USDT 0.153%",
+              "reserve_usd": 895.7823,
+              "vol_24h": 191.5358176756,
+              "vol_1h": 10.9027261228,
+              "price_change_24h": "-0.09"
+            },
+            {
+              "name": "SYN / WBNB",
+              "reserve_usd": 298.2524,
+              "vol_24h": 197.251811466,
+              "vol_1h": 6.231751861,
+              "price_change_24h": "12.38"
+            },
+            {
+              "name": "SYN / USDT 50%",
+              "reserve_usd": 1424.3429,
+              "vol_24h": 9.861579719,
+              "vol_1h": 0.0,
+              "price_change_24h": "-6.61"
+            },
+            {
+              "name": "SYN / EVT\ud83d\ude80",
+              "reserve_usd": 93.6274,
+              "vol_24h": 13.4778850807,
+              "vol_1h": 1.7769413891,
+              "price_change_24h": "23.01"
+            },
+            {
+              "name": "SYN / $FREN",
+              "reserve_usd": 52.9644,
+              "vol_24h": 20.0362394141,
+              "vol_1h": 0.4427161341,
+              "price_change_24h": "14.97"
+            },
+            {
+              "name": "EVT / SYN",
+              "reserve_usd": 19.6422,
+              "vol_24h": 12.1767233519,
+              "vol_1h": 0.0,
+              "price_change_24h": "19.87"
+            },
+            {
+              "name": "EV3 / SYN",
+              "reserve_usd": 32.3482,
+              "vol_24h": 7.1410965203,
+              "vol_1h": 0.3504111593,
+              "price_change_24h": "11.87"
+            },
+            {
+              "name": "SYN / USDT 49.99%",
+              "reserve_usd": 99.6932,
+              "vol_24h": 0.6440696485,
+              "vol_1h": 0.0,
+              "price_change_24h": "0"
+            },
+            {
+              "name": "SYN / USDE",
+              "reserve_usd": 31.9405,
+              "vol_24h": 0.08575908846,
+              "vol_1h": 0.0,
+              "price_change_24h": "-4.28"
+            }
+          ],
+          "price_usd": 0.1722865729,
+          "pool_count": 10,
+          "top_pool_liquidity": 1424.3429
+        },
+        "holder_concentration": {
+          "concentration_score": 50,
+          "risk_level": "critical",
+          "liquidity_health": "no_liquidity",
+          "metrics": {
+            "total_liquidity_usd": 0,
+            "total_volume_24h": 0,
+            "total_volume_1h": 0,
+            "pools": [],
+            "price_usd": 0.1722865729,
+            "pool_count": 0,
+            "top_pool_liquidity": 0
+          }
+        },
+        "veto_reason": "concentrated_holders"
+      },
+      "ts": "2026-07-26T02:52:21.230672+00:00"
+    }
+  },
+  "last_scan": "2026-07-26T02:52:21.230672+00:00"
+}

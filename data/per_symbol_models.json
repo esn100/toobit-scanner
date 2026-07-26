@@ -1,0 +1,464 @@
+{
+  "RECALLUSDT": {
+    "n": 136,
+    "pump_rate": 0.2426470588235294,
+    "cv_f1": 0.4585326953748006,
+    "top_positive": [
+      [
+        "struct_higher_lows",
+        0.7254031780724419
+      ],
+      [
+        "ind_bb_width_pct",
+        0.6975795522293058
+      ],
+      [
+        "struct_range_pct",
+        0.5555115019948909
+      ]
+    ],
+    "top_negative": [
+      [
+        "candle_last_body_ratio",
+        -0.7476849432143635
+      ],
+      [
+        "ex_ex_ad_norm",
+        -0.7396642064793008
+      ],
+      [
+        "candle_bullish_close",
+        -0.6970950893480584
+      ]
+    ]
+  },
+  "EPICUSDT": {
+    "n": 136,
+    "pump_rate": 0.375,
+    "cv_f1": 0.37654320987654327,
+    "top_positive": [
+      [
+        "ex_ex_aroon_down",
+        0.8004978653577538
+      ],
+      [
+        "ex_ex_mass_reversal",
+        0.7183166223010332
+      ],
+      [
+        "ex_ex_mass_score",
+        0.683676870355622
+      ]
+    ],
+    "top_negative": [
+      [
+        "struct_lower_lows",
+        -1.0726114094916042
+      ],
+      [
+        "ex_ex_supertrend",
+        -0.6992049065392201
+      ],
+      [
+        "ex_ex_cmf_score",
+        -0.6509589650922494
+      ]
+    ]
+  },
+  "OPNUSDT": {
+    "n": 136,
+    "pump_rate": 0.25735294117647056,
+    "cv_f1": 0.2740740740740741,
+    "top_positive": [
+      [
+        "ex_ex_adx_weak",
+        0.6747472317704479
+      ],
+      [
+        "ex_ex_vortex_plus",
+        0.5992669180052808
+      ],
+      [
+        "ex_ex_obv_slope_norm",
+        0.5397802462584049
+      ]
+    ],
+    "top_negative": [
+      [
+        "struct_higher_lows",
+        -1.161171195621665
+      ],
+      [
+        "ex_ex_uo",
+        -0.7151700715722723
+      ],
+      [
+        "ex_ex_obv_score",
+        -0.5352030499455819
+      ]
+    ]
+  },
+  "LISTAUSDT": {
+    "n": 136,
+    "pump_rate": 0.125,
+    "cv_f1": 0.2580392156862745,
+    "top_positive": [
+      [
+        "ex_ex_adx_score",
+        0.707050338752971
+      ],
+      [
+        "ind_volume_spike",
+        0.5303747717319047
+      ],
+      [
+        "ind_rvol",
+        0.4557533101910929
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_adx_weak",
+        -0.48533628958530695
+      ],
+      [
+        "tech_ema50",
+        -0.46798732441936564
+      ],
+      [
+        "ex_ex_plus_di",
+        -0.46387984986486513
+      ]
+    ]
+  },
+  "RESOLVUSDT": {
+    "n": 136,
+    "pump_rate": 0.2647058823529412,
+    "cv_f1": 0.24936088831645298,
+    "top_positive": [
+      [
+        "tech_rsi_score",
+        0.8182072077880277
+      ],
+      [
+        "ex_ex_ad_norm",
+        0.7916085280789967
+      ],
+      [
+        "candle_power_streak",
+        0.7373735711568206
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_aroon_score",
+        -0.6571856667840047
+      ],
+      [
+        "tech_ema100",
+        -0.61164059198672
+      ],
+      [
+        "ex_ex_stochrsi_score",
+        -0.5945905906440438
+      ]
+    ]
+  },
+  "TLMUSDT": {
+    "n": 136,
+    "pump_rate": 0.3161764705882353,
+    "cv_f1": 0.22527472527472528,
+    "top_positive": [
+      [
+        "struct_lower_highs",
+        0.7879025488104758
+      ],
+      [
+        "ex_ex_kc_breakout_above",
+        0.5563947593998656
+      ],
+      [
+        "ind_rvol",
+        0.5187399297571988
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_stochrsi_d",
+        -0.640407249742224
+      ],
+      [
+        "ex_ex_supertrend",
+        -0.5845126419035939
+      ],
+      [
+        "ind_bb_squeeze",
+        -0.5838723843264775
+      ]
+    ]
+  },
+  "TUTUSDT": {
+    "n": 136,
+    "pump_rate": 0.2647058823529412,
+    "cv_f1": 0.2215048504116736,
+    "top_positive": [
+      [
+        "ex_ex_vortex_plus",
+        0.6064074079758072
+      ],
+      [
+        "ind_bb_squeeze",
+        0.5998556332723651
+      ],
+      [
+        "ex_ex_ao_positive",
+        0.533410876591655
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_cmf_positive",
+        -0.960278722717603
+      ],
+      [
+        "ex_ex_vortex_score",
+        -0.8545987063311722
+      ],
+      [
+        "ind_price_above_vwap",
+        -0.679507107219765
+      ]
+    ]
+  },
+  "ERAUSDT": {
+    "n": 136,
+    "pump_rate": 0.14705882352941177,
+    "cv_f1": 0.2169312169312169,
+    "top_positive": [
+      [
+        "ex_ex_adx",
+        0.5700160106111272
+      ],
+      [
+        "struct_lower_lows",
+        0.514460919512976
+      ],
+      [
+        "ind_bb_breakout_below",
+        0.5097277510488311
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_obv_slope_norm",
+        -0.6061404895295833
+      ],
+      [
+        "struct_structure_score",
+        -0.5672661745877251
+      ],
+      [
+        "tech_ema100",
+        -0.5314141145256824
+      ]
+    ]
+  },
+  "FIGHTUSDT": {
+    "n": 136,
+    "pump_rate": 0.22058823529411764,
+    "cv_f1": 0.216548463356974,
+    "top_positive": [
+      [
+        "ex_ex_cci_overbought",
+        0.589929586566078
+      ],
+      [
+        "ex_ex_adx",
+        0.5711927937586707
+      ],
+      [
+        "tech_ema_score",
+        0.5641265639324441
+      ]
+    ],
+    "top_negative": [
+      [
+        "ind_bb_breakout_below",
+        -0.8585037364378707
+      ],
+      [
+        "tech_ema100",
+        -0.7568706059603595
+      ],
+      [
+        "struct_range_pct",
+        -0.7154734946103393
+      ]
+    ]
+  },
+  "WCTUSDT": {
+    "n": 136,
+    "pump_rate": 0.0661764705882353,
+    "cv_f1": 0.18333333333333335,
+    "top_positive": [
+      [
+        "ex_ex_ao_saucer",
+        0.7046266054372371
+      ],
+      [
+        "tech_rsi_score",
+        0.5717804246009193
+      ],
+      [
+        "ex_ex_ad_norm",
+        0.40824971211339517
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_aroon_score",
+        -0.5886201699003166
+      ],
+      [
+        "ind_bb_breakout_above",
+        -0.48049193524410005
+      ],
+      [
+        "ex_ex_aroon_up",
+        -0.4278224304301234
+      ]
+    ]
+  },
+  "ACEUSDT": {
+    "n": 136,
+    "pump_rate": 0.15441176470588236,
+    "cv_f1": 0.16666666666666666,
+    "top_positive": [
+      [
+        "ex_ex_adx_strong",
+        0.7636841878517291
+      ],
+      [
+        "ex_ex_obv_norm",
+        0.49855106941849003
+      ],
+      [
+        "struct_bos_down",
+        0.4953738746317296
+      ]
+    ],
+    "top_negative": [
+      [
+        "struct_lower_highs",
+        -0.8604589067278046
+      ],
+      [
+        "tech_ema100",
+        -0.8333801794311032
+      ],
+      [
+        "ex_ex_roc_score",
+        -0.5954892231494251
+      ]
+    ]
+  },
+  "DODOUSDT": {
+    "n": 136,
+    "pump_rate": 0.19117647058823528,
+    "cv_f1": 0.09606625258799172,
+    "top_positive": [
+      [
+        "ind_volume_spike",
+        0.5985152831816832
+      ],
+      [
+        "ex_ex_vpt_norm",
+        0.49654648058422096
+      ],
+      [
+        "ex_ex_vortex_score",
+        0.4809099714229408
+      ]
+    ],
+    "top_negative": [
+      [
+        "struct_lower_highs",
+        -0.727361512305224
+      ],
+      [
+        "struct_bos_up",
+        -0.6832752574902109
+      ],
+      [
+        "tech_macd_hist",
+        -0.5726666430930784
+      ]
+    ]
+  },
+  "BREVUSDT": {
+    "n": 136,
+    "pump_rate": 0.125,
+    "cv_f1": 0.08446455505279034,
+    "top_positive": [
+      [
+        "ex_ex_roc_positive",
+        0.7075042430708386
+      ],
+      [
+        "ex_ex_ad_slope_norm",
+        0.551048581826375
+      ],
+      [
+        "ex_ex_ao_positive",
+        0.49716811244680154
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_kst_score",
+        -0.799053535120474
+      ],
+      [
+        "ex_ex_kst_crossover",
+        -0.7200271059446575
+      ],
+      [
+        "ex_ex_dc_lower",
+        -0.5237124036745688
+      ]
+    ]
+  },
+  "HYPERUSDT": {
+    "n": 136,
+    "pump_rate": 0.058823529411764705,
+    "cv_f1": 0.08148148148148147,
+    "top_positive": [
+      [
+        "ex_ex_aroon_down",
+        0.7198423264739321
+      ],
+      [
+        "ex_ex_adx",
+        0.3896521148802499
+      ],
+      [
+        "tech_technical_score",
+        0.38911989790816137
+      ]
+    ],
+    "top_negative": [
+      [
+        "ex_ex_aroon_crossover",
+        -0.806659308623997
+      ],
+      [
+        "ex_ex_cmf_positive",
+        -0.671700547212153
+      ],
+      [
+        "ex_ex_obv_score",
+        -0.6532706482549566
+      ]
+    ]
+  }
+}

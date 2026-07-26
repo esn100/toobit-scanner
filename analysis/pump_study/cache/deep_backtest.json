@@ -1,0 +1,152 @@
+{
+  "n_samples": 2,
+  "n_pumps": 2,
+  "best_features": [
+    {
+      "feature": "mom_1",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": -0.8084891359272312,
+      "direction": ">"
+    },
+    {
+      "feature": "mom_3",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.0,
+      "direction": ">"
+    },
+    {
+      "feature": "mom_6",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": -0.16694490818030527,
+      "direction": ">"
+    },
+    {
+      "feature": "mom_12",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 1.2872628726287207,
+      "direction": ">"
+    },
+    {
+      "feature": "rsi",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 51.465170947168204,
+      "direction": ">"
+    },
+    {
+      "feature": "rvol",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.4760300593031764,
+      "direction": ">"
+    },
+    {
+      "feature": "max_rvol_4h",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.633616199086822,
+      "direction": ">"
+    },
+    {
+      "feature": "atr_pct",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 1.6220735785953146,
+      "direction": ">"
+    },
+    {
+      "feature": "body",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.09039548022598819,
+      "direction": ">"
+    },
+    {
+      "feature": "bb_width",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 8.538310388828329,
+      "direction": ">"
+    },
+    {
+      "feature": "bb_pos",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.5891990868340349,
+      "direction": ">"
+    },
+    {
+      "feature": "flat_hours",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 1,
+      "direction": ">"
+    },
+    {
+      "feature": "ema_cross",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": -2.4973593195087322,
+      "direction": ">"
+    },
+    {
+      "feature": "vol_trend",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": -10.00019612851376,
+      "direction": ">"
+    },
+    {
+      "feature": "price_24h",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": -23.49961028838659,
+      "direction": ">"
+    },
+    {
+      "feature": "higher_lows",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 1,
+      "direction": ">"
+    },
+    {
+      "feature": "upper_wick",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.0,
+      "direction": ">"
+    },
+    {
+      "feature": "donchian_pos",
+      "f1": 0.6666666666666666,
+      "precision": 1.0,
+      "catch": 0.5,
+      "thresh": 0.9171779141104295,
+      "direction": ">"
+    }
+  ],
+  "best_combo": "[('mom_1', -0.8084891359272312, '>'), ('rsi', 51.465170947168204, '>')]",
+  "best_combo_accuracy": 0.5
+}

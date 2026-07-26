@@ -1,0 +1,134 @@
+[
+  {
+    "symbol": "AKEUSDT",
+    "price": 0.0033577,
+    "change_24h": 0.266,
+    "vol_24h": 602655.0075719,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 23.0
+  },
+  {
+    "symbol": "IKAUSDT",
+    "price": 0.002501,
+    "change_24h": 0.0085,
+    "vol_24h": 41783.836621,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 23.0
+  },
+  {
+    "symbol": "WODUSDT",
+    "price": 0.005697,
+    "change_24h": 0.0486,
+    "vol_24h": 110909.969975,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 23.0
+  },
+  {
+    "symbol": "XCXUSDT",
+    "price": 0.003265,
+    "change_24h": 0.065,
+    "vol_24h": 87009.8887036,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 23.0
+  },
+  {
+    "symbol": "EVAAUSDT",
+    "price": 0.9083,
+    "change_24h": -0.0498,
+    "vol_24h": 44731.33349,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 20.5
+  },
+  {
+    "symbol": "TLMUSDT",
+    "price": 0.001682,
+    "change_24h": -0.0789,
+    "vol_24h": 977983.484793,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 20.5
+  },
+  {
+    "symbol": "ACEUSDT",
+    "price": 0.0854,
+    "change_24h": -0.1874,
+    "vol_24h": 2844339.3277,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 20.5
+  },
+  {
+    "symbol": "INUSDT",
+    "price": 0.0397,
+    "change_24h": -0.0144,
+    "vol_24h": 111920.91174,
+    "pattern_confidence": 55.00000000000001,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 20.5
+  },
+  {
+    "symbol": "ERAUSDT",
+    "price": 0.0813,
+    "change_24h": -0.0997,
+    "vol_24h": 180656.79392,
+    "pattern_confidence": 45.0,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 17.0
+  },
+  {
+    "symbol": "BANKUSDT",
+    "price": 0.3685,
+    "change_24h": 0.2174,
+    "vol_24h": 4400935.61985,
+    "pattern_confidence": 35.0,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 16.0
+  },
+  {
+    "symbol": "LABUSDT",
+    "price": 0.1535,
+    "change_24h": -0.0424,
+    "vol_24h": 249290.39869,
+    "pattern_confidence": 0,
+    "breakout_score": 15,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 3.75
+  },
+  {
+    "symbol": "SYNUSDT",
+    "price": 0.16824,
+    "change_24h": 0.0362,
+    "vol_24h": 1673461.36686,
+    "pattern_confidence": 0,
+    "breakout_score": 5,
+    "whale_score": 0,
+    "news_score": 0,
+    "combined_score": 1.25
+  }
+]

@@ -39,6 +39,11 @@ from lunarcrush import LunarCrushClient
 from google_trends import GoogleTrendsClient
 from tradingview_scraper import TradingViewScraper
 from whale_data import CoinGlassClient, get_whale_features
+from universe import (
+    discover_small_caps, MarketCapResolver,
+    MAJORS_BLACKLIST, MAX_SYMBOLS_RETURNED,
+)
+from prefilter_v2 import prefilter_score_v2, passes_prefilter_v2
 
 from data_quality import validate_ohlcv
 from technical import technical_analysis
@@ -104,6 +109,7 @@ def scan_symbol(
     lunar: LunarCrushClient,
     tv: TradingViewScraper,
     coinglass: CoinGlassClient | None,
+    btc_df_1h: pd.DataFrame = None,
 ) -> Dict:
     toobit = ToobitClient()
     interval = cfg["scanner"]["timeframe"]
@@ -113,12 +119,27 @@ def scan_symbol(
     df_4h = toobit.get_klines(symbol, interval, limit)
     # 1h for multi-timeframe alignment
     df_1h = toobit.get_klines(symbol, "1h", min(limit, 200))
+    # 15m and 5m for new prefilter
+    df_15m = toobit.get_klines(symbol, "15m", 100)
+    df_5m = toobit.get_klines(symbol, "5m", 100)
 
     # Validate
     q4 = validate_ohlcv(df_4h, min_candles=60, interval_hours=4.0)
     if not q4.ok or q4.cleaned is None or q4.cleaned.empty:
         return {"_rejected": "data quality", "_quality": q4}
     df_4h = q4.cleaned
+
+    # NEW: Fast pre-filter (saves heavy indicators/ML calls on junk)
+    try:
+        pf = prefilter_score_v2(df_5m, df_1h, df_4h, df_15m,
+                                 btc_df_1h if btc_df_1h is not None else pd.DataFrame())
+        if not passes_prefilter_v2(pf, min_score=25.0):
+            return {"_rejected": "prefilter_v2",
+                    "_prefilter": pf,
+                    "_reason": ",".join(pf.get("rejects", ["low_score"]))}
+    except Exception:
+        # If prefilter crashes, continue to full analysis (don't block)
+        pass
 
     # Technical (RSI/MACD/EMA/patterns)
     tech = technical_analysis(df_4h)
@@ -284,41 +305,53 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
                 "btc": btc_state}
     print(f"[scanner] Got {len(tickers)} tickers from Toobit.", flush=True)
 
-    print("[scanner] Filtering by market cap via CoinPaprika...", flush=True)
-    filtered = pd.DataFrame()
+    # NEW: Use improved universe discovery
+    print("[scanner] Discovering small caps (improved universe)...", flush=True)
     try:
-        mc_map = coingpaprika.get_market_caps_for_symbols(
-            tickers["base"].tolist()
+        resolver = MarketCapResolver(cache_dir=cache_dir)
+        filtered = discover_small_caps(
+            tickers, resolver,
+            max_symbols=cfg["scanner"]["max_symbols_per_run"],
         )
-        if mc_map:
-            t2 = tickers.copy()
-            t2["market_cap_usd"] = t2["base"].map(mc_map).fillna(0.0)
-            t2 = t2[
-                (t2["market_cap_usd"] > 0)
-                & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
-                & (t2["quote_volume_24h"] >= cfg["scanner"]["min_24h_volume_usd"])
-            ]
-            filtered = t2.sort_values(
-                "quote_volume_24h", ascending=False
-            ).head(cfg["scanner"]["max_symbols_per_run"]).reset_index(drop=True)
-            print(f"[scanner] CoinPaprika produced {len(filtered)} matches.",
+        if not filtered.empty:
+            print(f"[scanner] Universe found {len(filtered)} small caps "
+                  f"(max_mc={filtered['market_cap_usd'].max()/1e6:.1f}M, "
+                  f"min_mc={filtered['market_cap_usd'].min()/1e6:.1f}M)",
                   flush=True)
     except Exception as e:
-        print(f"[scanner] CoinPaprika failed: {e}", flush=True)
+        print(f"[scanner] Universe failed: {e}", flush=True)
+        filtered = pd.DataFrame()
     if filtered.empty:
+        # Fallback to old method
+        print("[scanner] Falling back to legacy filter...", flush=True)
         try:
-            filtered = filter_small_cap_symbols(
-                tickers, coingecko,
-                max_market_cap_usd=cfg["scanner"]["max_market_cap_usd"],
-                min_volume_usd=cfg["scanner"]["min_24h_volume_usd"],
-                max_symbols=cfg["scanner"]["max_symbols_per_run"],
+            mc_map = coingpaprika.get_market_caps_for_symbols(
+                tickers["base"].tolist()
             )
+            if mc_map:
+                t2 = tickers.copy()
+                t2["market_cap_usd"] = t2["base"].map(mc_map).fillna(0.0)
+                t2 = t2[
+                    (t2["market_cap_usd"] > 0)
+                    & (t2["market_cap_usd"] <= cfg["scanner"]["max_market_cap_usd"])
+                    & (t2["quote_volume_24h"] >= cfg["scanner"]["min_24h_volume_usd"])
+                    & (~t2["base"].isin(MAJORS_BLACKLIST))
+                ]
+                filtered = t2.sort_values(
+                    "quote_volume_24h", ascending=False
+                ).head(cfg["scanner"]["max_symbols_per_run"]).reset_index(drop=True)
         except Exception as e:
-            print(f"[scanner] CoinGecko fallback failed: {e}", flush=True)
+            print(f"[scanner] Legacy filter failed: {e}", flush=True)
     if filtered.empty:
         print("[scanner] No symbols passed the filter.", flush=True)
         return {"alerts": [], "results": [], "watchlist": [],
                 "btc": btc_state}
+
+    # Fetch BTC 1h once for prefilter
+    try:
+        btc_1h_df = toobit.get_klines("BTCUSDT", "1h", 100)
+    except Exception:
+        btc_1h_df = pd.DataFrame()
 
     # ----------------- per-symbol scan -----------------
     results: List[Dict] = []
@@ -329,14 +362,18 @@ def run_scan(cfg: dict | None = None, verbose: bool = True) -> dict:
         try:
             pack = scan_symbol(
                 sym, row["market_cap_usd"], row["quote_volume_24h"],
-                cfg, trends, lunar, tv, coinglass,
+                cfg, trends, lunar, tv, coinglass, btc_1h_df,
             )
         except Exception as e:
             print(f"[scanner] Error scanning {sym}: {e}", flush=True)
             time.sleep(0.5)
             continue
         if not pack or pack.get("_rejected"):
-            time.sleep(0.3)
+            if pack and pack.get("_rejected") == "prefilter_v2":
+                if verbose:
+                    print(f"[scanner] {sym} prefilter_v2 rejected: "
+                          f"{pack.get('_reason')}", flush=True)
+            time.sleep(0.2)  # shorter sleep for prefilter rejects
             continue
 
         # Build features

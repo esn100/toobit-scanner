@@ -24,7 +24,30 @@ def is_ultra_setup(features: Dict, direction: str) -> Tuple[bool, str]:
     """
     Ultra-strict check for the BEST setups only.
     Returns (passes, reason_if_fail).
+
+    New: integrated anti_late filter (Layer 0) before any other check.
+    Catches: mom_1 overextension, mom_3 overextension, blowoff acceleration,
+    distribution wicks, weak candles at top.
     """
+    # Layer 0: anti-late filter (must pass first)
+    try:
+        from .anti_late import check_anti_late
+        # Map f_/m_ keys to plain keys expected by anti_late
+        anti_feats = {
+            "momentum_1_pct": float(features.get("f_momentum_1_pct", 0)),
+            "momentum_3_pct": float(features.get("f_momentum_3_pct", 0)),
+            "momentum_6_pct": float(features.get("f_momentum_6_pct", 0)),
+            "momentum_acceleration": float(features.get("f_momentum_acceleration", 0)),
+            "candle_strength": float(features.get("f_candle_strength", 0.5)),
+            "big_wick_top": bool(features.get("f_big_wick_top", False)),
+            "wick_body_ratio": float(features.get("f_wick_body_ratio", 0.0)),
+        }
+        ok_late, pen, late_reason = check_anti_late(anti_feats, direction)
+        if not ok_late:
+            return False, f"anti_late_{late_reason}"
+    except Exception:
+        pass  # if anti_late module missing, skip
+
     atr = float(features.get("f_atr_pct", 0))
     rvol = float(features.get("f_rvol", 0.01))
     mom_3 = float(features.get("f_momentum_3_pct", 0))

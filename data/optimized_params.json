@@ -1,0 +1,10 @@
+{
+  "tp_pct": 5.0,
+  "sl_pct": 1.5,
+  "trail_pct": 0.5,
+  "strategy": "V3_aggressive",
+  "conf_threshold": 60,
+  "n_signals": 24,
+  "win_rate": 0.5,
+  "total_pnl": 30.91425540436679
+}

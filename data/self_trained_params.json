@@ -1,0 +1,7 @@
+{
+  "tp_pct": 5.0,
+  "sl_pct": 1.5,
+  "trail_pct": 0.5,
+  "conf_threshold": 40,
+  "note": "Walk-forward OOS best: WR=47.9%, P&L=+46.0%, N=48. Threshold 40% for more signals."
+}

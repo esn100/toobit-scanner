@@ -1,0 +1,28 @@
+{
+  "v1": {
+    "name": "V1 (no extended)",
+    "n": 10,
+    "wins": 10,
+    "win_rate": 1.0,
+    "total_pnl": 49.167358356254596,
+    "avg_pnl": 4.91673583562546,
+    "profit_factor": Infinity
+  },
+  "v2": {
+    "name": "V2 (with extended)",
+    "n": 9,
+    "wins": 9,
+    "win_rate": 1.0,
+    "total_pnl": 47.039519490773145,
+    "avg_pnl": 5.2266132767525715,
+    "profit_factor": Infinity
+  },
+  "params": {
+    "days": 60,
+    "tp": 2.5,
+    "sl": 2.0,
+    "trail": 0.5,
+    "snap_every": 6
+  },
+  "timestamp": "2026-07-22T22:21:32.920665"
+}

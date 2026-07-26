@@ -1,0 +1,74 @@
+[
+  {
+    "sym": "UNIONUSDT",
+    "gain_pct": 120.78988941548184,
+    "score_t1h": 30,
+    "score_t0": 40,
+    "pattern_conf": 70,
+    "combined": 46.0
+  },
+  {
+    "sym": "CHECKUSDT",
+    "gain_pct": 119.82668977469673,
+    "score_t1h": 30,
+    "score_t0": 30,
+    "pattern_conf": 30,
+    "combined": 30.0
+  },
+  {
+    "sym": "BANKUSDT",
+    "gain_pct": 117.12122594180423,
+    "score_t1h": 0,
+    "score_t0": 0,
+    "pattern_conf": 0,
+    "combined": 0.0
+  },
+  {
+    "sym": "ACEUSDT",
+    "gain_pct": 96.43139112584873,
+    "score_t1h": 0,
+    "score_t0": 0,
+    "pattern_conf": 0,
+    "combined": 0.0
+  },
+  {
+    "sym": "BANKUSDT",
+    "gain_pct": 90.57134399052696,
+    "score_t1h": 55,
+    "score_t0": 70,
+    "pattern_conf": 50,
+    "combined": 53.0
+  },
+  {
+    "sym": "TLMUSDT",
+    "gain_pct": 89.43981831945497,
+    "score_t1h": 0,
+    "score_t0": 0,
+    "pattern_conf": 0,
+    "combined": 0.0
+  },
+  {
+    "sym": "IMUUSDT",
+    "gain_pct": 87.62088974854933,
+    "score_t1h": 30,
+    "score_t0": 80,
+    "pattern_conf": 70,
+    "combined": 46.0
+  },
+  {
+    "sym": "ERAUSDT",
+    "gain_pct": 83.80645161290323,
+    "score_t1h": 55,
+    "score_t0": 55,
+    "pattern_conf": 30,
+    "combined": 45.0
+  },
+  {
+    "sym": "CAMPUSDT",
+    "gain_pct": 80.05938784833258,
+    "score_t1h": 50,
+    "score_t0": 50,
+    "pattern_conf": 30,
+    "combined": 42.0
+  }
+]

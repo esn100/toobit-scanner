@@ -1,0 +1,27 @@
+{
+  "keep": [
+    "ex_ulcer_score",
+    "ex_cmf",
+    "ex_ulcer",
+    "ex_uo",
+    "ex_obv_norm",
+    "ex_stoch_k",
+    "ex_williams_r",
+    "ex_tsi",
+    "ex_tsi_score",
+    "ex_roc_score"
+  ],
+  "drop": [
+    "ex_trix_positive",
+    "ex_ao_saucer",
+    "ex_psar_bullish_trend",
+    "ex_psar_below",
+    "ex_psar_score",
+    "ex_adx_strong",
+    "ex_mfi_oversold",
+    "ex_cci_oversold",
+    "ex_mfi_overbought",
+    "ex_uo_oversold"
+  ],
+  "timestamp": "2026-07-22T22:10:08.185231"
+}

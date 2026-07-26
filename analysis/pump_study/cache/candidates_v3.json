@@ -1,0 +1,2642 @@
+[
+  {
+    "sym": "WHITEWHALEUSDT",
+    "gate_pair": "WHITEWHALE_USDT",
+    "mc": null,
+    "qv_24h": 233976.4810389,
+    "last": 0.00137,
+    "source": "toobit"
+  },
+  {
+    "sym": "CHIPUSDT",
+    "gate_pair": "CHIP_USDT",
+    "mc": 58717789,
+    "qv_24h": 275857.78739,
+    "last": 0.02951,
+    "source": "toobit"
+  },
+  {
+    "sym": "GRIFFAINUSDT",
+    "gate_pair": "GRIFFAIN_USDT",
+    "mc": null,
+    "qv_24h": 326346.406376,
+    "last": 0.008369,
+    "source": "toobit"
+  },
+  {
+    "sym": "COINXUSDT",
+    "gate_pair": "COINX_USDT",
+    "mc": null,
+    "qv_24h": 1155930.7559,
+    "last": 162.15,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZENTUSDT",
+    "gate_pair": "ZENT_USDT",
+    "mc": 18700881,
+    "qv_24h": 303823.3562581,
+    "last": 0.001931,
+    "source": "toobit"
+  },
+  {
+    "sym": "SPCXxUSDT",
+    "gate_pair": "SPCXx_USDT",
+    "mc": null,
+    "qv_24h": 13018822.7448,
+    "last": 116.34,
+    "source": "toobit"
+  },
+  {
+    "sym": "B2USDT",
+    "gate_pair": "B2_USDT",
+    "mc": 13454738,
+    "qv_24h": 684315.964702,
+    "last": 0.3286,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZEREBROUSDT",
+    "gate_pair": "ZEREBRO_USDT",
+    "mc": 36664647,
+    "qv_24h": 2531769.16509,
+    "last": 0.03673,
+    "source": "toobit"
+  },
+  {
+    "sym": "RHEAUSDT",
+    "gate_pair": "RHEA_USDT",
+    "mc": null,
+    "qv_24h": 1317327.743757,
+    "last": 0.012506,
+    "source": "toobit"
+  },
+  {
+    "sym": "DODOUSDT",
+    "gate_pair": "DODO_USDT",
+    "mc": 19277436,
+    "qv_24h": 453556.580304,
+    "last": 0.0195,
+    "source": "toobit"
+  },
+  {
+    "sym": "IDOLUSDT",
+    "gate_pair": "IDOL_USDT",
+    "mc": 28184314,
+    "qv_24h": 336235.415533,
+    "last": 0.014701,
+    "source": "toobit"
+  },
+  {
+    "sym": "HUMAUSDT",
+    "gate_pair": "HUMA_USDT",
+    "mc": 37804977,
+    "qv_24h": 1455529.78677,
+    "last": 0.0218,
+    "source": "toobit"
+  },
+  {
+    "sym": "PTBUSDT",
+    "gate_pair": "PTB_USDT",
+    "mc": null,
+    "qv_24h": 416576.4998574,
+    "last": 0.0005784,
+    "source": "toobit"
+  },
+  {
+    "sym": "PIPPINUSDT",
+    "gate_pair": "PIPPIN_USDT",
+    "mc": 16217439,
+    "qv_24h": 664771.840482,
+    "last": 0.01628,
+    "source": "toobit"
+  },
+  {
+    "sym": "ARGUSDT",
+    "gate_pair": "ARG_USDT",
+    "mc": null,
+    "qv_24h": 547417.04603548,
+    "last": 0.1502,
+    "source": "toobit"
+  },
+  {
+    "sym": "SYNUSDT",
+    "gate_pair": "SYN_USDT",
+    "mc": 31721092,
+    "qv_24h": 2595471.896125,
+    "last": 0.14498,
+    "source": "toobit"
+  },
+  {
+    "sym": "AFCUSDT",
+    "gate_pair": "AFC_USDT",
+    "mc": null,
+    "qv_24h": 1130753.302141,
+    "last": 0.4315,
+    "source": "toobit"
+  },
+  {
+    "sym": "OFCUSDT",
+    "gate_pair": "OFC_USDT",
+    "mc": null,
+    "qv_24h": 324066.574744,
+    "last": 0.01003,
+    "source": "toobit"
+  },
+  {
+    "sym": "LISTAUSDT",
+    "gate_pair": "LISTA_USDT",
+    "mc": 19940076,
+    "qv_24h": 433235.86905,
+    "last": 0.048,
+    "source": "toobit"
+  },
+  {
+    "sym": "HOMEUSDT",
+    "gate_pair": "HOME_USDT",
+    "mc": 24650919,
+    "qv_24h": 1673747.54867,
+    "last": 0.0059,
+    "source": "toobit"
+  },
+  {
+    "sym": "PUNCHIUSDT",
+    "gate_pair": "PUNCHI_USDT",
+    "mc": null,
+    "qv_24h": 463686.59546111,
+    "last": 0.002137,
+    "source": "toobit"
+  },
+  {
+    "sym": "GIGGLEUSDT",
+    "gate_pair": "GIGGLE_USDT",
+    "mc": 25841855,
+    "qv_24h": 321464.74134,
+    "last": 25.86,
+    "source": "toobit"
+  },
+  {
+    "sym": "B3USDT",
+    "gate_pair": "B3_USDT",
+    "mc": 22858567,
+    "qv_24h": 268197.0973245,
+    "last": 0.0004904,
+    "source": "toobit"
+  },
+  {
+    "sym": "BLENDUSDT",
+    "gate_pair": "BLEND_USDT",
+    "mc": 12509730,
+    "qv_24h": 397998.768623,
+    "last": 0.06277,
+    "source": "toobit"
+  },
+  {
+    "sym": "SOLIBUSDT",
+    "gate_pair": "SOLIB_USDT",
+    "mc": null,
+    "qv_24h": 841038.77520735,
+    "last": 0.002303,
+    "source": "toobit"
+  },
+  {
+    "sym": "PIEVERSEUSDT",
+    "gate_pair": "PIEVERSE_USDT",
+    "mc": 181682730,
+    "qv_24h": 2478242.35607,
+    "last": 0.6611,
+    "source": "toobit"
+  },
+  {
+    "sym": "TCOMUSDT",
+    "gate_pair": "TCOM_USDT",
+    "mc": null,
+    "qv_24h": 850445.045072,
+    "last": 0.008146,
+    "source": "toobit"
+  },
+  {
+    "sym": "EWYBUSDT",
+    "gate_pair": "EWYB_USDT",
+    "mc": null,
+    "qv_24h": 259807.58824,
+    "last": 171.45,
+    "source": "toobit"
+  },
+  {
+    "sym": "ARXUSDT",
+    "gate_pair": "ARX_USDT",
+    "mc": 36130592,
+    "qv_24h": 432799.33193,
+    "last": 0.1704,
+    "source": "toobit"
+  },
+  {
+    "sym": "HYPERUSDT",
+    "gate_pair": "HYPER_USDT",
+    "mc": 22042842,
+    "qv_24h": 6307628.05842,
+    "last": 0.0653,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZKCUSDT",
+    "gate_pair": "ZKC_USDT",
+    "mc": 12703183,
+    "qv_24h": 415522.53249,
+    "last": 0.0436,
+    "source": "toobit"
+  },
+  {
+    "sym": "CBRSBUSDT",
+    "gate_pair": "CBRSB_USDT",
+    "mc": null,
+    "qv_24h": 4520090.31482,
+    "last": 217.42,
+    "source": "toobit"
+  },
+  {
+    "sym": "SWARMSUSDT",
+    "gate_pair": "SWARMS_USDT",
+    "mc": null,
+    "qv_24h": 402387.417829,
+    "last": 0.006665,
+    "source": "toobit"
+  },
+  {
+    "sym": "DUCKUSDT",
+    "gate_pair": "DUCK_USDT",
+    "mc": null,
+    "qv_24h": 579226.73440585,
+    "last": 6.281e-05,
+    "source": "toobit"
+  },
+  {
+    "sym": "BUSDT",
+    "gate_pair": "B_USDT",
+    "mc": 31126250,
+    "qv_24h": 657963.66734,
+    "last": 0.17222,
+    "source": "toobit"
+  },
+  {
+    "sym": "SOLSTICEUSDT",
+    "gate_pair": "SOLSTICE_USDT",
+    "mc": null,
+    "qv_24h": 214816.27829,
+    "last": 0.10406,
+    "source": "toobit"
+  },
+  {
+    "sym": "WDCBUSDT",
+    "gate_pair": "WDCB_USDT",
+    "mc": null,
+    "qv_24h": 2578335.73997,
+    "last": 558.37,
+    "source": "toobit"
+  },
+  {
+    "sym": "RESOLVUSDT",
+    "gate_pair": "RESOLV_USDT",
+    "mc": null,
+    "qv_24h": 2278406.338839,
+    "last": 0.01879,
+    "source": "toobit"
+  },
+  {
+    "sym": "TUTUSDT",
+    "gate_pair": "TUT_USDT",
+    "mc": 11767559,
+    "qv_24h": 1759890.14455,
+    "last": 0.01408,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZBTUSDT",
+    "gate_pair": "ZBT_USDT",
+    "mc": 112276662,
+    "qv_24h": 282932.18336,
+    "last": 0.112,
+    "source": "toobit"
+  },
+  {
+    "sym": "XCXUSDT",
+    "gate_pair": "XCX_USDT",
+    "mc": null,
+    "qv_24h": 717979.1726072,
+    "last": 0.0033586,
+    "source": "toobit"
+  },
+  {
+    "sym": "TRUUSDT",
+    "gate_pair": "TRU_USDT",
+    "mc": null,
+    "qv_24h": 380960.5041,
+    "last": 0.0029,
+    "source": "toobit"
+  },
+  {
+    "sym": "BIRBUSDT",
+    "gate_pair": "BIRB_USDT",
+    "mc": 16652645,
+    "qv_24h": 672652.804976,
+    "last": 0.05826,
+    "source": "toobit"
+  },
+  {
+    "sym": "BRETTUSDT",
+    "gate_pair": "BRETT_USDT",
+    "mc": 44114880,
+    "qv_24h": 208389.348063,
+    "last": 0.004463,
+    "source": "toobit"
+  },
+  {
+    "sym": "YBUSDT",
+    "gate_pair": "YB_USDT",
+    "mc": 17333924,
+    "qv_24h": 464566.72797,
+    "last": 0.0726,
+    "source": "toobit"
+  },
+  {
+    "sym": "BOMEUSDT",
+    "gate_pair": "BOME_USDT",
+    "mc": 29940434,
+    "qv_24h": 335269.1117025,
+    "last": 0.0004338,
+    "source": "toobit"
+  },
+  {
+    "sym": "BERAUSDT",
+    "gate_pair": "BERA_USDT",
+    "mc": 55824657,
+    "qv_24h": 306072.5245468,
+    "last": 0.1863,
+    "source": "toobit"
+  },
+  {
+    "sym": "BABYUSDT",
+    "gate_pair": "BABY_USDT",
+    "mc": 49780386,
+    "qv_24h": 629091.44856,
+    "last": 0.0124,
+    "source": "toobit"
+  },
+  {
+    "sym": "TSMBUSDT",
+    "gate_pair": "TSMB_USDT",
+    "mc": null,
+    "qv_24h": 1814372.21723,
+    "last": 415.32,
+    "source": "toobit"
+  },
+  {
+    "sym": "PARTIUSDT",
+    "gate_pair": "PARTI_USDT",
+    "mc": null,
+    "qv_24h": 907901.3224,
+    "last": 0.0289,
+    "source": "toobit"
+  },
+  {
+    "sym": "HOODXUSDT",
+    "gate_pair": "HOODX_USDT",
+    "mc": null,
+    "qv_24h": 1349345.52921,
+    "last": 101.59,
+    "source": "toobit"
+  },
+  {
+    "sym": "FWXUSDT",
+    "gate_pair": "FWX_USDT",
+    "mc": null,
+    "qv_24h": 1436747.6087864,
+    "last": 0.001194,
+    "source": "toobit"
+  },
+  {
+    "sym": "ATUSDT",
+    "gate_pair": "AT_USDT",
+    "mc": 31403186,
+    "qv_24h": 665360.10372,
+    "last": 0.1368,
+    "source": "toobit"
+  },
+  {
+    "sym": "BANANAS31USDT",
+    "gate_pair": "BANANAS31_USDT",
+    "mc": 69279823,
+    "qv_24h": 337596.246086,
+    "last": 0.006949,
+    "source": "toobit"
+  },
+  {
+    "sym": "AKEUSDT",
+    "gate_pair": "AKE_USDT",
+    "mc": 53657396,
+    "qv_24h": 3003469.6968732,
+    "last": 0.0023778,
+    "source": "toobit"
+  },
+  {
+    "sym": "BSBUSDT",
+    "gate_pair": "BSB_USDT",
+    "mc": 30423522,
+    "qv_24h": 458030.02974,
+    "last": 0.1296,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZORAUSDT",
+    "gate_pair": "ZORA_USDT",
+    "mc": 28161163,
+    "qv_24h": 778487.417032,
+    "last": 0.00631,
+    "source": "toobit"
+  },
+  {
+    "sym": "ARIAUSDT",
+    "gate_pair": "ARIA_USDT",
+    "mc": null,
+    "qv_24h": 595239.27845,
+    "last": 0.02717,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZKPUSDT",
+    "gate_pair": "ZKP_USDT",
+    "mc": 9268912,
+    "qv_24h": 213413.89424,
+    "last": 0.046,
+    "source": "toobit"
+  },
+  {
+    "sym": "FLUIDUSDT",
+    "gate_pair": "FLUID_USDT",
+    "mc": 85955226,
+    "qv_24h": 452962.7141248,
+    "last": 1.0925,
+    "source": "toobit"
+  },
+  {
+    "sym": "ALICEUSDT",
+    "gate_pair": "ALICE_USDT",
+    "mc": 12143911,
+    "qv_24h": 658803.060766,
+    "last": 0.122,
+    "source": "toobit"
+  },
+  {
+    "sym": "ACEUSDT",
+    "gate_pair": "ACE_USDT",
+    "mc": null,
+    "qv_24h": 1162307.62211,
+    "last": 0.082,
+    "source": "toobit"
+  },
+  {
+    "sym": "GPSUSDT",
+    "gate_pair": "GPS_USDT",
+    "mc": 92374622,
+    "qv_24h": 250235.040077,
+    "last": 0.00923,
+    "source": "toobit"
+  },
+  {
+    "sym": "BNKRUSDT",
+    "gate_pair": "BNKR_USDT",
+    "mc": 40309232,
+    "qv_24h": 1682097.6177355,
+    "last": 0.0004011,
+    "source": "toobit"
+  },
+  {
+    "sym": "SAHARAUSDT",
+    "gate_pair": "SAHARA_USDT",
+    "mc": 30843065,
+    "qv_24h": 213639.28547,
+    "last": 0.00887,
+    "source": "toobit"
+  },
+  {
+    "sym": "QCOMBUSDT",
+    "gate_pair": "QCOMB_USDT",
+    "mc": null,
+    "qv_24h": 3535351.5583,
+    "last": 170.65,
+    "source": "toobit"
+  },
+  {
+    "sym": "TACUSDT",
+    "gate_pair": "TAC_USDT",
+    "mc": 16263797,
+    "qv_24h": 766325.268023,
+    "last": 0.00336,
+    "source": "toobit"
+  },
+  {
+    "sym": "CUDISUSDT",
+    "gate_pair": "CUDIS_USDT",
+    "mc": null,
+    "qv_24h": 517778.4103997,
+    "last": 0.001845,
+    "source": "toobit"
+  },
+  {
+    "sym": "RAVEUSDT",
+    "gate_pair": "RAVE_USDT",
+    "mc": 75000447,
+    "qv_24h": 563134.90511,
+    "last": 0.3739,
+    "source": "toobit"
+  },
+  {
+    "sym": "ATAUSDT",
+    "gate_pair": "ATA_USDT",
+    "mc": null,
+    "qv_24h": 435720.6243,
+    "last": 0.0045,
+    "source": "toobit"
+  },
+  {
+    "sym": "METAXUSDT",
+    "gate_pair": "METAX_USDT",
+    "mc": null,
+    "qv_24h": 2333766.94584,
+    "last": 607.04,
+    "source": "toobit"
+  },
+  {
+    "sym": "PUMPFUNUSDT",
+    "gate_pair": "PUMPFUN_USDT",
+    "mc": null,
+    "qv_24h": 1234882.981705,
+    "last": 0.001821,
+    "source": "toobit"
+  },
+  {
+    "sym": "BTRUSDT",
+    "gate_pair": "BTR_USDT",
+    "mc": null,
+    "qv_24h": 393648.60047,
+    "last": 0.01678,
+    "source": "toobit"
+  },
+  {
+    "sym": "SKHYBUSDT",
+    "gate_pair": "SKHYB_USDT",
+    "mc": 13062961,
+    "qv_24h": 2598149.7237,
+    "last": 167.04,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZEUSUSDT",
+    "gate_pair": "ZEUS_USDT",
+    "mc": null,
+    "qv_24h": 317489.4886538317,
+    "last": 0.002434,
+    "source": "toobit"
+  },
+  {
+    "sym": "MSFTBUSDT",
+    "gate_pair": "MSFTB_USDT",
+    "mc": null,
+    "qv_24h": 1686065.68043,
+    "last": 382.07,
+    "source": "toobit"
+  },
+  {
+    "sym": "CARVUSDT",
+    "gate_pair": "CARV_USDT",
+    "mc": 19533433,
+    "qv_24h": 442306.87998,
+    "last": 0.03038,
+    "source": "toobit"
+  },
+  {
+    "sym": "WODUSDT",
+    "gate_pair": "WOD_USDT",
+    "mc": null,
+    "qv_24h": 736544.819569,
+    "last": 0.005533,
+    "source": "toobit"
+  },
+  {
+    "sym": "ELSAUSDT",
+    "gate_pair": "ELSA_USDT",
+    "mc": 10938196,
+    "qv_24h": 605762.554921,
+    "last": 0.04777,
+    "source": "toobit"
+  },
+  {
+    "sym": "VFYUSDT",
+    "gate_pair": "VFY_USDT",
+    "mc": null,
+    "qv_24h": 201482.54910042,
+    "last": 0.005753,
+    "source": "toobit"
+  },
+  {
+    "sym": "BABABUSDT",
+    "gate_pair": "BABAB_USDT",
+    "mc": null,
+    "qv_24h": 2291931.3483,
+    "last": 114.38,
+    "source": "toobit"
+  },
+  {
+    "sym": "TSTUSDT",
+    "gate_pair": "TST_USDT",
+    "mc": 10981033,
+    "qv_24h": 299487.087864,
+    "last": 0.01169,
+    "source": "toobit"
+  },
+  {
+    "sym": "BMTUSDT",
+    "gate_pair": "BMT_USDT",
+    "mc": null,
+    "qv_24h": 430962.77078,
+    "last": 0.01267,
+    "source": "toobit"
+  },
+  {
+    "sym": "CHESSUSDT",
+    "gate_pair": "CHESS_USDT",
+    "mc": null,
+    "qv_24h": 855355.243962,
+    "last": 0.00856,
+    "source": "toobit"
+  },
+  {
+    "sym": "TRIAUSDT",
+    "gate_pair": "TRIA_USDT",
+    "mc": 18159663,
+    "qv_24h": 226712.153729,
+    "last": 0.00845,
+    "source": "toobit"
+  },
+  {
+    "sym": "ARMBUSDT",
+    "gate_pair": "ARMB_USDT",
+    "mc": null,
+    "qv_24h": 2946563.51351,
+    "last": 288.51,
+    "source": "toobit"
+  },
+  {
+    "sym": "WETUSDT",
+    "gate_pair": "WET_USDT",
+    "mc": 15388332,
+    "qv_24h": 798012.6748573,
+    "last": 0.06699,
+    "source": "toobit"
+  },
+  {
+    "sym": "KERNELUSDT",
+    "gate_pair": "KERNEL_USDT",
+    "mc": 10020729,
+    "qv_24h": 557296.08792,
+    "last": 0.0348,
+    "source": "toobit"
+  },
+  {
+    "sym": "IMUUSDT",
+    "gate_pair": "IMU_USDT",
+    "mc": null,
+    "qv_24h": 402331.8167327,
+    "last": 0.001693,
+    "source": "toobit"
+  },
+  {
+    "sym": "RKLBBUSDT",
+    "gate_pair": "RKLBB_USDT",
+    "mc": null,
+    "qv_24h": 2887635.8333,
+    "last": 69.52,
+    "source": "toobit"
+  },
+  {
+    "sym": "SYNDUSDT",
+    "gate_pair": "SYND_USDT",
+    "mc": null,
+    "qv_24h": 480071.613586,
+    "last": 0.01441,
+    "source": "toobit"
+  },
+  {
+    "sym": "SPYBUSDT",
+    "gate_pair": "SPYB_USDT",
+    "mc": null,
+    "qv_24h": 3080523.57091,
+    "last": 739.18,
+    "source": "toobit"
+  },
+  {
+    "sym": "INUSDT",
+    "gate_pair": "IN_USDT",
+    "mc": 14262821,
+    "qv_24h": 895758.83656,
+    "last": 0.04221,
+    "source": "toobit"
+  },
+  {
+    "sym": "OGUSDT",
+    "gate_pair": "OG_USDT",
+    "mc": 12460959,
+    "qv_24h": 358021.4303,
+    "last": 2.598,
+    "source": "toobit"
+  },
+  {
+    "sym": "MCDXUSDT",
+    "gate_pair": "MCDX_USDT",
+    "mc": null,
+    "qv_24h": 1691873.26787,
+    "last": 266.87,
+    "source": "toobit"
+  },
+  {
+    "sym": "GOATUSDT",
+    "gate_pair": "GOAT_USDT",
+    "mc": 13050367,
+    "qv_24h": 564996.0140251,
+    "last": 0.01304,
+    "source": "toobit"
+  },
+  {
+    "sym": "GENIUSUSDT",
+    "gate_pair": "GENIUS_USDT",
+    "mc": 117799459,
+    "qv_24h": 412207.05957,
+    "last": 0.3495,
+    "source": "toobit"
+  },
+  {
+    "sym": "REUSDT",
+    "gate_pair": "RE_USDT",
+    "mc": 90318396,
+    "qv_24h": 1327840.17909,
+    "last": 0.5695,
+    "source": "toobit"
+  },
+  {
+    "sym": "APRUSDT",
+    "gate_pair": "APR_USDT",
+    "mc": 192720782,
+    "qv_24h": 296886.4526558,
+    "last": 0.19305,
+    "source": "toobit"
+  },
+  {
+    "sym": "SIGNUSDT",
+    "gate_pair": "SIGN_USDT",
+    "mc": 20885660,
+    "qv_24h": 428510.58187,
+    "last": 0.00846,
+    "source": "toobit"
+  },
+  {
+    "sym": "GOOGLBUSDT",
+    "gate_pair": "GOOGLB_USDT",
+    "mc": null,
+    "qv_24h": 7487294.42104,
+    "last": 319.93,
+    "source": "toobit"
+  },
+  {
+    "sym": "ROBOUSDT",
+    "gate_pair": "ROBO_USDT",
+    "mc": 26318036,
+    "qv_24h": 200957.8766,
+    "last": 0.01186,
+    "source": "toobit"
+  },
+  {
+    "sym": "NESUSDT",
+    "gate_pair": "NES_USDT",
+    "mc": 38512432,
+    "qv_24h": 1279582.36501,
+    "last": 0.27284,
+    "source": "toobit"
+  },
+  {
+    "sym": "ITEUSDT",
+    "gate_pair": "ITE_USDT",
+    "mc": null,
+    "qv_24h": 697889.06884411,
+    "last": 0.001108,
+    "source": "toobit"
+  },
+  {
+    "sym": "PYBOBOUSDT",
+    "gate_pair": "PYBOBO_USDT",
+    "mc": 69168647,
+    "qv_24h": 354205.7501841,
+    "last": 0.0006932,
+    "source": "toobit"
+  },
+  {
+    "sym": "PUBLICUSDT",
+    "gate_pair": "PUBLIC_USDT",
+    "mc": null,
+    "qv_24h": 515813.847872,
+    "last": 0.0049,
+    "source": "toobit"
+  },
+  {
+    "sym": "SOXLBUSDT",
+    "gate_pair": "SOXLB_USDT",
+    "mc": 20766839,
+    "qv_24h": 5620538.55787,
+    "last": 157.38,
+    "source": "toobit"
+  },
+  {
+    "sym": "NOKBUSDT",
+    "gate_pair": "NOKB_USDT",
+    "mc": null,
+    "qv_24h": 2285378.7031,
+    "last": 9.61,
+    "source": "toobit"
+  },
+  {
+    "sym": "DMCUSDT",
+    "gate_pair": "DMC_USDT",
+    "mc": null,
+    "qv_24h": 463832.0058729,
+    "last": 0.0004304,
+    "source": "toobit"
+  },
+  {
+    "sym": "AZTECUSDT",
+    "gate_pair": "AZTEC_USDT",
+    "mc": 39410932,
+    "qv_24h": 345645.543705,
+    "last": 0.01347,
+    "source": "toobit"
+  },
+  {
+    "sym": "DOGEGOVUSDT",
+    "gate_pair": "DOGEGOV_USDT",
+    "mc": null,
+    "qv_24h": 449767.966414043,
+    "last": 0.0008387,
+    "source": "toobit"
+  },
+  {
+    "sym": "CAMPUSDT",
+    "gate_pair": "CAMP_USDT",
+    "mc": null,
+    "qv_24h": 291213.1060889,
+    "last": 0.0004092,
+    "source": "toobit"
+  },
+  {
+    "sym": "DRAMBUSDT",
+    "gate_pair": "DRAMB_USDT",
+    "mc": 24631971,
+    "qv_24h": 12535307.6494,
+    "last": 57.46,
+    "source": "toobit"
+  },
+  {
+    "sym": "CORNUSDT",
+    "gate_pair": "CORN_USDT",
+    "mc": 17634719,
+    "qv_24h": 878742.5667012,
+    "last": 0.03366,
+    "source": "toobit"
+  },
+  {
+    "sym": "BANKUSDT",
+    "gate_pair": "BANK_USDT",
+    "mc": 115423073,
+    "qv_24h": 5167491.41125,
+    "last": 0.2818,
+    "source": "toobit"
+  },
+  {
+    "sym": "EVAAUSDT",
+    "gate_pair": "EVAA_USDT",
+    "mc": null,
+    "qv_24h": 523730.89595,
+    "last": 0.8567,
+    "source": "toobit"
+  },
+  {
+    "sym": "MUBARAKUSDT",
+    "gate_pair": "MUBARAK_USDT",
+    "mc": 10261091,
+    "qv_24h": 766377.127811,
+    "last": 0.01028,
+    "source": "toobit"
+  },
+  {
+    "sym": "BertUSDT",
+    "gate_pair": "Bert_USDT",
+    "mc": null,
+    "qv_24h": 1140950.07835062,
+    "last": 0.009878,
+    "source": "toobit"
+  },
+  {
+    "sym": "NBISBUSDT",
+    "gate_pair": "NBISB_USDT",
+    "mc": null,
+    "qv_24h": 5025255.93228,
+    "last": 218.05,
+    "source": "toobit"
+  },
+  {
+    "sym": "ESPUSDT",
+    "gate_pair": "ESP_USDT",
+    "mc": 46245267,
+    "qv_24h": 4076469.75344,
+    "last": 0.07189,
+    "source": "toobit"
+  },
+  {
+    "sym": "FHEUSDT",
+    "gate_pair": "FHE_USDT",
+    "mc": null,
+    "qv_24h": 654947.1618216,
+    "last": 0.02113,
+    "source": "toobit"
+  },
+  {
+    "sym": "SOMIUSDT",
+    "gate_pair": "SOMI_USDT",
+    "mc": 15933690,
+    "qv_24h": 266505.51754,
+    "last": 0.0997,
+    "source": "toobit"
+  },
+  {
+    "sym": "EPICUSDT",
+    "gate_pair": "EPIC_USDT",
+    "mc": 22002651,
+    "qv_24h": 2032341.8255,
+    "last": 0.6543,
+    "source": "toobit"
+  },
+  {
+    "sym": "BREVUSDT",
+    "gate_pair": "BREV_USDT",
+    "mc": 18093096,
+    "qv_24h": 749021.84246,
+    "last": 0.0725,
+    "source": "toobit"
+  },
+  {
+    "sym": "APEUSDT",
+    "gate_pair": "APE_USDT",
+    "mc": 148712821,
+    "qv_24h": 273521.995679,
+    "last": 0.1487,
+    "source": "toobit"
+  },
+  {
+    "sym": "AVGOBUSDT",
+    "gate_pair": "AVGOB_USDT",
+    "mc": null,
+    "qv_24h": 4144887.43368,
+    "last": 391.77,
+    "source": "toobit"
+  },
+  {
+    "sym": "PLUMEUSDT",
+    "gate_pair": "PLUME_USDT",
+    "mc": 72612835,
+    "qv_24h": 225795.93344,
+    "last": 0.01166,
+    "source": "toobit"
+  },
+  {
+    "sym": "RECALLUSDT",
+    "gate_pair": "RECALL_USDT",
+    "mc": 37504974,
+    "qv_24h": 3869976.746191,
+    "last": 0.03752,
+    "source": "toobit"
+  },
+  {
+    "sym": "KILOUSDT",
+    "gate_pair": "KILO_USDT",
+    "mc": null,
+    "qv_24h": 673098.0340365,
+    "last": 0.003302,
+    "source": "toobit"
+  },
+  {
+    "sym": "GUSDT",
+    "gate_pair": "G_USDT",
+    "mc": 22814457,
+    "qv_24h": 247843.06893,
+    "last": 0.00317,
+    "source": "toobit"
+  },
+  {
+    "sym": "NXPCUSDT",
+    "gate_pair": "NXPC_USDT",
+    "mc": 75394941,
+    "qv_24h": 1372358.49597,
+    "last": 0.2583,
+    "source": "toobit"
+  },
+  {
+    "sym": "FORMUSDT",
+    "gate_pair": "FORM_USDT",
+    "mc": 73820419,
+    "qv_24h": 222978.74311,
+    "last": 0.1934,
+    "source": "toobit"
+  },
+  {
+    "sym": "AMZNXUSDT",
+    "gate_pair": "AMZNX_USDT",
+    "mc": null,
+    "qv_24h": 1535114.93433,
+    "last": 234.96,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZBCNUSDT",
+    "gate_pair": "ZBCN_USDT",
+    "mc": 192856332,
+    "qv_24h": 498690.8477324,
+    "last": 0.0019318,
+    "source": "toobit"
+  },
+  {
+    "sym": "DRIFTUSDT",
+    "gate_pair": "DRIFT_USDT",
+    "mc": null,
+    "qv_24h": 318023.3843262,
+    "last": 0.01218,
+    "source": "toobit"
+  },
+  {
+    "sym": "PUNDIXUSDT",
+    "gate_pair": "PUNDIX_USDT",
+    "mc": 21146258,
+    "qv_24h": 503885.26634,
+    "last": 0.4237,
+    "source": "toobit"
+  },
+  {
+    "sym": "METUSDT",
+    "gate_pair": "MET_USDT",
+    "mc": 9178058,
+    "qv_24h": 627950.0394875,
+    "last": 0.1602,
+    "source": "toobit"
+  },
+  {
+    "sym": "BETAUSDT",
+    "gate_pair": "BETA_USDT",
+    "mc": null,
+    "qv_24h": 588320.59153,
+    "last": 0.00178,
+    "source": "toobit"
+  },
+  {
+    "sym": "EDGEXUSDT",
+    "gate_pair": "EDGEX_USDT",
+    "mc": null,
+    "qv_24h": 908953.23568,
+    "last": 0.3869,
+    "source": "toobit"
+  },
+  {
+    "sym": "STOUSDT",
+    "gate_pair": "STO_USDT",
+    "mc": null,
+    "qv_24h": 755321.75344,
+    "last": 0.04,
+    "source": "toobit"
+  },
+  {
+    "sym": "SLVONUSDT",
+    "gate_pair": "SLVON_USDT",
+    "mc": 22842305,
+    "qv_24h": 365391.6858,
+    "last": 52.2,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZETAUSDT",
+    "gate_pair": "ZETA_USDT",
+    "mc": 50521133,
+    "qv_24h": 303701.0086385,
+    "last": 0.03345,
+    "source": "toobit"
+  },
+  {
+    "sym": "PUNDIXNEWUSDT",
+    "gate_pair": "PUNDIXNEW_USDT",
+    "mc": null,
+    "qv_24h": 549310.92027,
+    "last": 0.082,
+    "source": "toobit"
+  },
+  {
+    "sym": "IBMBUSDT",
+    "gate_pair": "IBMB_USDT",
+    "mc": null,
+    "qv_24h": 2309519.07422,
+    "last": 205.91,
+    "source": "toobit"
+  },
+  {
+    "sym": "SPACEUSDT",
+    "gate_pair": "SPACE_USDT",
+    "mc": 35265428,
+    "qv_24h": 883175.162261,
+    "last": 0.006349,
+    "source": "toobit"
+  },
+  {
+    "sym": "SKRUSDT",
+    "gate_pair": "SKR_USDT",
+    "mc": 56310452,
+    "qv_24h": 422055.606973,
+    "last": 0.008349,
+    "source": "toobit"
+  },
+  {
+    "sym": "FUSDT",
+    "gate_pair": "F_USDT",
+    "mc": 14937915,
+    "qv_24h": 226999.39089,
+    "last": 0.00328,
+    "source": "toobit"
+  },
+  {
+    "sym": "BIOUSDT",
+    "gate_pair": "BIO_USDT",
+    "mc": 56449903,
+    "qv_24h": 262771.823172,
+    "last": 0.02637,
+    "source": "toobit"
+  },
+  {
+    "sym": "KMNOUSDT",
+    "gate_pair": "KMNO_USDT",
+    "mc": 89219357,
+    "qv_24h": 724816.07215,
+    "last": 0.01742,
+    "source": "toobit"
+  },
+  {
+    "sym": "NOMUSDT",
+    "gate_pair": "NOM_USDT",
+    "mc": null,
+    "qv_24h": 262774.09393,
+    "last": 0.00146,
+    "source": "toobit"
+  },
+  {
+    "sym": "MMTUSDT",
+    "gate_pair": "MMT_USDT",
+    "mc": 36859477,
+    "qv_24h": 248543.42361,
+    "last": 0.1809,
+    "source": "toobit"
+  },
+  {
+    "sym": "MOODENGUSDT",
+    "gate_pair": "MOODENG_USDT",
+    "mc": 36069273,
+    "qv_24h": 1149595.9170334,
+    "last": 0.03648,
+    "source": "toobit"
+  },
+  {
+    "sym": "XPINUSDT",
+    "gate_pair": "XPIN_USDT",
+    "mc": 142463065,
+    "qv_24h": 415571.7316339,
+    "last": 0.0014286,
+    "source": "toobit"
+  },
+  {
+    "sym": "ORDIUSDT",
+    "gate_pair": "ORDI_USDT",
+    "mc": 74558905,
+    "qv_24h": 230312.60083,
+    "last": 3.555,
+    "source": "toobit"
+  },
+  {
+    "sym": "ALLOUSDT",
+    "gate_pair": "ALLO_USDT",
+    "mc": 123111115,
+    "qv_24h": 598443.50493,
+    "last": 0.5126,
+    "source": "toobit"
+  },
+  {
+    "sym": "MRVLBUSDT",
+    "gate_pair": "MRVLB_USDT",
+    "mc": null,
+    "qv_24h": 2458279.20005,
+    "last": 208.4,
+    "source": "toobit"
+  },
+  {
+    "sym": "MIGMIGUSDT",
+    "gate_pair": "MIGMIG_USDT",
+    "mc": null,
+    "qv_24h": 307074.177364,
+    "last": 0.034,
+    "source": "toobit"
+  },
+  {
+    "sym": "NEOUSDT",
+    "gate_pair": "NEO_USDT",
+    "mc": 144412902,
+    "qv_24h": 8277559.767,
+    "last": 7.794,
+    "source": "toobit"
+  },
+  {
+    "sym": "SPKUSDT",
+    "gate_pair": "SPK_USDT",
+    "mc": 50852545,
+    "qv_24h": 2329798.666056,
+    "last": 0.017155,
+    "source": "toobit"
+  },
+  {
+    "sym": "RSRUSDT",
+    "gate_pair": "RSR_USDT",
+    "mc": 77872601,
+    "qv_24h": 328230.1776993,
+    "last": 0.00125,
+    "source": "toobit"
+  },
+  {
+    "sym": "UNIONUSDT",
+    "gate_pair": "UNION_USDT",
+    "mc": null,
+    "qv_24h": 234381.4015358,
+    "last": 0.0003819,
+    "source": "toobit"
+  },
+  {
+    "sym": "NEWTUSDT",
+    "gate_pair": "NEWT_USDT",
+    "mc": 9798026,
+    "qv_24h": 403741.64906,
+    "last": 0.0457,
+    "source": "toobit"
+  },
+  {
+    "sym": "AMDBUSDT",
+    "gate_pair": "AMDB_USDT",
+    "mc": null,
+    "qv_24h": 200001.46915,
+    "last": 544.29,
+    "source": "toobit"
+  },
+  {
+    "sym": "LABUSDT",
+    "gate_pair": "LAB_USDT",
+    "mc": 48780775,
+    "qv_24h": 277175.25494,
+    "last": 0.1519,
+    "source": "toobit"
+  },
+  {
+    "sym": "ETHWUSDT",
+    "gate_pair": "ETHW_USDT",
+    "mc": 25500753,
+    "qv_24h": 566082.42217573,
+    "last": 0.2447,
+    "source": "toobit"
+  },
+  {
+    "sym": "OMUSDT",
+    "gate_pair": "OM_USDT",
+    "mc": null,
+    "qv_24h": 489498.54892751446,
+    "last": 0.08391,
+    "source": "toobit"
+  },
+  {
+    "sym": "AAOIBUSDT",
+    "gate_pair": "AAOIB_USDT",
+    "mc": null,
+    "qv_24h": 2453658.428,
+    "last": 112.57,
+    "source": "toobit"
+  },
+  {
+    "sym": "ARKMUSDT",
+    "gate_pair": "ARKM_USDT",
+    "mc": 72964905,
+    "qv_24h": 220771.98108,
+    "last": 0.1078,
+    "source": "toobit"
+  },
+  {
+    "sym": "O1USDT",
+    "gate_pair": "O1_USDT",
+    "mc": null,
+    "qv_24h": 1398604.83552,
+    "last": 0.53005,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZESTUSDT",
+    "gate_pair": "ZEST_USDT",
+    "mc": 35848288,
+    "qv_24h": 246707.2722,
+    "last": 0.24537,
+    "source": "toobit"
+  },
+  {
+    "sym": "PORTOUSDT",
+    "gate_pair": "PORTO_USDT",
+    "mc": null,
+    "qv_24h": 449831.06422,
+    "last": 0.455,
+    "source": "toobit"
+  },
+  {
+    "sym": "TOSHIUSDT",
+    "gate_pair": "TOSHI_USDT",
+    "mc": 46002468,
+    "qv_24h": 291586.93250566,
+    "last": 0.00010958,
+    "source": "toobit"
+  },
+  {
+    "sym": "EIGENUSDT",
+    "gate_pair": "EIGEN_USDT",
+    "mc": 157586925,
+    "qv_24h": 273220.219506,
+    "last": 0.2123,
+    "source": "toobit"
+  },
+  {
+    "sym": "GLWBUSDT",
+    "gate_pair": "GLWB_USDT",
+    "mc": null,
+    "qv_24h": 3398676.78348,
+    "last": 156.39,
+    "source": "toobit"
+  },
+  {
+    "sym": "MEWUSDT",
+    "gate_pair": "MEW_USDT",
+    "mc": 31612563,
+    "qv_24h": 473665.6386964,
+    "last": 0.0003566,
+    "source": "toobit"
+  },
+  {
+    "sym": "HNTUSDT",
+    "gate_pair": "HNT_USDT",
+    "mc": 36190987,
+    "qv_24h": 441602.98784,
+    "last": 0.1992,
+    "source": "toobit"
+  },
+  {
+    "sym": "MEUSDT",
+    "gate_pair": "ME_USDT",
+    "mc": 39243362,
+    "qv_24h": 454774.6339951,
+    "last": 0.06478,
+    "source": "toobit"
+  },
+  {
+    "sym": "QQQXUSDT",
+    "gate_pair": "QQQX_USDT",
+    "mc": 32445592,
+    "qv_24h": 2744563.29424,
+    "last": 695.11,
+    "source": "toobit"
+  },
+  {
+    "sym": "WINUSDT",
+    "gate_pair": "WIN_USDT",
+    "mc": 22929791,
+    "qv_24h": 332369.88256612,
+    "last": 2.308e-05,
+    "source": "toobit"
+  },
+  {
+    "sym": "CFGUSDT",
+    "gate_pair": "CFG_USDT",
+    "mc": 68754231,
+    "qv_24h": 334524.81288,
+    "last": 0.1813,
+    "source": "toobit"
+  },
+  {
+    "sym": "BROCCOLIUSDT",
+    "gate_pair": "BROCCOLI_USDT",
+    "mc": 11803881,
+    "qv_24h": 234632.458338,
+    "last": 0.012214,
+    "source": "toobit"
+  },
+  {
+    "sym": "JELLYJELLYUSDT",
+    "gate_pair": "JELLYJELLY_USDT",
+    "mc": 53912523,
+    "qv_24h": 396771.3897568,
+    "last": 0.05399,
+    "source": "toobit"
+  },
+  {
+    "sym": "SOSOUSDT",
+    "gate_pair": "SOSO_USDT",
+    "mc": 95554678,
+    "qv_24h": 526623.945797,
+    "last": 0.2799,
+    "source": "toobit"
+  },
+  {
+    "sym": "FARTCOINUSDT",
+    "gate_pair": "FARTCOIN_USDT",
+    "mc": 132110383,
+    "qv_24h": 1685784.6771403,
+    "last": 0.13213,
+    "source": "toobit"
+  },
+  {
+    "sym": "USATUSDT",
+    "gate_pair": "USAT_USDT",
+    "mc": 185328545,
+    "qv_24h": 1078231.023978,
+    "last": 1.0003,
+    "source": "toobit"
+  },
+  {
+    "sym": "CHRUSDT",
+    "gate_pair": "CHR_USDT",
+    "mc": 13078866,
+    "qv_24h": 789541.06191,
+    "last": 0.01343,
+    "source": "toobit"
+  },
+  {
+    "sym": "HEMIUSDT",
+    "gate_pair": "HEMI_USDT",
+    "mc": null,
+    "qv_24h": 246988.657072,
+    "last": 0.00463,
+    "source": "toobit"
+  },
+  {
+    "sym": "RIOUSDT",
+    "gate_pair": "RIO_USDT",
+    "mc": null,
+    "qv_24h": 445712.6503783222,
+    "last": 0.0564,
+    "source": "toobit"
+  },
+  {
+    "sym": "LUXUSDT",
+    "gate_pair": "LUX_USDT",
+    "mc": null,
+    "qv_24h": 456961.153653863,
+    "last": 0.000407,
+    "source": "toobit"
+  },
+  {
+    "sym": "GROVEUSDT",
+    "gate_pair": "GROVE_USDT",
+    "mc": null,
+    "qv_24h": 2427179.0339778,
+    "last": 0.010294,
+    "source": "toobit"
+  },
+  {
+    "sym": "BRUSDT",
+    "gate_pair": "BR_USDT",
+    "mc": 45161436,
+    "qv_24h": 4078213.1639104,
+    "last": 0.15526,
+    "source": "toobit"
+  },
+  {
+    "sym": "SENTUSDT",
+    "gate_pair": "SENT_USDT",
+    "mc": 96345041,
+    "qv_24h": 2464016.47378,
+    "last": 0.01333,
+    "source": "toobit"
+  },
+  {
+    "sym": "PLTRBUSDT",
+    "gate_pair": "PLTRB_USDT",
+    "mc": null,
+    "qv_24h": 1379232.72402,
+    "last": 123.0,
+    "source": "toobit"
+  },
+  {
+    "sym": "LINAUSDT",
+    "gate_pair": "LINA_USDT",
+    "mc": null,
+    "qv_24h": 281887.718788,
+    "last": 0.000637,
+    "source": "toobit"
+  },
+  {
+    "sym": "IKAUSDT",
+    "gate_pair": "IKA_USDT",
+    "mc": null,
+    "qv_24h": 5029965.333791,
+    "last": 0.002316,
+    "source": "toobit"
+  },
+  {
+    "sym": "INTCBUSDT",
+    "gate_pair": "INTCB_USDT",
+    "mc": null,
+    "qv_24h": 1297201.30865,
+    "last": 104.41,
+    "source": "toobit"
+  },
+  {
+    "sym": "ORCAUSDT",
+    "gate_pair": "ORCA_USDT",
+    "mc": 72605731,
+    "qv_24h": 535315.39368,
+    "last": 1.198,
+    "source": "toobit"
+  },
+  {
+    "sym": "MIRAUSDT",
+    "gate_pair": "MIRA_USDT",
+    "mc": 13901575,
+    "qv_24h": 280412.0655,
+    "last": 0.0452,
+    "source": "toobit"
+  },
+  {
+    "sym": "PROMPTUSDT",
+    "gate_pair": "PROMPT_USDT",
+    "mc": null,
+    "qv_24h": 229836.219484,
+    "last": 0.02026,
+    "source": "toobit"
+  },
+  {
+    "sym": "FIGHTUSDT",
+    "gate_pair": "FIGHT_USDT",
+    "mc": null,
+    "qv_24h": 1368126.63696,
+    "last": 0.003396,
+    "source": "toobit"
+  },
+  {
+    "sym": "DHFUSDT",
+    "gate_pair": "DHF_USDT",
+    "mc": null,
+    "qv_24h": 1151640.92825656,
+    "last": 0.003167,
+    "source": "toobit"
+  },
+  {
+    "sym": "AIGENSYNUSDT",
+    "gate_pair": "AIGENSYN_USDT",
+    "mc": null,
+    "qv_24h": 291453.54192,
+    "last": 0.02363,
+    "source": "toobit"
+  },
+  {
+    "sym": "SATSUSDT",
+    "gate_pair": "SATS_USDT",
+    "mc": 19739570,
+    "qv_24h": 1675858.162257263,
+    "last": 9.424e-09,
+    "source": "toobit"
+  },
+  {
+    "sym": "XNYUSDT",
+    "gate_pair": "XNY_USDT",
+    "mc": 16265153,
+    "qv_24h": 706182.7175174,
+    "last": 0.006519,
+    "source": "toobit"
+  },
+  {
+    "sym": "ALPHAUSDT",
+    "gate_pair": "ALPHA_USDT",
+    "mc": null,
+    "qv_24h": 737234.4956,
+    "last": 0.0118,
+    "source": "toobit"
+  },
+  {
+    "sym": "SXTUSDT",
+    "gate_pair": "SXT_USDT",
+    "mc": 33940563,
+    "qv_24h": 365848.842461,
+    "last": 0.00678,
+    "source": "toobit"
+  },
+  {
+    "sym": "VOOIUSDT",
+    "gate_pair": "VOOI_USDT",
+    "mc": null,
+    "qv_24h": 330403.8356881,
+    "last": 0.007805,
+    "source": "toobit"
+  },
+  {
+    "sym": "FDSUSDT",
+    "gate_pair": "FDS_USDT",
+    "mc": null,
+    "qv_24h": 652121.41985003,
+    "last": 0.00066568,
+    "source": "toobit"
+  },
+  {
+    "sym": "CAPAPPUSDT",
+    "gate_pair": "CAPAPP_USDT",
+    "mc": null,
+    "qv_24h": 674918.8518562,
+    "last": 0.024147,
+    "source": "toobit"
+  },
+  {
+    "sym": "VELVETUSDT",
+    "gate_pair": "VELVET_USDT",
+    "mc": 187986777,
+    "qv_24h": 232077.312126,
+    "last": 0.44806,
+    "source": "toobit"
+  },
+  {
+    "sym": "ERAUSDT",
+    "gate_pair": "ERA_USDT",
+    "mc": 16294950,
+    "qv_24h": 850599.34478,
+    "last": 0.0944,
+    "source": "toobit"
+  },
+  {
+    "sym": "YGGUSDT",
+    "gate_pair": "YGG_USDT",
+    "mc": 18696084,
+    "qv_24h": 238037.54972,
+    "last": 0.01871,
+    "source": "toobit"
+  },
+  {
+    "sym": "NAORISUSDT",
+    "gate_pair": "NAORIS_USDT",
+    "mc": 20431202,
+    "qv_24h": 7206376.89731,
+    "last": 0.0341,
+    "source": "toobit"
+  },
+  {
+    "sym": "POPCATUSDT",
+    "gate_pair": "POPCAT_USDT",
+    "mc": 43340403,
+    "qv_24h": 1041319.97076,
+    "last": 0.04425,
+    "source": "toobit"
+  },
+  {
+    "sym": "BAKEUSDT",
+    "gate_pair": "BAKE_USDT",
+    "mc": null,
+    "qv_24h": 3102490.42766,
+    "last": 0.0927,
+    "source": "toobit"
+  },
+  {
+    "sym": "UXLINKUSDT",
+    "gate_pair": "UXLINK_USDT",
+    "mc": null,
+    "qv_24h": 4208451.411067,
+    "last": 0.136,
+    "source": "toobit"
+  },
+  {
+    "sym": "ALCHUSDT",
+    "gate_pair": "ALCH_USDT",
+    "mc": 27339926,
+    "qv_24h": 884644.9439239,
+    "last": 0.02737,
+    "source": "toobit"
+  },
+  {
+    "sym": "BARDUSDT",
+    "gate_pair": "BARD_USDT",
+    "mc": 48551175,
+    "qv_24h": 867608.09158,
+    "last": 0.1337,
+    "source": "toobit"
+  },
+  {
+    "sym": "BILLUSDT",
+    "gate_pair": "BILL_USDT",
+    "mc": 76102809,
+    "qv_24h": 1156068.710408,
+    "last": 0.03128,
+    "source": "toobit"
+  },
+  {
+    "sym": "CATUSDT",
+    "gate_pair": "CAT_USDT",
+    "mc": 10417747,
+    "qv_24h": 585645.492397104,
+    "last": 1.29e-06,
+    "source": "toobit"
+  },
+  {
+    "sym": "ZAMAUSDT",
+    "gate_pair": "ZAMA_USDT",
+    "mc": 118698695,
+    "qv_24h": 2826973.89072,
+    "last": 0.0544,
+    "source": "toobit"
+  },
+  {
+    "sym": "MCQUSDT",
+    "gate_pair": "MCQ_USDT",
+    "mc": null,
+    "qv_24h": 236488.9444332,
+    "last": 0.001101,
+    "source": "toobit"
+  },
+  {
+    "sym": "LITEBUSDT",
+    "gate_pair": "LITEB_USDT",
+    "mc": null,
+    "qv_24h": 2024274.75598,
+    "last": 828.25,
+    "source": "toobit"
+  },
+  {
+    "sym": "TLMUSDT",
+    "gate_pair": "TLM_USDT",
+    "mc": 11752431,
+    "qv_24h": 1366569.221786,
+    "last": 0.001693,
+    "source": "toobit"
+  },
+  {
+    "sym": "HIFIUSDT",
+    "gate_pair": "HIFI_USDT",
+    "mc": null,
+    "qv_24h": 920526.22598,
+    "last": 0.088,
+    "source": "toobit"
+  },
+  {
+    "sym": "GLDXUSDT",
+    "gate_pair": "GLDX_USDT",
+    "mc": null,
+    "qv_24h": 2274160.77925,
+    "last": 371.49,
+    "source": "toobit"
+  },
+  {
+    "sym": "OPNUSDT",
+    "gate_pair": "OPN_USDT",
+    "mc": 12011390,
+    "qv_24h": 3921287.79771,
+    "last": 0.0663,
+    "source": "toobit"
+  },
+  {
+    "sym": "LAUSDT",
+    "gate_pair": "LA_USDT",
+    "mc": 12349501,
+    "qv_24h": 858686.59531,
+    "last": 0.0648,
+    "source": "toobit"
+  },
+  {
+    "sym": "BASEDUSDT",
+    "gate_pair": "BASED_USDT",
+    "mc": 17909516,
+    "qv_24h": 1518048.4913576,
+    "last": 0.07657,
+    "source": "toobit"
+  },
+  {
+    "sym": "QUSDT",
+    "gate_pair": "Q_USDT",
+    "mc": 194440125,
+    "qv_24h": 239863.341965,
+    "last": 0.019458,
+    "source": "toobit"
+  },
+  {
+    "sym": "UAIUSDT",
+    "gate_pair": "UAI_USDT",
+    "mc": 82667254,
+    "qv_24h": 410326.99968,
+    "last": 0.34649,
+    "source": "toobit"
+  },
+  {
+    "sym": "WCTUSDT",
+    "gate_pair": "WCT_USDT",
+    "mc": null,
+    "qv_24h": 4247304.539383,
+    "last": 0.0416,
+    "source": "toobit"
+  },
+  {
+    "sym": "SAROSUSDT",
+    "gate_pair": "SAROS_USDT",
+    "mc": null,
+    "qv_24h": 235725.9496466,
+    "last": 0.0003307,
+    "source": "toobit"
+  },
+  {
+    "sym": "SKHYNIX3LUSDT",
+    "gate_pair": "SKHYNIX3L_USDT",
+    "mc": null,
+    "qv_24h": 521563.3539296656,
+    "last": 0.19531,
+    "source": "gate"
+  },
+  {
+    "sym": "WMTGUSDT",
+    "gate_pair": "WMTG_USDT",
+    "mc": null,
+    "qv_24h": 772643.74034,
+    "last": 108.47,
+    "source": "gate"
+  },
+  {
+    "sym": "SNDKGUSDT",
+    "gate_pair": "SNDKG_USDT",
+    "mc": null,
+    "qv_24h": 3561051.833677,
+    "last": 1605.07,
+    "source": "gate"
+  },
+  {
+    "sym": "MSTRGUSDT",
+    "gate_pair": "MSTRG_USDT",
+    "mc": null,
+    "qv_24h": 643662.95462,
+    "last": 93.84,
+    "source": "gate"
+  },
+  {
+    "sym": "COINGUSDT",
+    "gate_pair": "COING_USDT",
+    "mc": null,
+    "qv_24h": 1493864.05843,
+    "last": 162.07,
+    "source": "gate"
+  },
+  {
+    "sym": "XAUT3LUSDT",
+    "gate_pair": "XAUT3L_USDT",
+    "mc": null,
+    "qv_24h": 614065.7543813,
+    "last": 0.54438,
+    "source": "gate"
+  },
+  {
+    "sym": "JPMGUSDT",
+    "gate_pair": "JPMG_USDT",
+    "mc": null,
+    "qv_24h": 770499.680646,
+    "last": 349.24,
+    "source": "gate"
+  },
+  {
+    "sym": "ETH3LUSDT",
+    "gate_pair": "ETH3L_USDT",
+    "mc": null,
+    "qv_24h": 1633549.4790483,
+    "last": 0.07182,
+    "source": "gate"
+  },
+  {
+    "sym": "ETH3SUSDT",
+    "gate_pair": "ETH3S_USDT",
+    "mc": null,
+    "qv_24h": 1766707.665525,
+    "last": 0.4713,
+    "source": "gate"
+  },
+  {
+    "sym": "XAU3LUSDT",
+    "gate_pair": "XAU3L_USDT",
+    "mc": null,
+    "qv_24h": 837087.1126861,
+    "last": 0.45694,
+    "source": "gate"
+  },
+  {
+    "sym": "SNDK3LUSDT",
+    "gate_pair": "SNDK3L_USDT",
+    "mc": null,
+    "qv_24h": 581460.501806,
+    "last": 0.6861,
+    "source": "gate"
+  },
+  {
+    "sym": "AMDGUSDT",
+    "gate_pair": "AMDG_USDT",
+    "mc": null,
+    "qv_24h": 1822653.120987,
+    "last": 544.8,
+    "source": "gate"
+  },
+  {
+    "sym": "ONUSDT",
+    "gate_pair": "ON_USDT",
+    "mc": 27890172,
+    "qv_24h": 738459.45623,
+    "last": 0.19421,
+    "source": "gate"
+  },
+  {
+    "sym": "IVVGUSDT",
+    "gate_pair": "IVVG_USDT",
+    "mc": null,
+    "qv_24h": 753071.38629,
+    "last": 743.27,
+    "source": "gate"
+  },
+  {
+    "sym": "LLYGUSDT",
+    "gate_pair": "LLYG_USDT",
+    "mc": null,
+    "qv_24h": 650164.847375,
+    "last": 1184.05,
+    "source": "gate"
+  },
+  {
+    "sym": "HUSDT",
+    "gate_pair": "H_USDT",
+    "mc": 123321103,
+    "qv_24h": 1150972.9809381,
+    "last": 0.0619,
+    "source": "gate"
+  },
+  {
+    "sym": "SKHYGUSDT",
+    "gate_pair": "SKHYG_USDT",
+    "mc": null,
+    "qv_24h": 2212381.46703,
+    "last": 167.19,
+    "source": "gate"
+  },
+  {
+    "sym": "OUSDT",
+    "gate_pair": "O_USDT",
+    "mc": 84570231,
+    "qv_24h": 11158492.37569,
+    "last": 0.53011,
+    "source": "gate"
+  },
+  {
+    "sym": "MVLLGUSDT",
+    "gate_pair": "MVLLG_USDT",
+    "mc": null,
+    "qv_24h": 627866.85782,
+    "last": 26.17,
+    "source": "gate"
+  },
+  {
+    "sym": "HYPE3LUSDT",
+    "gate_pair": "HYPE3L_USDT",
+    "mc": null,
+    "qv_24h": 530904.544324,
+    "last": 0.09915,
+    "source": "gate"
+  },
+  {
+    "sym": "INTCGUSDT",
+    "gate_pair": "INTCG_USDT",
+    "mc": null,
+    "qv_24h": 3695906.55754,
+    "last": 104.29,
+    "source": "gate"
+  },
+  {
+    "sym": "DNUSDT",
+    "gate_pair": "DN_USDT",
+    "mc": null,
+    "qv_24h": 1543113.77398,
+    "last": 0.04558,
+    "source": "gate"
+  },
+  {
+    "sym": "NBISGUSDT",
+    "gate_pair": "NBISG_USDT",
+    "mc": null,
+    "qv_24h": 1770310.915292,
+    "last": 218.06,
+    "source": "gate"
+  },
+  {
+    "sym": "MUGUSDT",
+    "gate_pair": "MUG_USDT",
+    "mc": null,
+    "qv_24h": 2756345.559526,
+    "last": 982.14,
+    "source": "gate"
+  },
+  {
+    "sym": "SOXLGUSDT",
+    "gate_pair": "SOXLG_USDT",
+    "mc": null,
+    "qv_24h": 3011245.18263,
+    "last": 157.26,
+    "source": "gate"
+  },
+  {
+    "sym": "TSLAGUSDT",
+    "gate_pair": "TSLAG_USDT",
+    "mc": null,
+    "qv_24h": 2181174.299396,
+    "last": 324.71,
+    "source": "gate"
+  },
+  {
+    "sym": "CRCLGUSDT",
+    "gate_pair": "CRCLG_USDT",
+    "mc": null,
+    "qv_24h": 947997.6099,
+    "last": 62.46,
+    "source": "gate"
+  },
+  {
+    "sym": "ORCLGUSDT",
+    "gate_pair": "ORCLG_USDT",
+    "mc": null,
+    "qv_24h": 1643963.98343,
+    "last": 122.2,
+    "source": "gate"
+  },
+  {
+    "sym": "SOL3LUSDT",
+    "gate_pair": "SOL3L_USDT",
+    "mc": null,
+    "qv_24h": 964398.0689608,
+    "last": 0.09214,
+    "source": "gate"
+  },
+  {
+    "sym": "PGGUSDT",
+    "gate_pair": "PGG_USDT",
+    "mc": null,
+    "qv_24h": 712422.44543,
+    "last": 147.3,
+    "source": "gate"
+  },
+  {
+    "sym": "AVGOGUSDT",
+    "gate_pair": "AVGOG_USDT",
+    "mc": null,
+    "qv_24h": 1053575.788866,
+    "last": 390.97,
+    "source": "gate"
+  },
+  {
+    "sym": "COREUSDT",
+    "gate_pair": "CORE_USDT",
+    "mc": 25367571,
+    "qv_24h": 793482.161477,
+    "last": 0.02045,
+    "source": "gate"
+  },
+  {
+    "sym": "NVDAGUSDT",
+    "gate_pair": "NVDAG_USDT",
+    "mc": null,
+    "qv_24h": 756093.04686,
+    "last": 207.61,
+    "source": "gate"
+  },
+  {
+    "sym": "CL3SUSDT",
+    "gate_pair": "CL3S_USDT",
+    "mc": null,
+    "qv_24h": 560954.0239178,
+    "last": 0.65901,
+    "source": "gate"
+  },
+  {
+    "sym": "DEXEUSDT",
+    "gate_pair": "DEXE_USDT",
+    "mc": 167551207,
+    "qv_24h": 9316575.8461,
+    "last": 1.752,
+    "source": "gate"
+  },
+  {
+    "sym": "AAPLGUSDT",
+    "gate_pair": "AAPLG_USDT",
+    "mc": null,
+    "qv_24h": 778233.70753,
+    "last": 321.25,
+    "source": "gate"
+  },
+  {
+    "sym": "UNHGUSDT",
+    "gate_pair": "UNHG_USDT",
+    "mc": null,
+    "qv_24h": 704373.455998,
+    "last": 423.91,
+    "source": "gate"
+  },
+  {
+    "sym": "VGUSDT",
+    "gate_pair": "VG_USDT",
+    "mc": null,
+    "qv_24h": 612308.412308,
+    "last": 352.71,
+    "source": "gate"
+  },
+  {
+    "sym": "METAGUSDT",
+    "gate_pair": "METAG_USDT",
+    "mc": null,
+    "qv_24h": 849710.639013,
+    "last": 606.6,
+    "source": "gate"
+  },
+  {
+    "sym": "BTC3SUSDT",
+    "gate_pair": "BTC3S_USDT",
+    "mc": null,
+    "qv_24h": 1417622.2719021,
+    "last": 0.0783,
+    "source": "gate"
+  },
+  {
+    "sym": "GOOGLGUSDT",
+    "gate_pair": "GOOGLG_USDT",
+    "mc": null,
+    "qv_24h": 1492266.877297,
+    "last": 319.86,
+    "source": "gate"
+  },
+  {
+    "sym": "SNDK3SUSDT",
+    "gate_pair": "SNDK3S_USDT",
+    "mc": null,
+    "qv_24h": 1004286.6342399,
+    "last": 0.16094,
+    "source": "gate"
+  },
+  {
+    "sym": "SPCXGUSDT",
+    "gate_pair": "SPCXG_USDT",
+    "mc": null,
+    "qv_24h": 1787767.84261,
+    "last": 116.25,
+    "source": "gate"
+  },
+  {
+    "sym": "QQQGUSDT",
+    "gate_pair": "QQQG_USDT",
+    "mc": null,
+    "qv_24h": 665108.745304,
+    "last": 692.91,
+    "source": "gate"
+  },
+  {
+    "sym": "USDPUSDT",
+    "gate_pair": "USDP_USDT",
+    "mc": 31931917,
+    "qv_24h": 4767025.510048,
+    "last": 0.9998,
+    "source": "gate"
+  },
+  {
+    "sym": "AIAUSDT",
+    "gate_pair": "AIA_USDT",
+    "mc": null,
+    "qv_24h": 518092.46347,
+    "last": 0.06294,
+    "source": "gate"
+  },
+  {
+    "sym": "CSCOGUSDT",
+    "gate_pair": "CSCOG_USDT",
+    "mc": null,
+    "qv_24h": 724236.96286,
+    "last": 112.66,
+    "source": "gate"
+  },
+  {
+    "sym": "AMATGUSDT",
+    "gate_pair": "AMATG_USDT",
+    "mc": null,
+    "qv_24h": 749721.186994,
+    "last": 565.89,
+    "source": "gate"
+  },
+  {
+    "sym": "SNXXGUSDT",
+    "gate_pair": "SNXXG_USDT",
+    "mc": null,
+    "qv_24h": 1019637.848,
+    "last": 18.213,
+    "source": "gate"
+  },
+  {
+    "sym": "WDCGUSDT",
+    "gate_pair": "WDCG_USDT",
+    "mc": null,
+    "qv_24h": 1631911.636589,
+    "last": 557.52,
+    "source": "gate"
+  },
+  {
+    "sym": "CATGUSDT",
+    "gate_pair": "CATG_USDT",
+    "mc": null,
+    "qv_24h": 674962.955008,
+    "last": 893.13,
+    "source": "gate"
+  },
+  {
+    "sym": "CHECKUSDT",
+    "gate_pair": "CHECK_USDT",
+    "mc": 10632596,
+    "qv_24h": 1884498.22942,
+    "last": 0.03217,
+    "source": "gate"
+  },
+  {
+    "sym": "ETH5LUSDT",
+    "gate_pair": "ETH5L_USDT",
+    "mc": null,
+    "qv_24h": 5046979.64373816,
+    "last": 0.011445,
+    "source": "gate"
+  },
+  {
+    "sym": "XAU3SUSDT",
+    "gate_pair": "XAU3S_USDT",
+    "mc": null,
+    "qv_24h": 963416.3367615,
+    "last": 0.99297,
+    "source": "gate"
+  },
+  {
+    "sym": "DOGE5LUSDT",
+    "gate_pair": "DOGE5L_USDT",
+    "mc": null,
+    "qv_24h": 1418463.11981931,
+    "last": 0.001066,
+    "source": "gate"
+  },
+  {
+    "sym": "XRP5SUSDT",
+    "gate_pair": "XRP5S_USDT",
+    "mc": null,
+    "qv_24h": 591580.66808069,
+    "last": 0.01106,
+    "source": "gate"
+  },
+  {
+    "sym": "SOL3SUSDT",
+    "gate_pair": "SOL3S_USDT",
+    "mc": null,
+    "qv_24h": 879542.936838,
+    "last": 0.733,
+    "source": "gate"
+  },
+  {
+    "sym": "XAU5LUSDT",
+    "gate_pair": "XAU5L_USDT",
+    "mc": null,
+    "qv_24h": 1101545.9400158,
+    "last": 0.1875,
+    "source": "gate"
+  },
+  {
+    "sym": "ETH5SUSDT",
+    "gate_pair": "ETH5S_USDT",
+    "mc": null,
+    "qv_24h": 4520469.61010648,
+    "last": 0.004324,
+    "source": "gate"
+  },
+  {
+    "sym": "DOGE5SUSDT",
+    "gate_pair": "DOGE5S_USDT",
+    "mc": null,
+    "qv_24h": 834152.37516,
+    "last": 0.6579,
+    "source": "gate"
+  },
+  {
+    "sym": "XAG3SUSDT",
+    "gate_pair": "XAG3S_USDT",
+    "mc": null,
+    "qv_24h": 772698.8441871,
+    "last": 0.74245,
+    "source": "gate"
+  },
+  {
+    "sym": "GEGUSDT",
+    "gate_pair": "GEG_USDT",
+    "mc": null,
+    "qv_24h": 673037.348296,
+    "last": 349.62,
+    "source": "gate"
+  },
+  {
+    "sym": "GSGUSDT",
+    "gate_pair": "GSG_USDT",
+    "mc": null,
+    "qv_24h": 589954.266547,
+    "last": 1075.73,
+    "source": "gate"
+  },
+  {
+    "sym": "KORUGUSDT",
+    "gate_pair": "KORUG_USDT",
+    "mc": null,
+    "qv_24h": 1113569.67225,
+    "last": 21.016,
+    "source": "gate"
+  },
+  {
+    "sym": "KOGUSDT",
+    "gate_pair": "KOG_USDT",
+    "mc": null,
+    "qv_24h": 578998.37045,
+    "last": 81.42,
+    "source": "gate"
+  },
+  {
+    "sym": "MUUGUSDT",
+    "gate_pair": "MUUG_USDT",
+    "mc": null,
+    "qv_24h": 1267410.8408,
+    "last": 36.08,
+    "source": "gate"
+  },
+  {
+    "sym": "TSLAONUSDT",
+    "gate_pair": "TSLAON_USDT",
+    "mc": 15509057,
+    "qv_24h": 526821.26937,
+    "last": 324.3,
+    "source": "gate"
+  },
+  {
+    "sym": "XAG5SUSDT",
+    "gate_pair": "XAG5S_USDT",
+    "mc": null,
+    "qv_24h": 984709.8588043,
+    "last": 0.83006,
+    "source": "gate"
+  },
+  {
+    "sym": "CL3LUSDT",
+    "gate_pair": "CL3L_USDT",
+    "mc": null,
+    "qv_24h": 519099.9403865,
+    "last": 0.72514,
+    "source": "gate"
+  },
+  {
+    "sym": "QCOMGUSDT",
+    "gate_pair": "QCOMG_USDT",
+    "mc": null,
+    "qv_24h": 759928.01107,
+    "last": 170.82,
+    "source": "gate"
+  },
+  {
+    "sym": "XAG3LUSDT",
+    "gate_pair": "XAG3L_USDT",
+    "mc": null,
+    "qv_24h": 850071.3569784,
+    "last": 0.06201,
+    "source": "gate"
+  },
+  {
+    "sym": "LITEGUSDT",
+    "gate_pair": "LITEG_USDT",
+    "mc": null,
+    "qv_24h": 1524568.295382,
+    "last": 828.33,
+    "source": "gate"
+  },
+  {
+    "sym": "CBRSGUSDT",
+    "gate_pair": "CBRSG_USDT",
+    "mc": null,
+    "qv_24h": 1708779.23634,
+    "last": 217.26,
+    "source": "gate"
+  },
+  {
+    "sym": "XAU5SUSDT",
+    "gate_pair": "XAU5S_USDT",
+    "mc": null,
+    "qv_24h": 1132173.890368,
+    "last": 1.64014,
+    "source": "gate"
+  },
+  {
+    "sym": "CVXGUSDT",
+    "gate_pair": "CVXG_USDT",
+    "mc": null,
+    "qv_24h": 681047.56976,
+    "last": 194.75,
+    "source": "gate"
+  },
+  {
+    "sym": "XAG5LUSDT",
+    "gate_pair": "XAG5L_USDT",
+    "mc": null,
+    "qv_24h": 1943132.6956171,
+    "last": 0.03373,
+    "source": "gate"
+  },
+  {
+    "sym": "NFLXGUSDT",
+    "gate_pair": "NFLXG_USDT",
+    "mc": null,
+    "qv_24h": 593799.50648,
+    "last": 68.69,
+    "source": "gate"
+  },
+  {
+    "sym": "GWEIUSDT",
+    "gate_pair": "GWEI_USDT",
+    "mc": 40996965,
+    "qv_24h": 535831.86801,
+    "last": 0.01968,
+    "source": "gate"
+  },
+  {
+    "sym": "XAUT3SUSDT",
+    "gate_pair": "XAUT3S_USDT",
+    "mc": null,
+    "qv_24h": 860320.0346164,
+    "last": 0.82987,
+    "source": "gate"
+  },
+  {
+    "sym": "BTC5SUSDT",
+    "gate_pair": "BTC5S_USDT",
+    "mc": null,
+    "qv_24h": 1920216.6317,
+    "last": 1.925,
+    "source": "gate"
+  },
+  {
+    "sym": "MSFTGUSDT",
+    "gate_pair": "MSFTG_USDT",
+    "mc": null,
+    "qv_24h": 869279.355732,
+    "last": 382.4,
+    "source": "gate"
+  },
+  {
+    "sym": "MRVLGUSDT",
+    "gate_pair": "MRVLG_USDT",
+    "mc": null,
+    "qv_24h": 1152787.104588,
+    "last": 208.71,
+    "source": "gate"
+  },
+  {
+    "sym": "GLWGUSDT",
+    "gate_pair": "GLWG_USDT",
+    "mc": null,
+    "qv_24h": 865420.97025,
+    "last": 155.68,
+    "source": "gate"
+  },
+  {
+    "sym": "GOOGLXUSDT",
+    "gate_pair": "GOOGLX_USDT",
+    "mc": 26615028,
+    "qv_24h": 789417.7925,
+    "last": 320.46,
+    "source": "gate"
+  },
+  {
+    "sym": "SOL5SUSDT",
+    "gate_pair": "SOL5S_USDT",
+    "mc": null,
+    "qv_24h": 1182250.899665,
+    "last": 0.1637,
+    "source": "gate"
+  },
+  {
+    "sym": "BTC5LUSDT",
+    "gate_pair": "BTC5L_USDT",
+    "mc": null,
+    "qv_24h": 2262762.10149216,
+    "last": 0.002627,
+    "source": "gate"
+  },
+  {
+    "sym": "PLTRGUSDT",
+    "gate_pair": "PLTRG_USDT",
+    "mc": null,
+    "qv_24h": 779882.81073,
+    "last": 122.85,
+    "source": "gate"
+  },
+  {
+    "sym": "BTC3LUSDT",
+    "gate_pair": "BTC3L_USDT",
+    "mc": null,
+    "qv_24h": 1659231.880487,
+    "last": 1.0814,
+    "source": "gate"
+  },
+  {
+    "sym": "XRP5LUSDT",
+    "gate_pair": "XRP5L_USDT",
+    "mc": null,
+    "qv_24h": 674740.7983205,
+    "last": 0.18565,
+    "source": "gate"
+  },
+  {
+    "sym": "TSLAXUSDT",
+    "gate_pair": "TSLAX_USDT",
+    "mc": 54498482,
+    "qv_24h": 1602079.00003,
+    "last": 324.73,
+    "source": "gate"
+  },
+  {
+    "sym": "SPYGUSDT",
+    "gate_pair": "SPYG_USDT",
+    "mc": null,
+    "qv_24h": 642025.005903,
+    "last": 740.01,
+    "source": "gate"
+  },
+  {
+    "sym": "EWYGUSDT",
+    "gate_pair": "EWYG_USDT",
+    "mc": null,
+    "qv_24h": 722412.20197,
+    "last": 171.27,
+    "source": "gate"
+  },
+  {
+    "sym": "INTWGUSDT",
+    "gate_pair": "INTWG_USDT",
+    "mc": null,
+    "qv_24h": 1930919.35141,
+    "last": 26.69,
+    "source": "gate"
+  },
+  {
+    "sym": "SOL5LUSDT",
+    "gate_pair": "SOL5L_USDT",
+    "mc": null,
+    "qv_24h": 1625745.7687654,
+    "last": 0.02166,
+    "source": "gate"
+  },
+  {
+    "sym": "SKYAIUSDT",
+    "gate_pair": "SKYAI_USDT",
+    "mc": 27184926,
+    "qv_24h": 616996.23706,
+    "last": 0.02743,
+    "source": "gate"
+  },
+  {
+    "sym": "XOMGUSDT",
+    "gate_pair": "XOMG_USDT",
+    "mc": null,
+    "qv_24h": 619128.96615,
+    "last": 157.1,
+    "source": "gate"
+  },
+  {
+    "sym": "ARMGUSDT",
+    "gate_pair": "ARMG_USDT",
+    "mc": null,
+    "qv_24h": 1085354.956856,
+    "last": 289.34,
+    "source": "gate"
+  }
+]

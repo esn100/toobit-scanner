@@ -1,0 +1,55 @@
+{
+  "n_snapshots": 880,
+  "n_trades": 29,
+  "n_wins": 20,
+  "n_losses": 9,
+  "n_breakeven": 0,
+  "win_rate": 0.6896551724137931,
+  "avg_pnl_pct": 3.3821399277295274,
+  "total_pnl_pct": 98.0820579041563,
+  "profit_factor": 22.466971696750438,
+  "by_direction": {
+    "LONG": {
+      "n": 28,
+      "wins": 19,
+      "win_rate": 0.6785714285714286,
+      "avg_pnl": 3.3109110570347196,
+      "total_pnl": 92.70550959697215
+    },
+    "SHORT": {
+      "n": 1,
+      "wins": 1,
+      "win_rate": 1.0,
+      "avg_pnl": 5.3765483071841595,
+      "total_pnl": 5.3765483071841595
+    }
+  },
+  "by_exit_reason": {
+    "breakeven_lock": {
+      "n": 20,
+      "wins": 20,
+      "avg_pnl": 5.132551647294734
+    },
+    "stop_loss": {
+      "n": 9,
+      "wins": 0,
+      "avg_pnl": -0.5076638935264834
+    }
+  },
+  "filter_pass": {
+    "prefilter": 517,
+    "prefilter+anti_late": 449,
+    "ultra": 29,
+    "from_total": 880
+  },
+  "params": {
+    "tp_pct": 2.5,
+    "sl_pct": 2.0,
+    "trailing_pct": 1.0,
+    "max_hold_bars": 24,
+    "days": 60,
+    "snapshot_every_bars": 6
+  },
+  "btc_state": "BULLISH",
+  "timestamp": "2026-07-20T15:35:34.512155+00:00"
+}

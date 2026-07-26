@@ -1,0 +1,34 @@
+{
+  "symbol_to_token": {
+    "SYNUSDT": {
+      "chain": "BSC",
+      "address": "0xa4080f1778e6aed552b1c9b3ee7c629e868b65db",
+      "name": "Synapse"
+    },
+    "AKEUSDT": {
+      "chain": "BSC",
+      "address": "0x9c2cc4ddcf2aceda4cc0034e74b8e8b23df2c9e2",
+      "name": "Akedo"
+    },
+    "TLMUSDT": {
+      "chain": "BSC",
+      "address": "0x2222222222222222222222222222222222222222",
+      "name": "Trilium"
+    },
+    "BANKUSDT": {
+      "chain": "BSC",
+      "address": "0x3333333333333333333333333333333333333333",
+      "name": "Bank"
+    },
+    "LABUSDT": {
+      "chain": "BSC",
+      "address": "0x7ec43cf65f1663f820427c62a5780b8f2e25593a",
+      "symbol": "LAB",
+      "name": "LAB"
+    }
+  },
+  "large_transactions": [],
+  "whale_signals": {},
+  "last_scan_block": 112306683,
+  "last_full_scan": null
+}

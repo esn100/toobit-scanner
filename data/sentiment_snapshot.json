@@ -1,0 +1,19 @@
+{
+  "fear_greed": 29.0,
+  "fear_greed_label": "Fear",
+  "btc_dominance": 56.586293507199436,
+  "btc_dominance_change_24h": 0.24368302724384186,
+  "stablecoin_supply_change_7d_pct": -0.45898987532367397,
+  "news_sentiment": 50.0,
+  "news_volume_24h": 0,
+  "bullish_news_pct": 50.0,
+  "aggregate": 36.964429181472724,
+  "risk_regime": "NEUTRAL",
+  "sources_used": [
+    "fear_greed",
+    "btc_dominance",
+    "stablecoin_supply",
+    "news"
+  ],
+  "warnings": []
+}

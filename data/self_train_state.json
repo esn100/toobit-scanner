@@ -1,0 +1,1771 @@
+{
+  "last_run": "2026-07-22T22:42:40.982089+00:00",
+  "iterations": 5,
+  "total_signals_seen": 200,
+  "calibration_history": [
+    {
+      "ts": "2026-07-22T22:40:41.363001+00:00",
+      "n_samples": 0,
+      "n_pumps": 0,
+      "calibration": null,
+      "tp_sl": null,
+      "params": {
+        "tp_pct": 5.0,
+        "sl_pct": 3.0,
+        "trail_pct": 1.5,
+        "conf_threshold": 55,
+        "collecting": true
+      }
+    },
+    {
+      "ts": "2026-07-22T22:41:02.770189+00:00",
+      "n_samples": 200,
+      "n_pumps": 32,
+      "calibration": {
+        "status": "ok",
+        "n_samples": 200,
+        "n_pumps": 32,
+        "pump_rate": 0.16,
+        "cv_f1_mean": 0.37587301587301586,
+        "cv_acc_mean": 0.8149404492688074,
+        "top_positive": [
+          {
+            "feature": "f_m_obi_bearish",
+            "coef": 0.7249807751264511
+          },
+          {
+            "feature": "f_macd_hist",
+            "coef": 0.7043299781943673
+          },
+          {
+            "feature": "f_m_5m_trade_count",
+            "coef": 0.6590993013993504
+          },
+          {
+            "feature": "f_btc_momentum_12_pct",
+            "coef": 0.6441412374908448
+          },
+          {
+            "feature": "ind_vwap_distance_pct",
+            "coef": 0.5955000847812534
+          }
+        ],
+        "top_negative": [
+          {
+            "feature": "f_atr_expanding",
+            "coef": -1.1072569140828177
+          },
+          {
+            "feature": "f_in_range",
+            "coef": -0.9620774285107648
+          },
+          {
+            "feature": "f_independent_mover",
+            "coef": -0.8240195824745035
+          },
+          {
+            "feature": "f_a_ichi_thickness_pct",
+            "coef": -0.6449043282539112
+          },
+          {
+            "feature": "f_a_ichi_score",
+            "coef": -0.5736466234309058
+          }
+        ]
+      },
+      "tp_sl": {
+        "status": "ok",
+        "best": [
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 32,
+            "wr": 0.16,
+            "pnl": 19.5
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 32,
+            "wr": 0.16,
+            "pnl": 19.5
+          }
+        ]
+      },
+      "params": {
+        "tp_pct": 2.5,
+        "sl_pct": 1.5,
+        "trail_pct": 0.5,
+        "conf_threshold": 60
+      }
+    },
+    {
+      "ts": "2026-07-22T22:41:10.409109+00:00",
+      "n_samples": 200,
+      "n_pumps": 32,
+      "calibration": {
+        "status": "ok",
+        "n_samples": 200,
+        "n_pumps": 32,
+        "pump_rate": 0.16,
+        "cv_f1_mean": 0.37587301587301586,
+        "cv_acc_mean": 0.8149404492688074,
+        "top_positive": [
+          {
+            "feature": "f_m_obi_bearish",
+            "coef": 0.7249807751264511
+          },
+          {
+            "feature": "f_macd_hist",
+            "coef": 0.7043299781943673
+          },
+          {
+            "feature": "f_m_5m_trade_count",
+            "coef": 0.6590993013993504
+          },
+          {
+            "feature": "f_btc_momentum_12_pct",
+            "coef": 0.6441412374908448
+          },
+          {
+            "feature": "ind_vwap_distance_pct",
+            "coef": 0.5955000847812534
+          }
+        ],
+        "top_negative": [
+          {
+            "feature": "f_atr_expanding",
+            "coef": -1.1072569140828177
+          },
+          {
+            "feature": "f_in_range",
+            "coef": -0.9620774285107648
+          },
+          {
+            "feature": "f_independent_mover",
+            "coef": -0.8240195824745035
+          },
+          {
+            "feature": "f_a_ichi_thickness_pct",
+            "coef": -0.6449043282539112
+          },
+          {
+            "feature": "f_a_ichi_score",
+            "coef": -0.5736466234309058
+          }
+        ]
+      },
+      "tp_sl": {
+        "status": "ok",
+        "best": [
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 40,
+            "wr": 0.2,
+            "pnl": 23.5
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 32,
+            "wr": 0.16,
+            "pnl": 19.5
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 32,
+            "wr": 0.16,
+            "pnl": 19.5
+          }
+        ]
+      },
+      "params": {
+        "tp_pct": 2.5,
+        "sl_pct": 1.5,
+        "trail_pct": 0.5,
+        "conf_threshold": 60
+      }
+    },
+    {
+      "ts": "2026-07-22T22:42:27.567341+00:00",
+      "n_samples": 200,
+      "n_pumps": 32,
+      "calibration": {
+        "status": "ok",
+        "n_samples": 200,
+        "n_pumps": 32,
+        "pump_rate": 0.16,
+        "cv_f1_mean": 0.37587301587301586,
+        "cv_acc_mean": 0.8149404492688074,
+        "top_positive": [
+          {
+            "feature": "f_m_obi_bearish",
+            "coef": 0.7249807751264511
+          },
+          {
+            "feature": "f_macd_hist",
+            "coef": 0.7043299781943673
+          },
+          {
+            "feature": "f_m_5m_trade_count",
+            "coef": 0.6590993013993504
+          },
+          {
+            "feature": "f_btc_momentum_12_pct",
+            "coef": 0.6441412374908448
+          },
+          {
+            "feature": "ind_vwap_distance_pct",
+            "coef": 0.5955000847812534
+          }
+        ],
+        "top_negative": [
+          {
+            "feature": "f_atr_expanding",
+            "coef": -1.1072569140828177
+          },
+          {
+            "feature": "f_in_range",
+            "coef": -0.9620774285107648
+          },
+          {
+            "feature": "f_independent_mover",
+            "coef": -0.8240195824745035
+          },
+          {
+            "feature": "f_a_ichi_thickness_pct",
+            "coef": -0.6449043282539112
+          },
+          {
+            "feature": "f_a_ichi_score",
+            "coef": -0.5736466234309058
+          }
+        ],
+        "best_proba_threshold": 0.6390777266820415,
+        "best_proba_f1": 0.8787878787878787,
+        "weak_features": [
+          "f_a_ichi_in_cloud",
+          "f_a_fib_distance_pct",
+          "f_m_funding_extreme",
+          "f_m_oi_rising",
+          "ind_momentum_3_pct",
+          "f_momentum_3_pct",
+          "s_cp_bullish_pct",
+          "s_cp_bearish_pct",
+          "s_cp_sentiment",
+          "f_a_wave3_ext",
+          "f_btc_corr_2d",
+          "f_btc_corr_8d",
+          "ind_rvol",
+          "f_rvol",
+          "f_m_cvd",
+          "ind_atr_pct",
+          "f_atr_pct",
+          "f_momentum_1_pct",
+          "f_a_fib_dist_0.786",
+          "f_a_fib_dist_0.382"
+        ]
+      },
+      "tp_sl": {
+        "status": "ok",
+        "best": [
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          }
+        ],
+        "all": [
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          }
+        ]
+      },
+      "feature_list": [
+        "ind_vwap_distance_pct",
+        "ind_bb_squeeze",
+        "ind_momentum_6_pct",
+        "f_rsi_value",
+        "f_rsi_divergence",
+        "f_macd_hist",
+        "f_macd_divergence",
+        "f_ema_alignment",
+        "f_volume_spike",
+        "f_vwap_distance_pct",
+        "f_price_above_vwap",
+        "f_atr_expanding",
+        "f_bb_squeeze",
+        "f_bb_breakout_above",
+        "f_momentum_6_pct",
+        "f_momentum_12_pct",
+        "f_momentum_acceleration",
+        "f_higher_highs",
+        "f_higher_lows",
+        "f_bos_up",
+        "f_in_range",
+        "f_candle_strength",
+        "f_big_wick_top",
+        "f_power_streak",
+        "f_btc_momentum_12_pct",
+        "f_btc_corr_4d",
+        "f_btc_beta",
+        "f_btc_corr_change",
+        "f_independent_mover",
+        "f_sym_return_4h_pct",
+        "f_a_wave_score",
+        "f_a_wave_elliott_score",
+        "f_a_hurst",
+        "f_a_wave2_retrace",
+        "f_a_is_uptrend",
+        "f_a_fib_score",
+        "f_a_fib_ext_1_618",
+        "f_a_fib_ext_2_618",
+        "f_a_fib_dist_0.500",
+        "f_a_fib_dist_0.618",
+        "f_a_ichi_thickness_pct",
+        "f_a_ichi_score",
+        "f_a_ichi_above_cloud",
+        "f_a_ichi_below_cloud",
+        "s_cg_telegram_users",
+        "s_cg_watchlist_users",
+        "s_cg_price_change_24h_pct",
+        "s_rd_top_post_url",
+        "s_cp_top_title",
+        "s_has_social_data",
+        "f_m_obi_10",
+        "f_m_spread_pct",
+        "f_m_obi_bullish",
+        "f_m_obi_bearish",
+        "f_m_whale_count",
+        "f_m_whale_score",
+        "f_m_whale_accumulated",
+        "f_m_whale_buy_sell_ratio",
+        "f_m_cvd_trend",
+        "f_m_oi_change_4h_pct",
+        "f_m_funding_rate",
+        "f_m_5m_rvol",
+        "f_m_5m_trade_count",
+        "f_m_5m_volume_spike",
+        "f_ex_stoch_k",
+        "f_ex_stoch_d",
+        "f_ex_stoch_crossover",
+        "f_ex_stoch_overbought",
+        "f_ex_stoch_oversold",
+        "f_ex_stoch_score",
+        "f_ex_stochrsi_k",
+        "f_ex_stochrsi_d",
+        "f_ex_stochrsi_crossover",
+        "f_ex_stochrsi_score",
+        "f_ex_williams_r",
+        "f_ex_williams_oversold",
+        "f_ex_williams_overbought",
+        "f_ex_williams_score",
+        "f_ex_cci",
+        "f_ex_cci_oversold",
+        "f_ex_cci_overbought",
+        "f_ex_cci_score",
+        "f_ex_ao",
+        "f_ex_ao_positive",
+        "f_ex_ao_saucer",
+        "f_ex_ao_score",
+        "f_ex_tsi",
+        "f_ex_tsi_positive",
+        "f_ex_tsi_score",
+        "f_ex_uo",
+        "f_ex_uo_oversold",
+        "f_ex_uo_score",
+        "f_ex_roc",
+        "f_ex_roc_positive",
+        "f_ex_roc_score",
+        "f_ex_adx",
+        "f_ex_adx_strong",
+        "f_ex_adx_weak",
+        "f_ex_plus_di",
+        "f_ex_minus_di",
+        "f_ex_adx_score",
+        "f_ex_aroon_up",
+        "f_ex_aroon_down",
+        "f_ex_aroon_score",
+        "f_ex_aroon_crossover",
+        "f_ex_psar",
+        "f_ex_psar_above",
+        "f_ex_psar_below",
+        "f_ex_psar_score",
+        "f_ex_psar_bullish_trend",
+        "f_ex_vortex_plus",
+        "f_ex_vortex_minus",
+        "f_ex_vortex_score",
+        "f_ex_supertrend",
+        "f_ex_supertrend_bullish",
+        "f_ex_supertrend_distance_pct",
+        "f_ex_supertrend_score",
+        "f_ex_kst",
+        "f_ex_kst_signal",
+        "f_ex_kst_crossover",
+        "f_ex_kst_score",
+        "f_ex_trix",
+        "f_ex_trix_positive",
+        "f_ex_trix_score",
+        "f_ex_mfi",
+        "f_ex_mfi_oversold",
+        "f_ex_mfi_overbought",
+        "f_ex_mfi_score",
+        "f_ex_cmf",
+        "f_ex_cmf_positive",
+        "f_ex_cmf_score",
+        "f_ex_obv_norm",
+        "f_ex_obv_slope_norm",
+        "f_ex_obv_score",
+        "f_ex_ad_norm",
+        "f_ex_ad_slope_norm",
+        "f_ex_ad_score",
+        "f_ex_force_norm",
+        "f_ex_force_positive",
+        "f_ex_force_score",
+        "f_ex_eom",
+        "f_ex_eom_positive",
+        "f_ex_eom_score",
+        "f_ex_vpt_norm",
+        "f_ex_vpt_slope_norm",
+        "f_ex_vpt_score",
+        "f_ex_kc_upper",
+        "f_ex_kc_lower",
+        "f_ex_kc_mid",
+        "f_ex_kc_breakout_above",
+        "f_ex_kc_breakout_below",
+        "f_ex_kc_score",
+        "f_ex_dc_upper",
+        "f_ex_dc_lower",
+        "f_ex_dc_mid",
+        "f_ex_dc_breakout_above",
+        "f_ex_dc_breakout_below",
+        "f_ex_dc_score",
+        "f_ex_ulcer",
+        "f_ex_ulcer_score",
+        "f_ex_mass_index",
+        "f_ex_mass_reversal",
+        "f_ex_mass_score"
+      ],
+      "params": {
+        "tp_pct": 3.0,
+        "sl_pct": 1.5,
+        "trail_pct": 0.5,
+        "conf_threshold": 60
+      }
+    },
+    {
+      "ts": "2026-07-22T22:42:40.982089+00:00",
+      "n_samples": 200,
+      "n_pumps": 32,
+      "calibration": {
+        "status": "ok",
+        "n_samples": 200,
+        "n_pumps": 32,
+        "pump_rate": 0.16,
+        "cv_f1_mean": 0.37587301587301586,
+        "cv_acc_mean": 0.8149404492688074,
+        "top_positive": [
+          {
+            "feature": "f_m_obi_bearish",
+            "coef": 0.7249807751264511
+          },
+          {
+            "feature": "f_macd_hist",
+            "coef": 0.7043299781943673
+          },
+          {
+            "feature": "f_m_5m_trade_count",
+            "coef": 0.6590993013993504
+          },
+          {
+            "feature": "f_btc_momentum_12_pct",
+            "coef": 0.6441412374908448
+          },
+          {
+            "feature": "ind_vwap_distance_pct",
+            "coef": 0.5955000847812534
+          }
+        ],
+        "top_negative": [
+          {
+            "feature": "f_atr_expanding",
+            "coef": -1.1072569140828177
+          },
+          {
+            "feature": "f_in_range",
+            "coef": -0.9620774285107648
+          },
+          {
+            "feature": "f_independent_mover",
+            "coef": -0.8240195824745035
+          },
+          {
+            "feature": "f_a_ichi_thickness_pct",
+            "coef": -0.6449043282539112
+          },
+          {
+            "feature": "f_a_ichi_score",
+            "coef": -0.5736466234309058
+          }
+        ],
+        "best_proba_threshold": 0.6390777266820415,
+        "best_proba_f1": 0.8787878787878787,
+        "weak_features": [
+          "f_a_ichi_in_cloud",
+          "f_a_fib_distance_pct",
+          "f_m_funding_extreme",
+          "f_m_oi_rising",
+          "ind_momentum_3_pct",
+          "f_momentum_3_pct",
+          "s_cp_bullish_pct",
+          "s_cp_bearish_pct",
+          "s_cp_sentiment",
+          "f_a_wave3_ext",
+          "f_btc_corr_2d",
+          "f_btc_corr_8d",
+          "ind_rvol",
+          "f_rvol",
+          "f_m_cvd",
+          "ind_atr_pct",
+          "f_atr_pct",
+          "f_momentum_1_pct",
+          "f_a_fib_dist_0.786",
+          "f_a_fib_dist_0.382"
+        ]
+      },
+      "tp_sl": {
+        "status": "ok",
+        "best": [
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          }
+        ],
+        "all": [
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 3.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 18.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 2.5,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 14.395617110987352
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 5.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 6.3956171109873425
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 7.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 2.3956171109873465
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 2.0,
+            "sl": 1.5,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 51,
+            "wr": 0.4,
+            "pnl": 0.39561711098734326
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -5.70288933234021
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 2.5,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -9.702889332340217
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 5.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -17.70288933234021
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 7.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -21.702889332340213
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 2.0,
+            "sl": 2.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 44,
+            "wr": 0.4,
+            "pnl": -23.70288933234021
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 3.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -44.28276614436513
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 2.5,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -48.282766144365105
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 5.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -56.28276614436511
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 7.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -60.2827661443651
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 0.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 1.0,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          },
+          {
+            "tp": 2.0,
+            "sl": 3.0,
+            "trail": 1.5,
+            "n": 200,
+            "wins": 80,
+            "losses": 34,
+            "wr": 0.4,
+            "pnl": -62.28276614436512
+          }
+        ]
+      },
+      "feature_list": [
+        "ind_vwap_distance_pct",
+        "ind_bb_squeeze",
+        "ind_momentum_6_pct",
+        "f_rsi_value",
+        "f_rsi_divergence",
+        "f_macd_hist",
+        "f_macd_divergence",
+        "f_ema_alignment",
+        "f_volume_spike",
+        "f_vwap_distance_pct",
+        "f_price_above_vwap",
+        "f_atr_expanding",
+        "f_bb_squeeze",
+        "f_bb_breakout_above",
+        "f_momentum_6_pct",
+        "f_momentum_12_pct",
+        "f_momentum_acceleration",
+        "f_higher_highs",
+        "f_higher_lows",
+        "f_bos_up",
+        "f_in_range",
+        "f_candle_strength",
+        "f_big_wick_top",
+        "f_power_streak",
+        "f_btc_momentum_12_pct",
+        "f_btc_corr_4d",
+        "f_btc_beta",
+        "f_btc_corr_change",
+        "f_independent_mover",
+        "f_sym_return_4h_pct",
+        "f_a_wave_score",
+        "f_a_wave_elliott_score",
+        "f_a_hurst",
+        "f_a_wave2_retrace",
+        "f_a_is_uptrend",
+        "f_a_fib_score",
+        "f_a_fib_ext_1_618",
+        "f_a_fib_ext_2_618",
+        "f_a_fib_dist_0.500",
+        "f_a_fib_dist_0.618",
+        "f_a_ichi_thickness_pct",
+        "f_a_ichi_score",
+        "f_a_ichi_above_cloud",
+        "f_a_ichi_below_cloud",
+        "s_cg_telegram_users",
+        "s_cg_watchlist_users",
+        "s_cg_price_change_24h_pct",
+        "s_rd_top_post_url",
+        "s_cp_top_title",
+        "s_has_social_data",
+        "f_m_obi_10",
+        "f_m_spread_pct",
+        "f_m_obi_bullish",
+        "f_m_obi_bearish",
+        "f_m_whale_count",
+        "f_m_whale_score",
+        "f_m_whale_accumulated",
+        "f_m_whale_buy_sell_ratio",
+        "f_m_cvd_trend",
+        "f_m_oi_change_4h_pct",
+        "f_m_funding_rate",
+        "f_m_5m_rvol",
+        "f_m_5m_trade_count",
+        "f_m_5m_volume_spike",
+        "f_ex_stoch_k",
+        "f_ex_stoch_d",
+        "f_ex_stoch_crossover",
+        "f_ex_stoch_overbought",
+        "f_ex_stoch_oversold",
+        "f_ex_stoch_score",
+        "f_ex_stochrsi_k",
+        "f_ex_stochrsi_d",
+        "f_ex_stochrsi_crossover",
+        "f_ex_stochrsi_score",
+        "f_ex_williams_r",
+        "f_ex_williams_oversold",
+        "f_ex_williams_overbought",
+        "f_ex_williams_score",
+        "f_ex_cci",
+        "f_ex_cci_oversold",
+        "f_ex_cci_overbought",
+        "f_ex_cci_score",
+        "f_ex_ao",
+        "f_ex_ao_positive",
+        "f_ex_ao_saucer",
+        "f_ex_ao_score",
+        "f_ex_tsi",
+        "f_ex_tsi_positive",
+        "f_ex_tsi_score",
+        "f_ex_uo",
+        "f_ex_uo_oversold",
+        "f_ex_uo_score",
+        "f_ex_roc",
+        "f_ex_roc_positive",
+        "f_ex_roc_score",
+        "f_ex_adx",
+        "f_ex_adx_strong",
+        "f_ex_adx_weak",
+        "f_ex_plus_di",
+        "f_ex_minus_di",
+        "f_ex_adx_score",
+        "f_ex_aroon_up",
+        "f_ex_aroon_down",
+        "f_ex_aroon_score",
+        "f_ex_aroon_crossover",
+        "f_ex_psar",
+        "f_ex_psar_above",
+        "f_ex_psar_below",
+        "f_ex_psar_score",
+        "f_ex_psar_bullish_trend",
+        "f_ex_vortex_plus",
+        "f_ex_vortex_minus",
+        "f_ex_vortex_score",
+        "f_ex_supertrend",
+        "f_ex_supertrend_bullish",
+        "f_ex_supertrend_distance_pct",
+        "f_ex_supertrend_score",
+        "f_ex_kst",
+        "f_ex_kst_signal",
+        "f_ex_kst_crossover",
+        "f_ex_kst_score",
+        "f_ex_trix",
+        "f_ex_trix_positive",
+        "f_ex_trix_score",
+        "f_ex_mfi",
+        "f_ex_mfi_oversold",
+        "f_ex_mfi_overbought",
+        "f_ex_mfi_score",
+        "f_ex_cmf",
+        "f_ex_cmf_positive",
+        "f_ex_cmf_score",
+        "f_ex_obv_norm",
+        "f_ex_obv_slope_norm",
+        "f_ex_obv_score",
+        "f_ex_ad_norm",
+        "f_ex_ad_slope_norm",
+        "f_ex_ad_score",
+        "f_ex_force_norm",
+        "f_ex_force_positive",
+        "f_ex_force_score",
+        "f_ex_eom",
+        "f_ex_eom_positive",
+        "f_ex_eom_score",
+        "f_ex_vpt_norm",
+        "f_ex_vpt_slope_norm",
+        "f_ex_vpt_score",
+        "f_ex_kc_upper",
+        "f_ex_kc_lower",
+        "f_ex_kc_mid",
+        "f_ex_kc_breakout_above",
+        "f_ex_kc_breakout_below",
+        "f_ex_kc_score",
+        "f_ex_dc_upper",
+        "f_ex_dc_lower",
+        "f_ex_dc_mid",
+        "f_ex_dc_breakout_above",
+        "f_ex_dc_breakout_below",
+        "f_ex_dc_score",
+        "f_ex_ulcer",
+        "f_ex_ulcer_score",
+        "f_ex_mass_index",
+        "f_ex_mass_reversal",
+        "f_ex_mass_score"
+      ],
+      "params": {
+        "tp_pct": 3.0,
+        "sl_pct": 1.5,
+        "trail_pct": 0.5,
+        "conf_threshold": 60
+      }
+    }
+  ],
+  "current_params": {
+    "tp_pct": 3.0,
+    "sl_pct": 1.5,
+    "trail_pct": 0.5,
+    "conf_threshold": 60
+  }
+}

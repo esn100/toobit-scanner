@@ -1,0 +1,43 @@
+{
+  "n_snapshots": 496,
+  "n_trades": 3,
+  "n_wins": 3,
+  "n_losses": 0,
+  "n_breakeven": 0,
+  "win_rate": 1.0,
+  "avg_pnl_pct": 8.045391801928746,
+  "total_pnl_pct": 24.13617540578624,
+  "profit_factor": Infinity,
+  "by_direction": {
+    "LONG": {
+      "n": 3,
+      "wins": 3,
+      "win_rate": 1.0,
+      "avg_pnl": 8.045391801928746,
+      "total_pnl": 24.13617540578624
+    }
+  },
+  "by_exit_reason": {
+    "breakeven_lock": {
+      "n": 3,
+      "wins": 3,
+      "avg_pnl": 8.045391801928746
+    }
+  },
+  "filter_pass": {
+    "prefilter": 354,
+    "prefilter+anti_late": 309,
+    "ultra": 3,
+    "from_total": 496
+  },
+  "params": {
+    "tp_pct": 2.5,
+    "sl_pct": 2.0,
+    "trailing_pct": 0.5,
+    "max_hold_bars": 24,
+    "days": 60,
+    "snapshot_every_bars": 6
+  },
+  "btc_state": "NEUTRAL",
+  "timestamp": "2026-07-22T22:17:54.772442+00:00"
+}
