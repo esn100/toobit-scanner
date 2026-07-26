@@ -25,7 +25,8 @@ from datetime import datetime, timezone
 from typing import Dict, Optional
 import statistics
 
-from .whale_tracker import detect_whale_signal
+from .whale_tracker import detect_whale_signal_v2 as detect_whale_signal
+from .whale_intel import get_whale_intel
 from .influencer_tracker import scan_influencers
 from .breakout_detector import detect_breakout
 from .news_detector import detect_product_activity
