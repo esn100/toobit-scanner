@@ -338,10 +338,33 @@ def scan_repeater(symbol: str) -> Dict:
     """
     Scan a single repeater symbol.
     Returns action: {action: 'enter_pre'|'confirm'|'none', confidence, features, reason}
+    Works for primary REPEATERS and cap-based SECONDARY_WATCHLIST.
     """
-    repeater = REPEATERS.get(symbol, {})
+    from .repeater_config import REPEATERS, SECONDARY_WATCHLIST
+    repeater = REPEATERS.get(symbol)
     if not repeater:
-        return {"action": "none", "reason": f"{symbol} not a repeater"}
+        # For secondary (cap-based) watchlist, use generic config
+        if symbol in SECONDARY_WATCHLIST:
+            repeater = {
+                'name': symbol.replace('USDT', ''),
+                'volatility': 'HIGH',
+                'strategy': 'pump_runner',
+                'tp_pct': 25.0,       # Aggressive for low/mid cap
+                'sl_pct': 3.0,
+                'trail_pct': 6.0,
+                'trail_activate_pct': 15.0,
+                'max_hold_hours': 12.0,
+                'reentry_on_dip': True,
+                'reentry_rsi_max': 35.0,
+                'reentry_size': 0.30,
+                'pre_pump_rvol_min': 0.5,
+                'pre_pump_max_rvol_4h_min': 1.5,
+                'pre_pump_mom_3_min': -8.0,
+                'pre_pump_mom_3_max': 8.0,
+                'pre_pump_flat_min_hours': 2.0,
+            }
+        else:
+            return {"action": "none", "reason": f"{symbol} not a repeater"}
 
     # Already have open position?
     open_df = get_open_signals()
@@ -454,10 +477,18 @@ def scan_repeater(symbol: str) -> Dict:
     }
 
 
-def scan_all_repeaters() -> List[Dict]:
-    """Scan all repeaters. Returns list of action dicts."""
+def scan_all_repeaters(include_secondary: bool = True) -> List[Dict]:
+    """
+    Scan all repeaters. Returns list of action dicts.
+    include_secondary: if True, also scan SECONDARY_WATCHLIST (low/mid cap tokens)
+    """
+    from .repeater_config import REPEATERS, SECONDARY_WATCHLIST
     results = []
-    for symbol in REPEATERS.keys():
+    symbols_to_scan = list(REPEATERS.keys())
+    if include_secondary:
+        # Add cap-based watchlist (always monitored)
+        symbols_to_scan.extend(list(SECONDARY_WATCHLIST))
+    for symbol in symbols_to_scan:
         try:
             r = scan_repeater(symbol)
             results.append(r)

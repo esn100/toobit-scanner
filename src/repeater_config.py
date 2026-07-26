@@ -251,7 +251,27 @@ SECONDARY_WATCHLIST = {
     "ARGUSDT", "ZEUSUSDT", "CAMPUSDT", "VELVETUSDT", "CHECKUSDT",
     "BREVUSDT", "BIRBUSDT", "RAVEUSDT", "IMUUSDT", "IDOLUSDT",
     "VOOIUSDT", "AIGENSYNUSDT", "NOMUSDT", "SAROSUSDT", "UNIONUSDT",
-    "OXTUSDT", "EGL1USDT"
+    "OXTUSDT", "EGL1USDT",
+    # === CAP-BASED WATCHLIST (always monitored) ===
+    # LOW CAP (<$50M) - highest pump potential
+    "TUTUSDT",   # Tutorial - $13.4M
+    "WCTUSDT",   # WalletConnect - $17.4M
+    "EPICUSDT",  # Epic Chain - $25.0M
+    "BRUSDT",    # Bedrock - $44.1M
+    # MID CAP ($50M-$500M) - good balance
+    "EULUSDT",     # Euler - $64.9M
+    "PIEVERSEUSDT",# Pieverse - $65.2M
+    "LPTUSDT",     # Livepeer - $74.5M
+    "ESPUSDT",     # Espresso - $108.8M
+    "FARTCOINUSDT",# Fartcoin - $129.1M
+    "SENTUSDT",    # Sentient - $160.6M
+    "ZAMAUSDT",    # Zama - $175.6M
+    "KAITOUSDT",   # Kaito - $283.6M
+    "VIRTUALUSDT", # Virtuals Protocol - $387.0M
+    "TRUMPUSDT",   # Official Trump - $395.4M
+    "AEROUSDT",    # Aerodrome - $402.9M
+    "INJUSDT",     # Injective Protocol - $487.5M
+    "BANKUSDT",    # Lorenzo Governance - $478.4M
 }
 
 # Cluster follow settings: when a pump is detected, watch all repeaters for 24h
