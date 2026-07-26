@@ -272,7 +272,66 @@ SECONDARY_WATCHLIST = {
     "AEROUSDT",    # Aerodrome - $402.9M
     "INJUSDT",     # Injective Protocol - $487.5M
     "BANKUSDT",    # Lorenzo Governance - $478.4M
+    # === CAP-BASED WATCHLIST (auto-imported from CSV) ===
+    # LOW CAP (<$50M) - highest pump potential
+    "KILOUSDT",  # KiloEx Token - $2.1M
+    "AFCUSDT",  # Arsenal Fan Token - $3.7M
+    "ACEUSDT",  # Fusionist - $8.6M
+    "RESOLVUSDT",  # Resolv - $8.6M
+    "BERTUSDT",  # Bertram The Pomeranian - $9.3M
+    "OPNUSDT",  # Opinion - $9.4M
+    "FHEUSDT",  # Mind Network - $10.5M
+    "TLMUSDT",  # Alien Worlds - $12.2M
+    "TUTUSDT",  # Tutorial - $13.5M
+    "PARTIUSDT",  # Particle Network - $13.5M
+    "WCTUSDT",  # WalletConnect - $17.4M
+    "BREVUSDT",  # Brevis Token - $19.1M
+    "ALCHUSDT",  # Alchemist AI - $21.8M
+    "EPICUSDT",  # Epic Chain - $24.9M
+    "LAUSDT",  # Lagrange - $25.4M
+    "HOLOUSDT",  # Holoworld AI - $29.4M
+    "SYNUSDT",  # Synapse - $31.7M
+    "CAPUSDT",  # Cap - $34.1M
+    "ZEREBROUSDT",  # zerebro - $36.4M
+    "ATUSDT",  # APRO oracle Token - $36.5M
+    "BOMEUSDT",  # BOOK OF MEME - $36.5M
+    "MOODENGUSDT",  # Moo Deng - $37.5M
+    "BRUSDT",  # Bedrock - $44.0M
+    "NESUSDT",  # Nesa - $44.4M
+    "BABYUSDT",  # Babylon - $49.9M
+    # MID CAP ($50M-$500M) - good balance
+    "PIEVERSEUSDT",  # Pieverse Token - $65.1M
+    "EULUSDT",  # Euler - $66.5M
+    "RAVEUSDT",  # RaveDAO - $69.8M
+    "HUMAUSDT",  # Huma Finance - $70.4M
+    "LPTUSDT",  # Livepeer - $75.1M
+    "NXPCUSDT",  # NEXPACE - $75.1M
+    "ORDIUSDT",  # ordi - $79.9M
+    "ALLOUSDT",  # Allora - $80.1M
+    "ORCAUSDT",  # Orca - $89.2M
+    "KMNOUSDT",  # Kamino - $92.7M
+    "ESPUSDT",  # Espresso - $101.5M
+    "FARTCOINUSDT",  # Fartcoin - $129.0M
+    "SENTUSDT",  # Sentient - $160.4M
+    "ZAMAUSDT",  # Zama - $174.3M
+    "GRASSUSDT",  # Grass - $215.5M
+    "REUSDT",  # Re Protocol - $225.9M
+    "BONKUSDT",  # Bonk - $270.7M
+    "KAITOUSDT",  # Kaito - $281.8M
+    "JTOUSDT",  # JITO - $293.8M
+    "LDOUSDT",  # Lido DAO Token - $313.1M
+    "FDUSDUSDT",  # First Digital USD - $346.5M
+    "FETUSDT",  # Artificial Superintelligence Alliance - $368.5M
+    "VIRTUALUSDT",  # Virtuals Protocol - $387.2M
+    "TRUMPUSDT",  # OFFICIAL TRUMP - $394.1M
+    "PENGUUSDT",  # Pudgy Penguins - $396.2M
+    "AEROUSDT",  # Aerodrome - $403.3M
+    "UBUSDT",  # Unibase - $413.1M
+    "DASHUSDT",  # Dash - $416.9M
+    "BANKUSDT",  # Lorenzo Governance Token - $481.6M
+    "INJUSDT",  # Injective Protocol - $487.3M
 }
+
 
 # Cluster follow settings: when a pump is detected, watch all repeaters for 24h
 CLUSTER_FOLLOW_HOURS = 24
