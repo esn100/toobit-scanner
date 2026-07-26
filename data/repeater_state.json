@@ -64,10 +64,12 @@
     "UBUSDT": "2026-07-26T21:00:27.996096+00:00",
     "CAPUSDT": "2026-07-26T21:00:28.007132+00:00",
     "REUSDT": "2026-07-26T21:00:28.018131+00:00",
-    "AFCUSDT": "2026-07-26T22:23:00.363215+00:00"
+    "AFCUSDT": "2026-07-26T22:23:00.363215+00:00",
+    "VIRTUALUSDT": "2026-07-26T23:31:52.197693+00:00",
+    "KMNOUSDT": "2026-07-26T23:31:52.210202+00:00"
   },
   "pending_pre_pump": {},
-  "cluster_window_active_until": "2026-07-27T22:23:00.363223+00:00",
+  "cluster_window_active_until": "2026-07-27T23:31:52.210209+00:00",
   "pump_runner_settings": {
     "SYNUSDT_LONG_1785013249": {
       "symbol": "SYNUSDT",
@@ -943,6 +945,36 @@
       "symbol": "AFCUSDT",
       "entry_price": 0.1594,
       "entry_time": "2026-07-26T22:23:00.361963+00:00",
+      "tp_pct": 25.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 6.0,
+      "trail_activate_pct": 15.0,
+      "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "VIRTUALUSDT_LONG_1785108712": {
+      "symbol": "VIRTUALUSDT",
+      "entry_price": 0.5988,
+      "entry_time": "2026-07-26T23:31:52.196317+00:00",
+      "tp_pct": 25.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 6.0,
+      "trail_activate_pct": 15.0,
+      "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "KMNOUSDT_LONG_1785108712": {
+      "symbol": "KMNOUSDT",
+      "entry_price": 0.01811,
+      "entry_time": "2026-07-26T23:31:52.208816+00:00",
       "tp_pct": 25.0,
       "sl_pct": 3.9000000000000004,
       "trail_pct": 6.0,
