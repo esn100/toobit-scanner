@@ -403,7 +403,21 @@ def scan_repeater(symbol: str) -> Dict:
 
     # === STAGE 2: Look for new pre-pump signal ===
     is_match, confidence = _check_pre_pump_pattern(features, repeater)
-    if is_match and confidence >= PRE_PUMP_CONFIDENCE_MIN:
+
+    # ALSO check optimal ML filter (81% accuracy)
+    ml_match = False
+    ml_conf = 0
+    try:
+        from .pump_filter import is_pump_setup_atr_flat
+        ml_match, ml_conf, ml_features = is_pump_setup_atr_flat(rows, len(rows)-1)
+    except Exception:
+        pass
+
+    # Combined confidence: take the max
+    combined_conf = max(confidence, ml_conf * 0.7)  # ML filter is conservative, weight 0.7
+    is_match = is_match or ml_match
+
+    if is_match and combined_conf >= PRE_PUMP_CONFIDENCE_MIN:
         # Save as pending
         if "pending_pre_pump" not in state:
             state["pending_pre_pump"] = {}
@@ -411,7 +425,9 @@ def scan_repeater(symbol: str) -> Dict:
             "ts": now_ts,
             "iso_time": now_iso,
             "entry_price": features["close"],
-            "confidence": confidence,
+            "confidence": combined_conf,
+            "pattern_confidence": confidence,
+            "ml_confidence": ml_conf,
             "size_fraction": PRE_PUMP_SIZE_FRACTION,
             "features": features,
         }
@@ -423,7 +439,7 @@ def scan_repeater(symbol: str) -> Dict:
             "entry_price": features["close"],
             "ts": now_ts,
             "iso_time": now_iso,
-            "confidence": confidence,
+            "confidence": combined_conf,
             "size_fraction": PRE_PUMP_SIZE_FRACTION,
             "features": features,
             "repeater": repeater,
@@ -434,6 +450,7 @@ def scan_repeater(symbol: str) -> Dict:
         "symbol": symbol,
         "features": features,
         "pattern_confidence": confidence,
+        "ml_confidence": ml_conf,
     }
 
 
