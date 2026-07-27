@@ -75,10 +75,12 @@
     "IMUUSDT": "2026-07-27T08:46:35.728010+00:00",
     "MOODENGUSDT": "2026-07-27T08:46:35.740504+00:00",
     "RESOLVUSDT": "2026-07-27T15:18:57.513612+00:00",
-    "UNIONUSDT": "2026-07-27T17:19:41.555375+00:00"
+    "UNIONUSDT": "2026-07-27T17:19:41.555375+00:00",
+    "NXPCUSDT": "2026-07-27T18:57:48.649698+00:00",
+    "HUMAUSDT": "2026-07-27T18:57:48.662250+00:00"
   },
   "pending_pre_pump": {},
-  "cluster_window_active_until": "2026-07-28T17:19:41.555382+00:00",
+  "cluster_window_active_until": "2026-07-28T18:57:48.662257+00:00",
   "pump_runner_settings": {
     "SYNUSDT_LONG_1785013249": {
       "symbol": "SYNUSDT",
@@ -1149,6 +1151,36 @@
       "symbol": "UNIONUSDT",
       "entry_price": 0.0003596,
       "entry_time": "2026-07-27T17:19:41.553861+00:00",
+      "tp_pct": 25.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 6.0,
+      "trail_activate_pct": 15.0,
+      "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "NXPCUSDT_LONG_1785178668": {
+      "symbol": "NXPCUSDT",
+      "entry_price": 0.2698,
+      "entry_time": "2026-07-27T18:57:48.648079+00:00",
+      "tp_pct": 25.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 6.0,
+      "trail_activate_pct": 15.0,
+      "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "HUMAUSDT_LONG_1785178668": {
+      "symbol": "HUMAUSDT",
+      "entry_price": 0.02139,
+      "entry_time": "2026-07-27T18:57:48.660670+00:00",
       "tp_pct": 25.0,
       "sl_pct": 3.9000000000000004,
       "trail_pct": 6.0,
