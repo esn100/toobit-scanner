@@ -8,7 +8,7 @@
     "SYNUSDT": "2026-07-25T21:00:49.245639+00:00",
     "INUSDT": "2026-07-27T08:46:35.715563+00:00",
     "WODUSDT": "2026-07-26T20:48:55.222744+00:00",
-    "XCXUSDT": "2026-07-24T00:47:42.956265+00:00",
+    "XCXUSDT": "2026-07-27T12:07:06.293631+00:00",
     "TLMUSDT": "2026-07-26T20:48:55.168760+00:00",
     "BANKUSDT": "2026-07-26T20:48:55.179994+00:00",
     "ACEUSDT": "2026-07-26T20:48:55.201895+00:00",
@@ -76,7 +76,7 @@
     "MOODENGUSDT": "2026-07-27T08:46:35.740504+00:00"
   },
   "pending_pre_pump": {},
-  "cluster_window_active_until": "2026-07-28T08:46:35.740511+00:00",
+  "cluster_window_active_until": "2026-07-28T12:07:06.293638+00:00",
   "pump_runner_settings": {
     "SYNUSDT_LONG_1785013249": {
       "symbol": "SYNUSDT",
@@ -1107,6 +1107,21 @@
       "trail_pct": 6.0,
       "trail_activate_pct": 15.0,
       "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "XCXUSDT_LONG_1785154026": {
+      "symbol": "XCXUSDT",
+      "entry_price": 0.0031128,
+      "entry_time": "2026-07-27T12:07:06.292082+00:00",
+      "tp_pct": 30.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 8.0,
+      "trail_activate_pct": 20.0,
+      "max_hold_hours": 24.0,
       "reentry_on_dip": true,
       "reentry_rsi_max": 35.0,
       "reentry_size": 0.3,
