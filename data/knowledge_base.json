@@ -1,5 +1,5 @@
 {
-  "last_update": "2026-07-27T01:25:42.491128+00:00",
+  "last_update": "2026-07-28T01:13:25.948149+00:00",
   "per_symbol": {
     "OLDTEST0USDT": {
       "2026-07-10": {
@@ -148,6 +148,17 @@
         "outcome_n_flat": 0,
         "outcome_pump_rate": 1.0,
         "outcome_mean_return": 23.895574638907092
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 4,
+        "mean_score_long": 32.666666666666664,
+        "mean_score_short": 68.33333333333333,
+        "mean_atr_pct": 10.663338321827762,
+        "mean_mom_3": 18.49647237879042,
+        "mean_rvol": 0.5476666666666666,
+        "mean_confidence": 69.16666666666667
       }
     },
     "BILLUSDT": {
@@ -167,6 +178,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -2.2138673458053773
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 6,
+        "mean_score_long": 26.0,
+        "mean_score_short": 60.0,
+        "mean_atr_pct": 9.51077220337232,
+        "mean_mom_3": -1.786514101198712,
+        "mean_rvol": 0.6455000000000001,
+        "mean_confidence": 60.0
       }
     },
     "BRUSDT": {
@@ -186,6 +208,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -4.008414280150385
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 1,
+        "mean_score_long": 17.666666666666668,
+        "mean_score_short": 8.5,
+        "mean_atr_pct": 3.9579308221914484,
+        "mean_mom_3": -2.6612602001477277,
+        "mean_rvol": 0.5778333333333333,
+        "mean_confidence": 19.833333333333332
       }
     },
     "CBRSBUSDT": {
@@ -205,6 +238,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 4.080803566713307
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 15.5,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.319826541050031,
+        "mean_mom_3": 2.3798973458489088,
+        "mean_rvol": 0.568,
+        "mean_confidence": 15.5
       }
     },
     "DRAMBUSDT": {
@@ -224,6 +268,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 2.900536466558501
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 26.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.5089148373927155,
+        "mean_mom_3": 3.430620555092112,
+        "mean_rvol": 0.5834999999999999,
+        "mean_confidence": 26.0
       }
     },
     "ESPUSDT": {
@@ -243,6 +298,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -0.924026787948724
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 27.833333333333332,
+        "mean_score_short": 1.5,
+        "mean_atr_pct": 2.2356612334124284,
+        "mean_mom_3": 0.5736116083740902,
+        "mean_rvol": 0.6716666666666667,
+        "mean_confidence": 27.833333333333332
       }
     },
     "FDUSDUSDT": {
@@ -262,6 +328,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -0.04256284308834854
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 2,
+        "n_short": 0,
+        "mean_score_long": 17.833333333333332,
+        "mean_score_short": 6.166666666666667,
+        "mean_atr_pct": 0.035877293831351485,
+        "mean_mom_3": -0.0267104051180985,
+        "mean_rvol": 0.8896666666666667,
+        "mean_confidence": 17.833333333333332
       }
     },
     "GLWBUSDT": {
@@ -281,6 +358,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.19597236902302578
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 23.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.3069001084908876,
+        "mean_mom_3": 1.3833417645229862,
+        "mean_rvol": 0.5043333333333333,
+        "mean_confidence": 23.0
       }
     },
     "GOOGLBUSDT": {
@@ -300,6 +388,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.40585886841588287
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 8.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.8355353581093498,
+        "mean_mom_3": 0.08743894036754492,
+        "mean_rvol": 0.5861666666666666,
+        "mean_confidence": 8.0
       }
     },
     "GROVEUSDT": {
@@ -319,6 +418,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -4.963530341805603
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 6,
+        "mean_score_long": 3.5,
+        "mean_score_short": 44.166666666666664,
+        "mean_atr_pct": 5.632942125925737,
+        "mean_mom_3": -4.264303573219263,
+        "mean_rvol": 0.5396666666666666,
+        "mean_confidence": 44.166666666666664
       }
     },
     "GUSDT": {
@@ -357,6 +467,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -0.1616973529510338
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 4,
+        "n_short": 0,
+        "mean_score_long": 21.833333333333332,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.0393871195885287,
+        "mean_mom_3": 0.02879853344919617,
+        "mean_rvol": 0.5628333333333334,
+        "mean_confidence": 21.833333333333332
       }
     },
     "HOMEUSDT": {
@@ -376,6 +497,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 5.0218569117396274
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 6,
+        "mean_score_long": 57.666666666666664,
+        "mean_score_short": 66.0,
+        "mean_atr_pct": 8.971719653632528,
+        "mean_mom_3": 5.305758717494092,
+        "mean_rvol": 0.45583333333333337,
+        "mean_confidence": 66.0
       }
     },
     "HYPERUSDT": {
@@ -395,6 +527,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.06647450490168172
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 2,
+        "n_short": 0,
+        "mean_score_long": 21.166666666666668,
+        "mean_score_short": 11.0,
+        "mean_atr_pct": 2.6398890087620495,
+        "mean_mom_3": 0.5861899050753488,
+        "mean_rvol": 0.5741666666666667,
+        "mean_confidence": 23.166666666666668
       }
     },
     "HYPEUSDT": {
@@ -414,6 +557,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -0.021437527291030295
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 29.333333333333332,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.7494102986615305,
+        "mean_mom_3": 0.5289530950829714,
+        "mean_rvol": 0.46416666666666667,
+        "mean_confidence": 29.333333333333332
       }
     },
     "MNTUSDT": {
@@ -433,6 +587,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.7811706564531206
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 10.166666666666666,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.2246814518456615,
+        "mean_mom_3": 0.09837583355470984,
+        "mean_rvol": 0.5368333333333334,
+        "mean_confidence": 10.166666666666666
       }
     },
     "NBISBUSDT": {
@@ -452,6 +617,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 3.92161080101916
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 20.833333333333332,
+        "mean_score_short": 1.0,
+        "mean_atr_pct": 2.6644990634514136,
+        "mean_mom_3": 3.3750105072920618,
+        "mean_rvol": 0.5728333333333333,
+        "mean_confidence": 20.833333333333332
       }
     },
     "OPNUSDT": {
@@ -490,6 +666,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.3126274359601856
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 18.833333333333332,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.4272134025061746,
+        "mean_mom_3": 0.26824509900530236,
+        "mean_rvol": 0.6585,
+        "mean_confidence": 18.833333333333332
       }
     },
     "QCOMBUSDT": {
@@ -509,6 +696,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 2.3015467063485806
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 18.666666666666668,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.482764777977976,
+        "mean_mom_3": 1.2865837559847944,
+        "mean_rvol": 0.5138333333333334,
+        "mean_confidence": 18.666666666666668
       }
     },
     "RECALLUSDT": {
@@ -528,6 +726,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 5.356613289728209
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 53.833333333333336,
+        "mean_score_short": 15.0,
+        "mean_atr_pct": 3.407112295471556,
+        "mean_mom_3": 5.463587185441489,
+        "mean_rvol": 0.5561666666666666,
+        "mean_confidence": 53.833333333333336
       }
     },
     "REUSDT": {
@@ -566,6 +775,17 @@
         "outcome_n_flat": 2,
         "outcome_pump_rate": 0.75,
         "outcome_mean_return": 11.68878295455401
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 5,
+        "n_short": 0,
+        "mean_score_long": 35.166666666666664,
+        "mean_score_short": 7.0,
+        "mean_atr_pct": 4.25167388106572,
+        "mean_mom_3": 5.748431032298701,
+        "mean_rvol": 0.3831666666666666,
+        "mean_confidence": 35.166666666666664
       }
     },
     "SPYBUSDT": {
@@ -585,6 +805,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.2878356741726731
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 2,
+        "n_short": 0,
+        "mean_score_long": 20.666666666666668,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.4155565244754475,
+        "mean_mom_3": 0.2871866441632677,
+        "mean_rvol": 0.5401666666666668,
+        "mean_confidence": 20.666666666666668
       }
     },
     "TLMUSDT": {
@@ -604,6 +835,17 @@
         "outcome_n_flat": 0,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -20.690244533763256
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 36.333333333333336,
+        "mean_score_short": 21.5,
+        "mean_atr_pct": 12.338155434705037,
+        "mean_mom_3": -11.213392166902603,
+        "mean_rvol": 0.9136666666666665,
+        "mean_confidence": 36.333333333333336
       }
     },
     "USD1USDT": {
@@ -623,6 +865,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.005375992682207563
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 10.333333333333334,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.0162666259695168,
+        "mean_mom_3": 0.005334028431293709,
+        "mean_rvol": 0.6653333333333333,
+        "mean_confidence": 10.333333333333334
       }
     },
     "USDCUSDT": {
@@ -642,6 +895,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.02448503540086039
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 46.5,
+        "mean_score_short": 3.3333333333333335,
+        "mean_atr_pct": 0.014078946793325898,
+        "mean_mom_3": 0.02198588574111977,
+        "mean_rvol": 1.082,
+        "mean_confidence": 46.5
       }
     },
     "VVVUSDT": {
@@ -680,6 +944,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.3280399209847892
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 30.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.6669998924440204,
+        "mean_mom_3": 0.4076268494056236,
+        "mean_rvol": 0.5569999999999999,
+        "mean_confidence": 30.0
       }
     },
     "WLFIUSDT": {
@@ -699,6 +974,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -1.191138194719311
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 8.333333333333334,
+        "mean_score_short": 5.666666666666667,
+        "mean_atr_pct": 1.16557198263223,
+        "mean_mom_3": -0.6082480506822605,
+        "mean_rvol": 0.47733333333333333,
+        "mean_confidence": 10.166666666666666
       }
     },
     "XAUTUSDT": {
@@ -718,6 +1004,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": 0.300629950573809
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 18.833333333333332,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.412186715598867,
+        "mean_mom_3": 0.26073943954451556,
+        "mean_rvol": 0.5351666666666666,
+        "mean_confidence": 18.833333333333332
       }
     },
     "XLMUSDT": {
@@ -737,6 +1034,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -1.3209126620035045
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 5,
+        "n_short": 0,
+        "mean_score_long": 37.0,
+        "mean_score_short": 2.3333333333333335,
+        "mean_atr_pct": 1.7349848312733076,
+        "mean_mom_3": 0.12470498700798731,
+        "mean_rvol": 0.7926666666666667,
+        "mean_confidence": 37.0
       }
     },
     "ZECUSDT": {
@@ -756,6 +1064,17 @@
         "outcome_n_flat": 8,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -2.5560851854544753
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 8.333333333333334,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.4954415883528753,
+        "mean_mom_3": -1.2296502044316806,
+        "mean_rvol": 0.6276666666666667,
+        "mean_confidence": 8.333333333333334
       }
     },
     "ZEREBROUSDT": {
@@ -775,6 +1094,56 @@
         "outcome_n_flat": 0,
         "outcome_pump_rate": 0.0,
         "outcome_mean_return": -14.079787583660119
+      },
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 3,
+        "n_short": 1,
+        "mean_score_long": 35.166666666666664,
+        "mean_score_short": 26.0,
+        "mean_atr_pct": 6.067103863765181,
+        "mean_mom_3": -13.043741607370889,
+        "mean_rvol": 0.5351666666666667,
+        "mean_confidence": 35.833333333333336
+      }
+    },
+    "ACEUSDT": {
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 0,
+        "n_short": 6,
+        "mean_score_long": 0.0,
+        "mean_score_short": 46.833333333333336,
+        "mean_atr_pct": 8.172266713777072,
+        "mean_mom_3": 56.151922064244324,
+        "mean_rvol": 2.702166666666667,
+        "mean_confidence": 46.833333333333336
+      }
+    },
+    "ALICEUSDT": {
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 78.5,
+        "mean_score_short": 28.166666666666668,
+        "mean_atr_pct": 4.63735033524438,
+        "mean_mom_3": 12.430849096206517,
+        "mean_rvol": 7.360499999999999,
+        "mean_confidence": 78.5
+      }
+    },
+    "KITEUSDT": {
+      "2026-07-20": {
+        "n_cycles": 6,
+        "n_long": 6,
+        "n_short": 0,
+        "mean_score_long": 47.666666666666664,
+        "mean_score_short": 2.8333333333333335,
+        "mean_atr_pct": 3.7440990628695494,
+        "mean_mom_3": 1.1645991076489366,
+        "mean_rvol": 3.6646666666666667,
+        "mean_confidence": 47.666666666666664
       }
     }
   },
