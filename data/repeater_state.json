@@ -4,7 +4,7 @@
     "AKEUSDT": "2026-07-26T20:48:55.191071+00:00",
     "DNUSDT": "2026-07-26T20:54:10.369123+00:00",
     "EVAAUSDT": "2026-07-26T20:48:55.157338+00:00",
-    "IKAUSDT": "2026-07-24T00:43:56.962312+00:00",
+    "IKAUSDT": "2026-07-30T13:24:18.729810+00:00",
     "SYNUSDT": "2026-07-25T21:00:49.245639+00:00",
     "INUSDT": "2026-07-27T08:46:35.715563+00:00",
     "WODUSDT": "2026-07-26T20:48:55.222744+00:00",
@@ -81,7 +81,7 @@
     "DASHUSDT": "2026-07-27T23:57:07.164435+00:00"
   },
   "pending_pre_pump": {},
-  "cluster_window_active_until": "2026-07-28T23:57:07.164443+00:00",
+  "cluster_window_active_until": "2026-07-31T13:24:18.729819+00:00",
   "pump_runner_settings": {
     "SYNUSDT_LONG_1785013249": {
       "symbol": "SYNUSDT",
@@ -1202,6 +1202,21 @@
       "trail_pct": 6.0,
       "trail_activate_pct": 15.0,
       "max_hold_hours": 12.0,
+      "reentry_on_dip": true,
+      "reentry_rsi_max": 35.0,
+      "reentry_size": 0.3,
+      "reentry_done": false,
+      "position_size": 0.3
+    },
+    "IKAUSDT_LONG_1785417858": {
+      "symbol": "IKAUSDT",
+      "entry_price": 0.002627,
+      "entry_time": "2026-07-30T13:24:18.728203+00:00",
+      "tp_pct": 30.0,
+      "sl_pct": 3.9000000000000004,
+      "trail_pct": 10.0,
+      "trail_activate_pct": 25.0,
+      "max_hold_hours": 24.0,
       "reentry_on_dip": true,
       "reentry_rsi_max": 35.0,
       "reentry_size": 0.3,
