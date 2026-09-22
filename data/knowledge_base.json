@@ -1,5 +1,5 @@
 {
-  "last_update": "2026-09-21T01:49:10.854273+00:00",
+  "last_update": "2026-09-22T01:59:01.994983+00:00",
   "per_symbol": {
     "OLDTEST0USDT": {
       "2026-07-10": {
@@ -1459,6 +1459,28 @@
         "mean_mom_3": 0.02002603384399499,
         "mean_rvol": 0.068,
         "mean_confidence": 18.0
+      },
+      "2026-09-14": {
+        "n_cycles": 3,
+        "n_long": 2,
+        "n_short": 0,
+        "mean_score_long": 25.333333333333332,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.030736578676071408,
+        "mean_mom_3": 0.026696032302196148,
+        "mean_rvol": 0.5883333333333334,
+        "mean_confidence": 25.333333333333332
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 1.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.03177296321834792,
+        "mean_mom_3": -0.030024019215368996,
+        "mean_rvol": 1.449,
+        "mean_confidence": 1.0
       }
     },
     "GLWBUSDT": {
@@ -2256,15 +2278,26 @@
         "mean_confidence": 25.0
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 0,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 16.0,
+        "mean_score_long": 35.8,
+        "mean_score_short": 2.4,
+        "mean_atr_pct": 1.5773968977177115,
+        "mean_mom_3": 1.5521732402020452,
+        "mean_rvol": 0.5456,
+        "mean_confidence": 35.8
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 46.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 1.5676655426356774,
-        "mean_mom_3": -0.026476039184527733,
-        "mean_rvol": 0.108,
-        "mean_confidence": 16.0
+        "mean_atr_pct": 1.6189796510748513,
+        "mean_mom_3": 1.8914688233759365,
+        "mean_rvol": 0.893,
+        "mean_confidence": 46.0
       }
     },
     "HOMEUSDT": {
@@ -3062,15 +3095,26 @@
         "mean_confidence": 14.571428571428571
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 0,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 17.0,
-        "mean_score_short": 7.0,
-        "mean_atr_pct": 1.962570102436418,
-        "mean_mom_3": -0.6102798825595844,
-        "mean_rvol": 0.033,
-        "mean_confidence": 17.0
+        "mean_score_long": 29.8,
+        "mean_score_short": 3.2,
+        "mean_atr_pct": 2.066642341043445,
+        "mean_mom_3": 1.7490662902337302,
+        "mean_rvol": 0.4998,
+        "mean_confidence": 29.8
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 36.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.1051114488248537,
+        "mean_mom_3": 0.7036169919747569,
+        "mean_rvol": 0.353,
+        "mean_confidence": 36.0
       }
     },
     "MNTUSDT": {
@@ -3681,15 +3725,26 @@
         "mean_confidence": 19.142857142857142
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 13.6,
+        "mean_score_short": 1.4,
+        "mean_atr_pct": 1.6843864286221035,
+        "mean_mom_3": 1.1049400624423338,
+        "mean_rvol": 0.47119999999999995,
+        "mean_confidence": 15.0
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
-        "mean_score_long": 0.0,
-        "mean_score_short": 12.0,
-        "mean_atr_pct": 1.7770569374631795,
-        "mean_mom_3": -1.446208112874777,
-        "mean_rvol": 0.071,
-        "mean_confidence": 12.0
+        "mean_score_long": 13.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.5733291615256082,
+        "mean_mom_3": 0.7210692930003504,
+        "mean_rvol": 0.207,
+        "mean_confidence": 13.0
       }
     },
     "NBISBUSDT": {
@@ -4438,15 +4493,26 @@
         "mean_confidence": 6.0
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 4,
+        "n_short": 0,
+        "mean_score_long": 27.2,
+        "mean_score_short": 8.8,
+        "mean_atr_pct": 0.48745194834440025,
+        "mean_mom_3": -0.23202339090599433,
+        "mean_rvol": 0.6155999999999999,
+        "mean_confidence": 27.2
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 25.0,
+        "mean_score_long": 30.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 0.40921671498796547,
-        "mean_mom_3": -0.03679361998630274,
-        "mean_rvol": 0.084,
-        "mean_confidence": 25.0
+        "mean_atr_pct": 0.522118962914182,
+        "mean_mom_3": 0.07214990422682915,
+        "mean_rvol": 1.078,
+        "mean_confidence": 30.0
       }
     },
     "QCOMBUSDT": {
@@ -5613,15 +5679,26 @@
         "mean_confidence": 20.666666666666668
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 10.6,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.016340940354257705,
+        "mean_mom_3": -0.010399704026721782,
+        "mean_rvol": 0.5644,
+        "mean_confidence": 10.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 30.0,
+        "mean_score_long": 27.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 0.014803931958476499,
-        "mean_mom_3": 0.012000240004800995,
-        "mean_rvol": 0.117,
-        "mean_confidence": 30.0
+        "mean_atr_pct": 0.017299477173321053,
+        "mean_mom_3": -0.0040002000100045005,
+        "mean_rvol": 0.559,
+        "mean_confidence": 27.0
       }
     },
     "USDCUSDT": {
@@ -6232,15 +6309,26 @@
         "mean_confidence": 15.285714285714286
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 11.6,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 0.012835249837657528,
+        "mean_mom_3": -0.012596097204180206,
+        "mean_rvol": 0.6991999999999999,
+        "mean_confidence": 11.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 30.0,
+        "mean_score_long": 28.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 0.01194709929687911,
-        "mean_mom_3": 0.014997450433435765,
-        "mean_rvol": 0.123,
-        "mean_confidence": 30.0
+        "mean_atr_pct": 0.013348578343519213,
+        "mean_mom_3": -0.007998560259161352,
+        "mean_rvol": 0.379,
+        "mean_confidence": 28.0
       }
     },
     "VVVUSDT": {
@@ -7038,15 +7126,26 @@
         "mean_confidence": 14.571428571428571
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 4,
+        "n_short": 0,
+        "mean_score_long": 35.6,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.3694544868941114,
+        "mean_mom_3": 1.1569801024985573,
+        "mean_rvol": 0.173,
+        "mean_confidence": 35.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
-        "mean_score_long": 1.0,
+        "mean_score_long": 5.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 2.535366904831917,
-        "mean_mom_3": -0.17543859649123308,
-        "mean_rvol": 0.085,
-        "mean_confidence": 1.0
+        "mean_atr_pct": 2.312020775628282,
+        "mean_mom_3": -0.6932409012131794,
+        "mean_rvol": 0.248,
+        "mean_confidence": 5.0
       }
     },
     "XAUTUSDT": {
@@ -7657,15 +7756,26 @@
         "mean_confidence": 15.0
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 4,
+        "n_short": 0,
+        "mean_score_long": 26.2,
+        "mean_score_short": 7.4,
+        "mean_atr_pct": 0.4835015283394665,
+        "mean_mom_3": -0.23281033759785008,
+        "mean_rvol": 0.9425999999999999,
+        "mean_confidence": 26.2
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 25.0,
+        "mean_score_long": 30.0,
         "mean_score_short": 0.0,
-        "mean_atr_pct": 0.3989796225262343,
-        "mean_mom_3": -0.09432660010123692,
-        "mean_rvol": 0.048,
-        "mean_confidence": 25.0
+        "mean_atr_pct": 0.5165142437834269,
+        "mean_mom_3": 0.10716865083986334,
+        "mean_rvol": 0.528,
+        "mean_confidence": 30.0
       }
     },
     "XLMUSDT": {
@@ -8276,15 +8386,26 @@
         "mean_confidence": 31.0
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 5,
+        "n_short": 0,
+        "mean_score_long": 55.6,
+        "mean_score_short": 7.4,
+        "mean_atr_pct": 1.9176543288113372,
+        "mean_mom_3": 3.4203874720170284,
+        "mean_rvol": 0.8371999999999999,
+        "mean_confidence": 55.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 25.0,
-        "mean_score_short": 0.0,
-        "mean_atr_pct": 1.7247444483147536,
-        "mean_mom_3": -0.1683501683501654,
-        "mean_rvol": 0.067,
-        "mean_confidence": 25.0
+        "mean_score_long": 43.0,
+        "mean_score_short": 12.0,
+        "mean_atr_pct": 2.0525940978483943,
+        "mean_mom_3": 0.831600831600841,
+        "mean_rvol": 0.781,
+        "mean_confidence": 43.0
       }
     },
     "ZECUSDT": {
@@ -9595,15 +9716,26 @@
         "mean_confidence": 18.2
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 0,
+        "n_cycles": 5,
+        "n_long": 2,
         "n_short": 0,
-        "mean_score_long": 17.0,
-        "mean_score_short": 7.0,
-        "mean_atr_pct": 1.9921636962976663,
-        "mean_mom_3": -0.4061502756019763,
-        "mean_rvol": 0.08,
-        "mean_confidence": 17.0
+        "mean_score_long": 28.2,
+        "mean_score_short": 4.0,
+        "mean_atr_pct": 2.095121114054623,
+        "mean_mom_3": 1.4397828149080185,
+        "mean_rvol": 0.5740000000000001,
+        "mean_confidence": 28.2
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 36.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.0985379912909794,
+        "mean_mom_3": 0.6530380465644432,
+        "mean_rvol": 0.559,
+        "mean_confidence": 36.0
       }
     },
     "TOWNSUSDT": {
@@ -10691,15 +10823,26 @@
         "mean_confidence": 16.142857142857142
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 0,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 0.0,
-        "mean_score_short": 7.0,
-        "mean_atr_pct": 3.0485698572387356,
-        "mean_mom_3": -1.6594516594516568,
-        "mean_rvol": 0.06,
-        "mean_confidence": 7.0
+        "mean_score_long": 27.4,
+        "mean_score_short": 4.8,
+        "mean_atr_pct": 3.067427134563057,
+        "mean_mom_3": 2.4723782093829554,
+        "mean_rvol": 0.6204000000000001,
+        "mean_confidence": 27.4
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 34.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 3.1031687940960775,
+        "mean_mom_3": 1.0578279266572646,
+        "mean_rvol": 0.639,
+        "mean_confidence": 34.0
       }
     },
     "EPICUSDT": {
@@ -12555,15 +12698,26 @@
         "mean_confidence": 24.285714285714285
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 1,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 25.0,
+        "mean_score_long": 19.2,
+        "mean_score_short": 1.4,
+        "mean_atr_pct": 1.2803656385228979,
+        "mean_mom_3": 0.6026787227846422,
+        "mean_rvol": 0.4492,
+        "mean_confidence": 19.6
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 5.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 1.257998743271581,
-        "mean_mom_3": -0.2213613724405145,
-        "mean_rvol": 0.077,
-        "mean_confidence": 25.0
+        "mean_atr_pct": 1.279823623233006,
+        "mean_mom_3": -0.24759284731775316,
+        "mean_rvol": 0.46,
+        "mean_confidence": 7.0
       }
     },
     "EULUSDT": {
@@ -13463,15 +13617,26 @@
         "mean_confidence": 24.285714285714285
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 1,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 25.0,
+        "mean_score_long": 21.2,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.3389062284168407,
+        "mean_mom_3": 0.6338023528584499,
+        "mean_rvol": 0.4314,
+        "mean_confidence": 21.2
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 5.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 1.3121886024897962,
-        "mean_mom_3": -0.32362459546925654,
-        "mean_rvol": 0.075,
-        "mean_confidence": 25.0
+        "mean_atr_pct": 1.3437551093286113,
+        "mean_mom_3": -0.2575660012878223,
+        "mean_rvol": 0.47,
+        "mean_confidence": 7.0
       }
     },
     "KAITOUSDT": {
@@ -14630,15 +14795,26 @@
         "mean_confidence": 9.666666666666666
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 26.6,
+        "mean_score_short": 3.2,
+        "mean_atr_pct": 2.444894429231087,
+        "mean_mom_3": 1.9806610689480837,
+        "mean_rvol": 0.5192,
+        "mean_confidence": 26.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
         "mean_score_long": 0.0,
-        "mean_score_short": 7.0,
-        "mean_atr_pct": 2.442205149454117,
-        "mean_mom_3": -0.9169638308711163,
-        "mean_rvol": 0.132,
-        "mean_confidence": 7.0
+        "mean_score_short": 4.0,
+        "mean_atr_pct": 2.481890320325873,
+        "mean_mom_3": -2.012763868433968,
+        "mean_rvol": 0.453,
+        "mean_confidence": 4.0
       }
     },
     "TUTUSDT": {
@@ -15525,15 +15701,26 @@
         "mean_confidence": 12.0
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 14.2,
+        "mean_score_short": 1.4,
+        "mean_atr_pct": 2.8044261072364534,
+        "mean_mom_3": 0.9579151543757363,
+        "mean_rvol": 0.532,
+        "mean_confidence": 14.2
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
-        "mean_score_long": 0.0,
+        "mean_score_long": 12.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 2.8964933092746388,
-        "mean_mom_3": -2.986979831503699,
-        "mean_rvol": 0.075,
-        "mean_confidence": 7.0
+        "mean_atr_pct": 2.807883566477969,
+        "mean_mom_3": -0.18238665971859783,
+        "mean_rvol": 0.301,
+        "mean_confidence": 12.0
       }
     },
     "ZAMAUSDT": {
@@ -16433,15 +16620,26 @@
         "mean_confidence": 35.333333333333336
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 1,
+        "n_cycles": 5,
+        "n_long": 2,
         "n_short": 0,
-        "mean_score_long": 30.0,
-        "mean_score_short": 0.0,
-        "mean_atr_pct": 2.789784480592931,
-        "mean_mom_3": 0.299760191846523,
-        "mean_rvol": 0.067,
-        "mean_confidence": 30.0
+        "mean_score_long": 18.2,
+        "mean_score_short": 7.2,
+        "mean_atr_pct": 2.796456419546782,
+        "mean_mom_3": -0.43717175961027854,
+        "mean_rvol": 0.645,
+        "mean_confidence": 18.2
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 0.0,
+        "mean_score_short": 7.0,
+        "mean_atr_pct": 2.8912656506674206,
+        "mean_mom_3": -2.6722090261282685,
+        "mean_rvol": 0.718,
+        "mean_confidence": 7.0
       }
     },
     "LAUSDT": {
@@ -16606,15 +16804,26 @@
         "mean_confidence": 48.0
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 5,
+        "n_short": 0,
+        "mean_score_long": 56.6,
+        "mean_score_short": 31.2,
+        "mean_atr_pct": 9.96728414094374,
+        "mean_mom_3": -7.8505783832022376,
+        "mean_rvol": 0.19360000000000002,
+        "mean_confidence": 56.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 56.0,
-        "mean_score_short": 40.0,
-        "mean_atr_pct": 8.649970886222555,
-        "mean_mom_3": -6.539735099337754,
-        "mean_rvol": 0.022,
-        "mean_confidence": 56.0
+        "mean_score_long": 28.0,
+        "mean_score_short": 23.0,
+        "mean_atr_pct": 10.09110150467844,
+        "mean_mom_3": -4.94452484322239,
+        "mean_rvol": 0.095,
+        "mean_confidence": 28.0
       }
     },
     "SOONUSDT": {
@@ -16743,14 +16952,14 @@
       },
       "2026-09-14": {
         "n_cycles": 1,
-        "n_long": 0,
+        "n_long": 1,
         "n_short": 0,
-        "mean_score_long": 5.0,
+        "mean_score_long": 25.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 2.4102447667678266,
-        "mean_mom_3": -1.6000000000000014,
-        "mean_rvol": 0.013,
-        "mean_confidence": 7.0
+        "mean_atr_pct": 2.4280622402985985,
+        "mean_mom_3": -0.8064516129032264,
+        "mean_rvol": 0.062,
+        "mean_confidence": 25.0
       }
     },
     "INTCBUSDT": {
@@ -18148,14 +18357,25 @@
         "mean_confidence": 12.4
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 19.6,
+        "mean_score_short": 6.0,
+        "mean_atr_pct": 3.220206899720007,
+        "mean_mom_3": 1.1836641401233932,
+        "mean_rvol": 0.4673999999999999,
+        "mean_confidence": 22.0
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
         "mean_score_long": 18.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 3.2701746884401377,
-        "mean_mom_3": -0.11246485473290022,
-        "mean_rvol": 0.031,
+        "mean_atr_pct": 3.222021581668778,
+        "mean_mom_3": -0.11109053878910419,
+        "mean_rvol": 0.23,
         "mean_confidence": 18.0
       }
     },
@@ -19241,6 +19461,28 @@
         "mean_mom_3": -18.648016668786926,
         "mean_rvol": 7.504666666666668,
         "mean_confidence": 45.0
+      },
+      "2026-09-14": {
+        "n_cycles": 3,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 72.66666666666667,
+        "mean_score_short": 32.666666666666664,
+        "mean_atr_pct": 5.454221690054754,
+        "mean_mom_3": 9.182860869468252,
+        "mean_rvol": 0.46399999999999997,
+        "mean_confidence": 72.66666666666667
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 69.0,
+        "mean_score_short": 29.0,
+        "mean_atr_pct": 5.658098022661957,
+        "mean_mom_3": 19.17336394948335,
+        "mean_rvol": 0.628,
+        "mean_confidence": 69.0
       }
     },
     "DODOUSDT": {
@@ -19961,6 +20203,28 @@
         "mean_mom_3": 0.048459243942613944,
         "mean_rvol": 0.08833333333333333,
         "mean_confidence": 15.666666666666666
+      },
+      "2026-09-14": {
+        "n_cycles": 3,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 5.333333333333333,
+        "mean_score_short": 1.3333333333333333,
+        "mean_atr_pct": 2.1726662574424496,
+        "mean_mom_3": -0.04746455734379237,
+        "mean_rvol": 0.4406666666666667,
+        "mean_confidence": 6.666666666666667
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 20.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.148499628007479,
+        "mean_mom_3": 0.0,
+        "mean_rvol": 0.289,
+        "mean_confidence": 20.0
       }
     },
     "BANANAS31USDT": {
@@ -20760,15 +21024,26 @@
         "mean_confidence": 24.166666666666668
       },
       "2026-09-14": {
+        "n_cycles": 5,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 6.8,
+        "mean_score_short": 11.6,
+        "mean_atr_pct": 1.6753086958036303,
+        "mean_mom_3": -3.172830704377155,
+        "mean_rvol": 0.42539999999999994,
+        "mean_confidence": 15.6
+      },
+      "2026-09-15": {
         "n_cycles": 1,
         "n_long": 0,
         "n_short": 0,
-        "mean_score_long": 17.0,
+        "mean_score_long": 0.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 1.4997098034225615,
-        "mean_mom_3": -0.9400559199351883,
-        "mean_rvol": 0.058,
-        "mean_confidence": 17.0
+        "mean_atr_pct": 1.738063616907052,
+        "mean_mom_3": -1.0332185312743098,
+        "mean_rvol": 0.326,
+        "mean_confidence": 7.0
       }
     },
     "VELVETUSDT": {
@@ -21577,6 +21852,28 @@
         "mean_mom_3": -0.0782445331240681,
         "mean_rvol": 0.0625,
         "mean_confidence": 17.0
+      },
+      "2026-09-14": {
+        "n_cycles": 4,
+        "n_long": 3,
+        "n_short": 0,
+        "mean_score_long": 26.75,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.7513447147695147,
+        "mean_mom_3": 0.913907111523261,
+        "mean_rvol": 0.41325,
+        "mean_confidence": 26.75
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 5.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 1.7204592283826852,
+        "mean_mom_3": -1.4236322961155161,
+        "mean_rvol": 0.308,
+        "mean_confidence": 5.0
       }
     },
     "PYBOBOUSDT": {
@@ -21882,15 +22179,26 @@
         "mean_confidence": 21.0
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 0,
+        "n_cycles": 5,
+        "n_long": 5,
         "n_short": 0,
-        "mean_score_long": 0.0,
-        "mean_score_short": 0.0,
-        "mean_atr_pct": 2.828893572464371,
-        "mean_mom_3": -2.510460251046017,
-        "mean_rvol": 0.069,
-        "mean_confidence": 0.0
+        "mean_score_long": 56.2,
+        "mean_score_short": 15.2,
+        "mean_atr_pct": 3.073389571912729,
+        "mean_mom_3": 5.266153248988568,
+        "mean_rvol": 0.8480000000000001,
+        "mean_confidence": 56.2
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 59.0,
+        "mean_score_short": 20.0,
+        "mean_atr_pct": 3.136391576128373,
+        "mean_mom_3": 5.390008764241883,
+        "mean_rvol": 0.648,
+        "mean_confidence": 59.0
       }
     },
     "BIOUSDT": {
@@ -23027,15 +23335,26 @@
         "mean_confidence": 23.571428571428573
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 1,
+        "n_cycles": 5,
+        "n_long": 3,
         "n_short": 0,
-        "mean_score_long": 25.0,
+        "mean_score_long": 19.2,
+        "mean_score_short": 1.4,
+        "mean_atr_pct": 1.2866329239720122,
+        "mean_mom_3": 0.6165693917671669,
+        "mean_rvol": 0.44499999999999995,
+        "mean_confidence": 19.6
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 5.0,
         "mean_score_short": 7.0,
-        "mean_atr_pct": 1.255659218076803,
-        "mean_mom_3": -0.2923026956804263,
-        "mean_rvol": 0.078,
-        "mean_confidence": 25.0
+        "mean_atr_pct": 1.2970893137547526,
+        "mean_mom_3": -0.2906038101388406,
+        "mean_rvol": 0.478,
+        "mean_confidence": 7.0
       }
     },
     "BEAMXUSDT": {
@@ -23770,15 +24089,15 @@
         "mean_confidence": 40.5
       },
       "2026-09-14": {
-        "n_cycles": 1,
-        "n_long": 1,
+        "n_cycles": 2,
+        "n_long": 2,
         "n_short": 0,
-        "mean_score_long": 30.0,
-        "mean_score_short": 28.0,
-        "mean_atr_pct": 6.8330107658160415,
-        "mean_mom_3": -5.134221240770135,
-        "mean_rvol": 0.169,
-        "mean_confidence": 30.0
+        "mean_score_long": 52.0,
+        "mean_score_short": 29.0,
+        "mean_atr_pct": 6.18345607302047,
+        "mean_mom_3": 1.049241889932877,
+        "mean_rvol": 0.1565,
+        "mean_confidence": 52.0
       }
     },
     "SUSHIUSDT": {
@@ -23900,14 +24219,25 @@
       },
       "2026-09-14": {
         "n_cycles": 1,
-        "n_long": 1,
+        "n_long": 0,
         "n_short": 0,
-        "mean_score_long": 46.0,
-        "mean_score_short": 22.0,
-        "mean_atr_pct": 3.4812605069825677,
-        "mean_mom_3": 0.9267663497826385,
-        "mean_rvol": 0.023,
-        "mean_confidence": 46.0
+        "mean_score_long": 1.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 3.4067471225710038,
+        "mean_mom_3": -3.588606998019418,
+        "mean_rvol": 1.096,
+        "mean_confidence": 1.0
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 0,
+        "n_short": 0,
+        "mean_score_long": 4.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 3.2621007959435464,
+        "mean_mom_3": -3.6018461245658306,
+        "mean_rvol": 0.578,
+        "mean_confidence": 4.0
       }
     },
     "THEUSDT": {
@@ -23954,6 +24284,28 @@
         "mean_mom_3": 0.5783456349667522,
         "mean_rvol": 0.07675,
         "mean_confidence": 27.75
+      },
+      "2026-09-14": {
+        "n_cycles": 4,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 21.75,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.824604214545483,
+        "mean_mom_3": -0.03623615099604231,
+        "mean_rvol": 0.29925,
+        "mean_confidence": 21.75
+      },
+      "2026-09-15": {
+        "n_cycles": 1,
+        "n_long": 1,
+        "n_short": 0,
+        "mean_score_long": 41.0,
+        "mean_score_short": 0.0,
+        "mean_atr_pct": 2.693175103854061,
+        "mean_mom_3": 1.0526315789473568,
+        "mean_rvol": 0.057,
+        "mean_confidence": 41.0
       }
     }
   },
